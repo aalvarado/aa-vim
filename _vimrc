@@ -12,6 +12,10 @@ Bundle 'gmarik/vundle'
 	Bundle 'The-NERD-tree'
 	Bundle 'ack.vim'
 	Bundle 'The-NERD-Commenter'
+	Bundle 'fugitive.vim'
+	Bundle 'extradite.vim'
+	Bundle 'surround.vim'
+	Bundle 'SuperTab'
 " }
 
 
