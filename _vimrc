@@ -9,8 +9,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundles {
-
-
+	Bundle 'The-NERD-tree'
 " }
 
 
@@ -44,12 +43,18 @@ Bundle 'gmarik/vundle'
 		colorscheme desert " load a colorscheme
 		set guifont=Consolas:h8 
 		set lines=40
+		set co=160
+		set guioptions-=T
   	endif
 " }
 
 " Key Mappings {
-	let mapleader = ','
+	let mapleader = ',' " remmaping leader key to ,
+	" remmaping ; to :, saves shift :)
 	nnoremap ; :
+	" Change working directory to the current one
+	cmap cwd lcd %:p:h
+	cmap cd. lcd %:p:h
 " }
 
 " Formatting {
@@ -57,3 +62,47 @@ Bundle 'gmarik/vundle'
 	set autoindent
 	set tabstop=4
 "}
+
+" Plugins {
+	" NerdTree {
+		map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+		map <leader>e :NERDTreeFind<CR>
+
+		let NERDTreeShowBookmarks=1
+		let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+		let NERDTreeChDirMode=0
+		let NERDTreeQuitOnOpen=1
+		let NERDTreeShowHidden=1
+		let NERDTreeKeepTreeInNewTab=1
+	" }
+
+" }
+
+
+
+function! InitializeDirectories()
+  let separator = "."
+  let parent = $HOME
+  let prefix = '.vim'
+  let dir_list = {
+		\ 'backup': 'backupdir',
+		\ 'views': 'viewdir',
+		\ 'swap': 'directory' }
+
+		for [dirname, settingname] in items(dir_list)
+				let directory = parent . '/' . prefix . dirname . "/"
+				if exists("*mkdir")
+						if !isdirectory(directory)
+								call mkdir(directory)
+						endif
+				endif
+				if !isdirectory(directory)
+						echo "Warning: Unable to create backup directory: " . directory
+						echo "Try: mkdir -p " . directory
+				else
+				  let directory = substitute(directory, " ", "\\\\ ", "")
+				  exec "set " . settingname . "=" . directory
+				endif
+		  endfor
+endfunction
+call InitializeDirectories() 
