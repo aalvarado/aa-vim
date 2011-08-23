@@ -10,6 +10,8 @@ Bundle 'gmarik/vundle'
 
 " Bundles {
 	Bundle 'The-NERD-tree'
+	Bundle 'ack.vim'
+	Bundle 'The-NERD-Commenter'
 " }
 
 
@@ -25,6 +27,7 @@ Bundle 'gmarik/vundle'
 	syntax on
 	set mouse=a
 	set history=1000
+	filetype plugin on
 " }
 
 " Vim UI {
