@@ -31,7 +31,7 @@ Bundle 'gmarik/vundle'
 
 " Windows specific {
 	if has('win32') || has ('win64')
-		
+		set directory+=,~/tmp,$TMP		
 		" Adds git runtime path so it is able to use Fugitive within GVIM,
 		" while using the msysgit option when installing git for win
 		

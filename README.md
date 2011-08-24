@@ -16,10 +16,6 @@ as a git submodule.
 
 I recommend using console2 http://sourceforge.net/projects/console/ for commandline usage. 
 
-I've configured my git to work only from bash. If you do it like this, `:BundleInstall` will only work 
-from within bash. If you follow vundler's guide for windows, you can make it work straight from Gvim.
-
-
 ##Installation
 
 First clone the repo and submodule update:
