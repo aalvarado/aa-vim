@@ -28,7 +28,26 @@ Bundle 'gmarik/vundle'
 " Lots of stuff (borrowed||stolen) from 
 " http://github.com/spf13/spf13-vim 
 " https://github.com/scrooloose/vimfiles/blob/master/vimrc 
- 
+
+" Windows specific {
+	if has('win32') || has ('win64')
+		
+		" Adds git runtime path so it is able to use Fugitive within GVIM,
+		" while using the msysgit option when installing git for win
+		
+		" uses standard git install directories
+		let gitdir='C:\Program Files (x86)\Git\bin'
+		let gitdiralt='C:\Program Files\Git\bin'
+
+		if isdirectory(gitdir)
+			let $PATH.=';' .gitdir
+		elseif isdirectory(gitdiralt)
+			let $PATH.=';' . gitdiralt
+		endif
+
+	endif
+" }
+
 " Basic {
 	set background=dark
 " }
@@ -45,23 +64,23 @@ Bundle 'gmarik/vundle'
 
 " Vim UI {
 	set ruler	
-	set nu	" line numbers
+	set nu	" Line numbers
 	set showcmd
 	set showmatch
 	set number
 	set hlsearch
 	set incsearch
-	set ignorecase
+	set ignorecase " Ignore case while searching
 	set smartcase
-	set wildmode=list:longest "make cmdline tab completion similar to bash
-	set wildmenu "enable ctrl-n and ctrl-p to scroll thru matches
+	set wildmode=list:longest " Make cmdline tab completion similar to bash
+	set wildmenu " Enable ctrl-n and ctrl-p to scroll thru matches
 	set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 	set scrolloff=3
 	set scrolljump=5
 	set pastetoggle=<F12> 
 
 	if has("gui_running")
-		colorscheme desert " load a colorscheme
+		colorscheme desert " Load a colorscheme
 		set guifont=Consolas:h8 " Defaults to Consolas on Gvim
 		set lines=40 	" 40 lines height
 		set co=160	" Set 160 columns
@@ -69,27 +88,27 @@ Bundle 'gmarik/vundle'
   	endif
 	
 	"Status line {
-		"statusline setup
+		" Statusline setup
 		set statusline=%f "tail of the filename
 
-		"display a warning if fileformat isnt unix
+		" Display a warning if fileformat isnt unix
 		set statusline+=%#warningmsg#
 		set statusline+=%{&ff!='unix'?'['.&ff.']':''}
 		set statusline+=%*
 
-		"display a warning if file encoding isnt utf-8
+		" Display a warning if file encoding isnt utf-8
 		set statusline+=%#warningmsg#
 		set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
 		set statusline+=%*
 
-		set statusline+=%h "help file flag
-		set statusline+=%y "filetype
-		set statusline+=%r "read only flag
-		set statusline+=%m "modified flag
+		set statusline+=%h " Help file flag
+		set statusline+=%y " Filetype
+		set statusline+=%r " Read only flag
+		set statusline+=%m " Modified flag
 
 		set statusline+=%{fugitive#statusline()}
 
-		"display a warning if &et is wrong, or we have mixed-indenting
+		" Display a warning if &et is wrong, or we have mixed-indenting
 		set statusline+=%#error#
 		set statusline+=%{StatuslineTabWarning()}
 		set statusline+=%*
@@ -102,23 +121,23 @@ Bundle 'gmarik/vundle'
 		set statusline+=%{SyntasticStatuslineFlag()}
 		set statusline+=%*
 
-		"display a warning if &paste is set
+		" Display a warning if &paste is set
 		set statusline+=%#error#
 		set statusline+=%{&paste?'[paste]':''}
 		set statusline+=%*
 
-		set statusline+=%= "left/right separator
+		set statusline+=%= " Left/right separator
 		set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
-		set statusline+=%c, "cursor column
-		set statusline+=%l/%L "cursor line/total lines
-		set statusline+=\ %P "percent through file
+		set statusline+=%c, " Cursor column
+		set statusline+=%l/%L " Cursor line/total lines
+		set statusline+=\ %P " Percent through file
 		set laststatus=2
 
-		"recalculate the trailing whitespace warning when idle, and after saving
+		" Recalculate the trailing whitespace warning when idle, and after saving
 		autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
 
-		"return '[\s]' if trailing white space is detected
-		"return '' otherwise
+		" Return '[\s]' if trailing white space is detected
+		" Return '' otherwise
 		function! StatuslineTrailingSpaceWarning()
 			if !exists("b:statusline_trailing_space_warning")
 
@@ -323,4 +342,3 @@ function! InitializeDirectories()
 				endif
 		  endfor
 endfunction
-call InitializeDirectories() 
