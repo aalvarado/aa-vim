@@ -22,6 +22,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'delimitMate.vim'
 	Bundle 'Syntastic'
 	Bundle 'snipMate'
+	Bundle 'Wombat'
 " }
 
 
