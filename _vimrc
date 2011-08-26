@@ -22,7 +22,8 @@ Bundle 'gmarik/vundle'
 	Bundle 'delimitMate.vim'
 	Bundle 'Syntastic'
 	Bundle 'Wombat'
-	
+	Bundle 'set_utf8.vim'
+
 	" Mw utils, tlib needed for garbas snipmate to work
 	Bundle "git://github.com/honza/snipmate-snippets.git"
 	Bundle 'git://github.com/tomtom/tlib_vim.git'
