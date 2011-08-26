@@ -23,7 +23,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'Syntastic'
 	Bundle 'Wombat'
 	
-	" mw utils, tlib needed for garbas snipmate to work
+	" Mw utils, tlib needed for garbas snipmate to work
 	Bundle "git://github.com/honza/snipmate-snippets.git"
 	Bundle 'git://github.com/tomtom/tlib_vim.git'
 	Bundle 'git://github.com/MarcWeber/vim-addon-mw-utils.git'
