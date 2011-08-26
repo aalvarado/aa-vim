@@ -15,7 +15,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'fugitive.vim'
 	Bundle 'extradite.vim'
 	Bundle 'surround.vim'
-	Bundle 'git://github.com/ervandew/supertab.git'
+	"Bundle 'git://github.com/ervandew/supertab.git'
 	Bundle 'ragtag.vim'
 	Bundle 'Haml'
 	Bundle 'git://github.com/vim-ruby/vim-ruby.git'
@@ -289,7 +289,9 @@ Bundle 'gmarik/vundle'
 
 	" add json syntax highlighting
 	au BufNewFile,BufRead *.json set ft=javascript
-
+	
+	"defaults to txt on empty file type
+	autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
 	
 "}
 
@@ -322,8 +324,44 @@ Bundle 'gmarik/vundle'
 	"}
 
 	" Supertab {
-		let g:SuperTabDefaultCompletionType = "context"
-		let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+		"let g:SuperTabDefaultCompletionType = "context"
+		"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+   "       if !exists("g:SuperTabDefaultCompletionType")
+			"let g:SuperTabDefaultCompletionType = "<c-p>"
+		  "endif
+
+		  "if !exists("g:SuperTabContextDefaultCompletionType")
+			"let g:SuperTabContextDefaultCompletionType = "<c-p>"
+		  "endif
+
+		  "if !exists("g:SuperTabCompletionContexts")
+			"let g:SuperTabCompletionContexts = ['s:ContextText']
+		  "endif
+
+		  "if !exists("g:SuperTabRetainCompletionDuration")
+			"let g:SuperTabRetainCompletionDuration = 'insert'
+		  "endif
+
+		  "if !exists("g:SuperTabMidWordCompletion")
+			"let g:SuperTabMidWordCompletion = 1
+		  "endif
+
+		  "if !exists("g:SuperTabMappingForward")
+			"let g:SuperTabMappingForward = '<tab>'
+		  "endif
+		  "if !exists("g:SuperTabMappingBackward")
+			"let g:SuperTabMappingBackward = '<s-tab>'
+		  "endif
+
+		  "if !exists("g:SuperTabMappingTabLiteral")
+			"let g:SuperTabMappingTabLiteral = '<c-tab>'
+		  "endif
+
+		  "if !exists("g:SuperTabLongestHighlight")
+			"let g:SuperTabLongestHighlight = 0
+		  "endif
+
 	" }
 	
 	" Syntastic settings{
