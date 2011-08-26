@@ -15,14 +15,19 @@ Bundle 'gmarik/vundle'
 	Bundle 'fugitive.vim'
 	Bundle 'extradite.vim'
 	Bundle 'surround.vim'
-	Bundle 'SuperTab'
+	Bundle 'git://github.com/ervandew/supertab.git'
 	Bundle 'ragtag.vim'
 	Bundle 'Haml'
 	Bundle 'git://github.com/vim-ruby/vim-ruby.git'
 	Bundle 'delimitMate.vim'
 	Bundle 'Syntastic'
-	Bundle 'snipMate'
 	Bundle 'Wombat'
+	
+	" mw utils, tlib needed for garbas snipmate to work
+	Bundle "git://github.com/honza/snipmate-snippets.git"
+	Bundle 'git://github.com/tomtom/tlib_vim.git'
+	Bundle 'git://github.com/MarcWeber/vim-addon-mw-utils.git'
+	Bundle 'git://github.com/garbas/vim-snipmate.git'
 " }
 
 
@@ -64,7 +69,7 @@ Bundle 'gmarik/vundle'
 " }
 
 " Vim UI {
-	set ruler	
+	set ruler
 	set nu	" Line numbers
 	set showcmd
 	set showmatch
@@ -81,7 +86,7 @@ Bundle 'gmarik/vundle'
 	set pastetoggle=<F12> 
 
 	if has("gui_running")
-		colorscheme desert " Load a colorscheme
+		colorscheme Wombat  " Load a colorscheme
 		set guifont=Consolas:h8 " Defaults to Consolas on Gvim
 		set lines=40 	" 40 lines height
 		set co=160	" Set 160 columns
@@ -276,6 +281,15 @@ Bundle 'gmarik/vundle'
 	set tabstop=4
 	set shiftwidth=4
 	set backspace=indent,eol,start
+	set whichwrap=b,s,h,l,<,>,[,]	" backspace and cursor keys wrap to
+	
+	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
+	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+
+	" add json syntax highlighting
+	au BufNewFile,BufRead *.json set ft=javascript
+
+	
 "}
 
 " Plugins {
@@ -306,16 +320,25 @@ Bundle 'gmarik/vundle'
 		  \ endif
 	"}
 
+	" Supertab {
+		let g:SuperTabDefaultCompletionType = "context"
+		let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+	" }
+	
 	" Syntastic settings{
 		let g:syntastic_enable_signs=1
 		let g:syntastic_auto_loc_list=2			
 	"}
 	
 	" Snipmate {
-		ino <c-j> <c-r>=TriggerSnippet()<cr>
-		snor <c-j> <esc>i<right><c-r>=TriggerSnippet()<cr>
+		"ino <c-j> <c-r>=TriggerSnippet()<cr>
+		"snor <c-j> <esc>i<right><c-r>=TriggerSnippet()<cr>
+		
+		" Fixes issue with snippets not being found
+		let g:snipMate = {}
+		let g:snipMate['snippet_dirs'] = funcref#Function('return ["~/.vim/bundle/snipmate-snippets/snippets"]') 
 	"} 
-
+		
 " }
 
 function! InitializeDirectories()
@@ -343,3 +366,10 @@ function! InitializeDirectories()
 				endif
 		  endfor
 endfunction
+call InitializeDirectories()
+
+" Use local vimrc if available {
+	if filereadable(expand("~/.vimrc.local"))
+		source ~/.vimrc.local
+	endif
+" }
