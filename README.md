@@ -5,7 +5,7 @@ OS by just naming the symlink .vimrc instead of _vimrc
 
 #Notes
 
-It uses Vundler to manage plugins.
+It uses Vundler to manage plugings which I think is an improvement above Pathogen or VAM. You can read about it here: http://www.charlietanksley.net/philtex/sane-vim-plugin-management/ 
 
 The vundler set up guide is at: 
 
@@ -15,6 +15,8 @@ You only need to do the git and curl on windows step, you do not need to clone t
 as a git submodule.
 
 I recommend using console2 http://sourceforge.net/projects/console/ for commandline usage. 
+##Dependencies
+1) git
 
 ##Installation
 
