@@ -15,8 +15,10 @@ You only need to do the git and curl on windows step, you do not need to clone t
 as a git submodule.
 
 I recommend using console2 http://sourceforge.net/projects/console/ for commandline usage. 
+
 ##Dependencies
-1) git
+1) git - http://code.google.com/p/msysgit/
+2) ctags - http://ctags.sourceforge.net/
 
 ##Installation
 

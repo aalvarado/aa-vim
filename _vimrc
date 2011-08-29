@@ -10,20 +10,31 @@ Bundle 'gmarik/vundle'
 
 " Bundles {
 	Bundle 'The-NERD-tree'
-	Bundle 'ack.vim'
 	Bundle 'The-NERD-Commenter'
 	Bundle 'fugitive.vim'
 	Bundle 'extradite.vim'
 	Bundle 'surround.vim'
-	"Bundle 'git://github.com/ervandew/supertab.git'
 	Bundle 'ragtag.vim'
-	Bundle 'Haml'
-	Bundle 'git://github.com/vim-ruby/vim-ruby.git'
 	Bundle 'delimitMate.vim'
 	Bundle 'Syntastic'
 	Bundle 'Wombat'
 	Bundle 'set_utf8.vim'
-
+	
+	" Mostly copied from Janus dotvim
+	"Bundle 'git://github.com/tpope/vim-rails.git'
+	"Bundle 'git://github.com/altercation/vim-colors-solarized.git'
+	"Bundle 'git://github.com/tpope/vim-haml.git'
+	"Bundle 'git://github.com/mileszs/ack.vim.git'
+	"Bundle 'git://github.com/ervandew/supertab.git'
+	"Bundle 'git://github.com/vim-ruby/vim-ruby.git'
+	"Bundle 'git://github.com/tpope/vim-vividchalk.git'
+	"Bundle 'git://github.com/tpope/vim-cucumber.git'
+	"Bundle 'git://github.com/mattn/gist-vim.git'
+	"Bundle 'git://github.com/pangloss/vim-javascript.git'
+	Bundle 'git://github.com/vim-scripts/taglist.vim.git' 
+	Bundle 'git://github.com/timcharper/textile.vim.git'
+	Bundle 'git://github.com/tpope/vim-rails.git'
+	
 	" Mw utils, tlib needed for garbas snipmate to work
 	Bundle "git://github.com/honza/snipmate-snippets.git"
 	Bundle 'git://github.com/tomtom/tlib_vim.git'
@@ -269,6 +280,8 @@ Bundle 'gmarik/vundle'
 
 " Key Mappings {
 	let mapleader = ',' " remmaping leader key to ,
+	"Turn off search highlitghting with leader /
+	nmap <silent> <leader>/ :nohlsearch<CR>
 	" remmaping ; to :, saves shift :)
 	nnoremap ; :
 	" Change working directory to the current one
@@ -327,40 +340,40 @@ Bundle 'gmarik/vundle'
 		"let g:SuperTabDefaultCompletionType = "context"
 		"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
-   "       if !exists("g:SuperTabDefaultCompletionType")
-			"let g:SuperTabDefaultCompletionType = "<c-p>"
-		  "endif
+		 if !exists("g:SuperTabDefaultCompletionType")
+			let g:SuperTabDefaultCompletionType = "<c-p>"
+		  endif
 
-		  "if !exists("g:SuperTabContextDefaultCompletionType")
-			"let g:SuperTabContextDefaultCompletionType = "<c-p>"
-		  "endif
+		  if !exists("g:SuperTabContextDefaultCompletionType")
+			let g:SuperTabContextDefaultCompletionType = "<c-p>"
+		  endif
 
-		  "if !exists("g:SuperTabCompletionContexts")
-			"let g:SuperTabCompletionContexts = ['s:ContextText']
-		  "endif
+		  if !exists("g:SuperTabCompletionContexts")
+			let g:SuperTabCompletionContexts = ['s:ContextText']
+		  endif
 
-		  "if !exists("g:SuperTabRetainCompletionDuration")
-			"let g:SuperTabRetainCompletionDuration = 'insert'
-		  "endif
+		  if !exists("g:SuperTabRetainCompletionDuration")
+			let g:SuperTabRetainCompletionDuration = 'insert'
+		  endif
 
-		  "if !exists("g:SuperTabMidWordCompletion")
-			"let g:SuperTabMidWordCompletion = 1
-		  "endif
+		  if !exists("g:SuperTabMidWordCompletion")
+			let g:SuperTabMidWordCompletion = 1
+		  endif
 
-		  "if !exists("g:SuperTabMappingForward")
-			"let g:SuperTabMappingForward = '<tab>'
-		  "endif
-		  "if !exists("g:SuperTabMappingBackward")
-			"let g:SuperTabMappingBackward = '<s-tab>'
-		  "endif
+		  if !exists("g:SuperTabMappingForward")
+			let g:SuperTabMappingForward = '<tab>'
+		  endif
+		  if !exists("g:SuperTabMappingBackward")
+			let g:SuperTabMappingBackward = '<s-tab>'
+		  endif
 
-		  "if !exists("g:SuperTabMappingTabLiteral")
-			"let g:SuperTabMappingTabLiteral = '<c-tab>'
-		  "endif
+		  if !exists("g:SuperTabMappingTabLiteral")
+			let g:SuperTabMappingTabLiteral = '<c-tab>'
+		  endif
 
-		  "if !exists("g:SuperTabLongestHighlight")
-			"let g:SuperTabLongestHighlight = 0
-		  "endif
+		  if !exists("g:SuperTabLongestHighlight")
+			let g:SuperTabLongestHighlight = 0
+		  endif
 
 	" }
 	
