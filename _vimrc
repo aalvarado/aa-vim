@@ -67,6 +67,8 @@ Bundle 'gmarik/vundle'
 	set mouse=a
 	set history=1000
 	filetype plugin on
+	set gdefault
+
 " }
 
 " Vim UI {
