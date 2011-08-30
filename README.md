@@ -19,7 +19,7 @@ I recommend using console2 http://sourceforge.net/projects/console/ for commandl
 ##Dependencies
 * 1) git - http://code.google.com/p/msysgit/
 * 2) ctags - http://ctags.sourceforge.net/
-* 3) Perl and Ack for Ack.vim (if you don't need it, you don't need to install perl or ack) - http://stackoverflow.com/questions/1023710/how-can-i-install-and-use-ack-library-on-windows
+* 3) Perl and Ack for Ack.vim (if you don't need it, you don't need to install perl or ack) - http://adanalvarado-eng.tumblr.com/
 
 
 ##Installation
