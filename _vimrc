@@ -21,6 +21,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'set_utf8.vim'
 	Bundle 'xolox/vim-shell'
 	Bundle 'xolox/vim-easytags'
+	Bundle 'matchit.zip'
 	
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
@@ -339,7 +340,7 @@ Bundle 'gmarik/vundle'
 		  \ nnoremap <buffer> .. :edit %:h<CR> |
 		  \ endif
 	"}
-
+	
 	" Supertab {
 		"let g:SuperTabDefaultCompletionType = "context"
 		"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
