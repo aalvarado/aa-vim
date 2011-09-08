@@ -22,6 +22,8 @@ Bundle 'gmarik/vundle'
 	Bundle 'xolox/vim-shell'
 	Bundle 'xolox/vim-easytags'
 	Bundle 'matchit.zip'
+	Bundle 'obsidian2.vim'
+	Bundle 'minibufexplorerpp'
 	
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
@@ -104,12 +106,13 @@ Bundle 'gmarik/vundle'
 
 	if has("gui_running")
 		colorscheme Wombat  " Load a colorscheme
-		set guifont=Consolas:h8 " Defaults to Consolas on Gvim
+		set guifont=Consolas:h10" Defaults to Consolas on Gvim
 		set lines=40 	" 40 lines height
 		set co=160	" Set 160 columns
 		set guioptions-=T " Hide the toolbar on Gvim
   	endif
 	
+	" status line config from: https://github.com/scrooloose/vimfiles 
 	"Status line {
 		" Statusline setup
 		set statusline=%f "tail of the filename
@@ -314,9 +317,12 @@ Bundle 'gmarik/vundle'
 "}
 
 " Plugins {
+	" miniBufferExplorer {
+		nnoremap <f1> :TMiniBufExplorer<cr>
+	" }
+
 	" NerdTree {
 		map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-		"map <leader>e :NERDTreeFind<CR>
 
 		let NERDTreeShowBookmarks=1
 		let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -388,13 +394,26 @@ Bundle 'gmarik/vundle'
 	"}
 	
 	" Snipmate {
-		"ino <c-j> <c-r>=TriggerSnippet()<cr>
-		"snor <c-j> <esc>i<right><c-r>=TriggerSnippet()<cr>
-		
+		" change if you're not me :)"
+		let g:snips_author = "aalvarado"	
 		" Fixes issue with snippets not being found
 		let g:snipMate = {}
 		let g:snipMate['snippet_dirs'] = funcref#Function('return ["~/.vim/bundle/snipmate-snippets/snippets"]') 
 	"} 
+	
+	" Taglist {
+		nnoremap <f3> :TlistToggle<cr>
+		let Tlist_Compact_Format = 1
+		let Tlist_Enable_Fold_Column = 0
+		let Tlist_Exit_OnlyWindow = 0
+		let Tlist_WinWidth = 35
+		let tlist_php_settings = 'php;c:class;f:Functions'
+		let Tlist_Use_Right_Window=1
+		let Tlist_GainFocus_On_ToggleOpen = 1
+		let Tlist_Display_Tag_Scope = 1
+		let Tlist_Process_File_Always = 1
+		let Tlist_Show_One_File = 1
+	" }
 		
 " }
 
