@@ -318,12 +318,26 @@ Bundle 'gmarik/vundle'
 
 " Plugins {
 	" miniBufferExplorer {
+		let g:miniBufExplModSelTarget = 1
+		let g:miniBufExplorerMoreThanOne = 2
+		let g:miniBufExplModSelTarget = 0
+		let g:miniBufExplUseSingleClick = 1
+		let g:miniBufExplMapWindowNavVim = 1
+		let g:miniBufExplVSplit = 25
+		let g:miniBufExplSplitBelow=1
+
+		let g:bufExplorerSortBy = "name"
+
+		autocmd BufRead,BufNew :call UMiniBufExplorer
+
+		"map <leader>u :TMiniBufExplorer<cr>
+				
 		nnoremap <f1> :TMiniBufExplorer<cr>
 	" }
 
 	" NerdTree {
-		map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-
+		"map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+		nnoremap <f2> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 		let NERDTreeShowBookmarks=1
 		let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 		let NERDTreeChDirMode=0
