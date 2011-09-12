@@ -49,3 +49,50 @@ This will download all and install the plugins specified in the _vimrc file.
 Restart vim after every install so you can use your newly installed plugins
 
 Enjoy.
+##Plugins
+###Nerdtree
+
+###Nerd Commenter
+
+###Fugitive
+
+###Extradite
+
+###Surround
+
+###RagTag
+
+###Delimate
+
+###Syntastic
+
+###Vim-shell
+
+###EasyTags
+
+###Matchit
+
+###Mini Buffer Explroer
+
+###ShowMarks(7)
+
+###PythonComplete
+
+###Pyflakes
+
+###Vim-rails
+
+###ACK
+
+###SuperTab
+
+###Vim-ruby
+
+###Vim-cucumber
+
+###Vim-javascript
+
+###Taglist
+
+###Snipmate
+
