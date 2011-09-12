@@ -24,6 +24,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'matchit.zip'
 	Bundle 'obsidian2.vim'
 	Bundle 'minibufexplorerpp'
+	Bundle 'molokai'
 	
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
