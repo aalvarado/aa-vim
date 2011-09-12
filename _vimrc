@@ -27,6 +27,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'molokai'
 	Bundle 'ShowMarks7'
 	Bundle 'pythoncomplete'
+	Bundle 'pyflakes.vim'
 
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
