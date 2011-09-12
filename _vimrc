@@ -25,7 +25,9 @@ Bundle 'gmarik/vundle'
 	Bundle 'obsidian2.vim'
 	Bundle 'minibufexplorerpp'
 	Bundle 'molokai'
-	
+	Bundle 'ShowMarks7'
+	Bundle 'pythoncomplete'
+
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
 	Bundle 'altercation/vim-colors-solarized.git'
