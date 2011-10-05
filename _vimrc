@@ -41,12 +41,9 @@ Bundle 'gmarik/vundle'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'vim-scripts/taglist.vim.git' 
 	Bundle 'timcharper/textile.vim.git'
+	Bundle 'vim-scripts/UltiSnips'
 	
-	" Mw utils, tlib needed for garbas snipmate to work
-	Bundle 'honza/snipmate-snippets.git'
-	Bundle 'tomtom/tlib_vim.git'
-	Bundle 'MarcWeber/vim-addon-mw-utils.git'
-	Bundle 'garbas/vim-snipmate.git'
+
 " }
 
 
@@ -346,8 +343,6 @@ Bundle 'gmarik/vundle'
 	"}
 	
 	" Supertab {
-		"let g:SuperTabDefaultCompletionType = "context"
-		"let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 
 		 if !exists("g:SuperTabDefaultCompletionType")
 			let g:SuperTabDefaultCompletionType = "<c-p>"
@@ -391,13 +386,6 @@ Bundle 'gmarik/vundle'
 		let g:syntastic_auto_loc_list=2			
 	"}
 	
-	" Snipmate {
-		" change if you're not me :)"
-		let g:snips_author = "aalvarado"	
-		" Fixes issue with snippets not being found
-		let g:snipMate = {}
-		let g:snipMate['snippet_dirs'] = funcref#Function('return ["~/.vim/bundle/snipmate-snippets/snippets"]') 
-	"} 
 	
 	" Taglist {
 		nnoremap <f3> :TlistToggle<cr>
