@@ -1,7 +1,7 @@
 #aa-vim
 
-This is my .vimrc (or rather _vimrc) configuration. it is very windows (tested on vista and win7) specific, but it should work fine on any other
-OS by just naming the symlink .vimrc instead of _vimrc
+This is my .vimrc (or rather \_vimrc) configuration. it is very windows (tested on vista and win7) specific, but it should work fine on any other
+OS by just naming the symlink .vimrc instead of \_vimrc
 
 #Notes
 
@@ -20,6 +20,7 @@ I recommend using console2 http://sourceforge.net/projects/console/ for commandl
 * 1) git - http://code.google.com/p/msysgit/
 * 2) ctags - http://ctags.sourceforge.net/
 * 3) Perl and Ack for Ack.vim (if you don't need it, you don't need to install perl or ack) - http://stackoverflow.com/questions/1023710/how-can-i-install-and-use-ack-library-on-windows
+* 4) Python for ultisnips
 
 
 ##Installation
@@ -44,7 +45,7 @@ Open up vim and type:
 :BundleInstall
 ```
 
-This will download all and install the plugins specified in the _vimrc file.
+This will download all and install the plugins specified in the \_vimrc file.
 
 Restart vim after every install so you can use your newly installed plugins
 
