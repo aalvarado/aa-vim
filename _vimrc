@@ -42,8 +42,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'vim-scripts/taglist.vim.git' 
 	Bundle 'timcharper/textile.vim.git'
 	Bundle 'vim-scripts/UltiSnips'
-	
-
 " }
 
 
@@ -83,7 +81,7 @@ Bundle 'gmarik/vundle'
 	set history=1000
 	filetype plugin on
 	set gdefault
-
+	set complete=.,w
 " }
 
 " Vim UI {
@@ -378,7 +376,6 @@ Bundle 'gmarik/vundle'
 		  if !exists("g:SuperTabLongestHighlight")
 			let g:SuperTabLongestHighlight = 0
 		  endif
-
 	" }
 	
 	" Syntastic settings{
