@@ -27,6 +27,10 @@ Bundle 'gmarik/vundle'
 	Bundle 'ShowMarks7'
 	Bundle 'pythoncomplete'
 	Bundle 'pyflakes.vim'
+	Bundle 'vim-scripts/UltiSnips'
+
+	" change to your own snippets if you don't like mine :) 
+	Bundle 'aalvarado/ultisnips-snippets.git'
 
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
@@ -41,7 +45,9 @@ Bundle 'gmarik/vundle'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'vim-scripts/taglist.vim.git' 
 	Bundle 'timcharper/textile.vim.git'
-	Bundle 'vim-scripts/UltiSnips'
+
+
+
 " }
 
 
@@ -397,7 +403,11 @@ Bundle 'gmarik/vundle'
 		let Tlist_Process_File_Always = 1
 		let Tlist_Show_One_File = 1
 	" }
-		
+	"UltiSnip{
+		if !exists("g:UltiSnipsSnippetsDir")
+			let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips-snippets'
+		endif
+	"}
 " }
 
 function! InitializeDirectories()
