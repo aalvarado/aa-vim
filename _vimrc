@@ -406,7 +406,7 @@ Bundle 'gmarik/vundle'
 	" }
 	"UltiSnip{
 		if !exists("g:UltiSnipsSnippetsDir")
-			let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips-snippets'
+			let g:UltiSnipsSnippetDirectories=["..//ultisnips-snippets"]
 		endif
 	"}
 " }
