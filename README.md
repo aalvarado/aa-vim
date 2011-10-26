@@ -95,5 +95,5 @@ Enjoy.
 
 ###Taglist
 
-###Snipmate
+###Ultisnips
 

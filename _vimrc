@@ -27,6 +27,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'ShowMarks7'
 	Bundle 'pythoncomplete'
 	Bundle 'pyflakes.vim'
+	Bundle 'Indent-Guides'
 
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
