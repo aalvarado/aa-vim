@@ -38,7 +38,10 @@ Create symlinks (in a command cmd.exe window)
 ```
 mklink /D .vim aa-vim\.vim
 mklink _vimrc aa-vim\_vimrc
+
 ```
+for windows xp you can use fsutil and create a hardlink http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/fsutil.mspx
+
 Open up vim and type: 
 
 ```
