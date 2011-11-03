@@ -407,7 +407,15 @@ Bundle 'gmarik/vundle'
 	"UltiSnip{
 		if !exists("g:UltiSnipsSnippetsDir")
 			let g:UltiSnipsSnippetDirectories=["..//ultisnips-snippets"]
+			let g:UltiSnipsEditSplit="horizontal"
 		endif
+		
+		" Conflicts with diagraphs, switching <c-k> to something else
+		" use :redraw instead of <c-l>
+		if !exists("g:UltiSnipsJumpBackwardTrigger")
+			let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
+		endif
+
 	"}
 " }
 
