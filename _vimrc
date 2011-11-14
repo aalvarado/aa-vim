@@ -46,9 +46,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'vim-scripts/taglist.vim.git' 
 	Bundle 'timcharper/textile.vim.git'
-
-
-
 " }
 
 
@@ -88,7 +85,7 @@ Bundle 'gmarik/vundle'
 	set history=1000
 	filetype plugin on
 	set gdefault
-	set complete=.,w
+	set complete-=i
 " }
 
 " Vim UI {
@@ -350,11 +347,11 @@ Bundle 'gmarik/vundle'
 	" Supertab {
 
 		 if !exists("g:SuperTabDefaultCompletionType")
-			let g:SuperTabDefaultCompletionType = "<c-p>"
+			let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 		  endif
 
 		  if !exists("g:SuperTabContextDefaultCompletionType")
-			let g:SuperTabContextDefaultCompletionType = "<c-p>"
+			let g:SuperTabContextDefaultCompletionType = "<c-x><c-p>"
 		  endif
 
 		  if !exists("g:SuperTabCompletionContexts")
