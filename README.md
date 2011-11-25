@@ -1,8 +1,6 @@
 #aa-vim
 
-This is my .vimrc (or rather \_vimrc) configuration. it is very windows (tested on vista and win7) specific, but it should work fine on any other
-OS by just naming the symlink .vimrc instead of \_vimrc
-
+This is my .vimrc (or rather \_vimrc) configuration. it has some very windows (tested on xp, vista, win7) specific settings. Also tested on OSX
 #Notes
 
 It uses Vundler to manage plugings which I think is an improvement above Pathogen or VAM. You can read about it here: http://www.charlietanksley.net/philtex/sane-vim-plugin-management/ 
@@ -17,9 +15,9 @@ as a git submodule.
 I recommend using console2 http://sourceforge.net/projects/console/ for commandline usage. 
 
 ##Dependencies
-* 1) git - http://code.google.com/p/msysgit/
-* 2) ctags - http://ctags.sourceforge.net/
-* 3) Perl and Ack for Ack.vim (if you don't need it, you don't need to install perl or ack) - http://stackoverflow.com/questions/1023710/how-can-i-install-and-use-ack-library-on-windows
+* 1) git \- http://code.google.com/p/msysgit/
+* 2) ctags \- http://ctags.sourceforge.net/
+* 3) Perl and Ack for Ack.vim (if you don't need it, you don't need to install perl or ack) \- http://stackoverflow.com/questions/1023710/how-can-i-install-and-use-ack-library-on-windows
 * 4) Python for ultisnips
 
 
@@ -53,50 +51,45 @@ This will download all and install the plugins specified in the \_vimrc file.
 Restart vim after every install so you can use your newly installed plugins
 
 Enjoy.
-##Plugins
-###Nerdtree
+## Plugins
+### Nerdtree
 
-###Nerd Commenter
+### Nerd Commenter
 
-###Fugitive
+### Fugitive
 
-###Extradite
+### Extradite
 
-###Surround
+### Surround
 
-###RagTag
+### RagTag
 
-###Delimate
+### Delimate
 
-###Syntastic
+### Syntastic
 
-###Vim-shell
+### Vim\-shell
 
-###EasyTags
+### EasyTags
+-
+### ShowMarks\(7) 
 
-###Matchit
+### PythonComplete
 
-###Mini Buffer Explroer
+### Pyflakes
 
-###ShowMarks(7)
+### Vim\-rails
 
-###PythonComplete
+### ACK
 
-###Pyflakes
+### SuperTab
 
-###Vim-rails
+### Vim\-ruby
 
-###ACK
+### Vim\-cucumber
 
-###SuperTab
+### Vim\-javascript
 
-###Vim-ruby
+### Taglist
 
-###Vim-cucumber
-
-###Vim-javascript
-
-###Taglist
-
-###Ultisnips
-
+### Ultisnips
