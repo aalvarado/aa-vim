@@ -305,7 +305,12 @@ Bundle 'gmarik/vundle'
 	set shiftwidth=4
 	set backspace=indent,eol,start
 	set whichwrap=b,s,h,l,<,>,[,]	" backspace and cursor keys wrap to
-	
+	set ff=unix
+	set nobomb
+
+	"python
+	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 
@@ -318,6 +323,11 @@ Bundle 'gmarik/vundle'
 "}
 
 " Plugins {
+	" indent guides{
+		let g:indent_guides_enable_on_vim_startup = 1
+		let g:indent_guides_guide_size = 1
+	" }
+	"
 	" NerdTree {
 		"map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 		nnoremap <f2> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
