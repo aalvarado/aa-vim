@@ -29,6 +29,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'pyflakes.vim'
 	Bundle 'Indent-Guides'
 	Bundle 'vim-scripts/UltiSnips'
+	Bundle 'Command-T'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -104,6 +105,7 @@ Bundle 'gmarik/vundle'
 	set scrolloff=3
 	set scrolljump=5
 	set pastetoggle=<F12> 
+	set nobomb
 
 	if has("gui_running")
 		colorscheme Wombat  " Load a colorscheme
@@ -315,6 +317,10 @@ Bundle 'gmarik/vundle'
 	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 
 	" add json syntax highlighting
+	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
+	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+
+	" add json syntax highlighting
 	au BufNewFile,BufRead *.json set ft=javascript
 	
 	"defaults to txt on empty file type
@@ -327,7 +333,7 @@ Bundle 'gmarik/vundle'
 		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_guide_size = 1
 	" }
-	"
+
 	" NerdTree {
 		"map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
 		nnoremap <f2> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
