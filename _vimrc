@@ -29,7 +29,9 @@ Bundle 'gmarik/vundle'
 	Bundle 'pyflakes.vim'
 	Bundle 'Indent-Guides'
 	Bundle 'vim-scripts/UltiSnips'
-	Bundle 'Command-T'
+	Bundle 'sessionman.vim'
+	Bundle 'LustyExplorer'
+	Bundle 'LustyJuggler'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
