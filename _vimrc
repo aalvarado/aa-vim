@@ -71,7 +71,8 @@ Bundle 'gmarik/vundle'
 		elseif isdirectory(gitdiralt)
 			let $PATH.=';' . gitdiralt
 		endif
-
+		" Needed for ruby based plugins
+		let $PATH.=';' . 'c:\ruby192\bin'
 	endif
 " }
 
@@ -108,6 +109,8 @@ Bundle 'gmarik/vundle'
 	set scrolljump=5
 	set pastetoggle=<F12> 
 	set nobomb
+	set hidden
+
 
 	if has("gui_running")
 		colorscheme Wombat  " Load a colorscheme
@@ -309,14 +312,12 @@ Bundle 'gmarik/vundle'
 	set shiftwidth=4
 	set backspace=indent,eol,start
 	set whichwrap=b,s,h,l,<,>,[,]	" backspace and cursor keys wrap to
+	set ffs=unix
 	set ff=unix
 	set nobomb
 
 	"python
 	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
-
-	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 
 	" add json syntax highlighting
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
@@ -466,3 +467,4 @@ call InitializeDirectories()
 		source ~/.vimrc.local
 	endif
 " }
+cd ~
