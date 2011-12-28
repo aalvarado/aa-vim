@@ -364,7 +364,6 @@ Bundle 'gmarik/vundle'
 	"}
 	
 	" Supertab {
-
 		 if !exists("g:SuperTabDefaultCompletionType")
 			let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 		  endif
@@ -405,9 +404,8 @@ Bundle 'gmarik/vundle'
 		let g:syntastic_enable_signs=1
 		let g:syntastic_auto_loc_list=2			
 	"}
-	
-	
-	" Taglist {
+
+	" Taglist{
 		nnoremap <f3> :TlistToggle<cr>
 		let Tlist_Compact_Format = 1
 		let Tlist_Enable_Fold_Column = 0
@@ -419,7 +417,8 @@ Bundle 'gmarik/vundle'
 		let Tlist_Display_Tag_Scope = 1
 		let Tlist_Process_File_Always = 1
 		let Tlist_Show_One_File = 1
-	" }
+	"}
+
 	"UltiSnip{
 		if !exists("g:UltiSnipsSnippetsDir")
 			let g:UltiSnipsSnippetDirectories=["..//ultisnips-snippets"]
@@ -431,7 +430,11 @@ Bundle 'gmarik/vundle'
 		if !exists("g:UltiSnipsJumpBackwardTrigger")
 			let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
 		endif
+	"}
 
+	"showmarks{
+		" Prevents showmarks showing up for other buffer types
+		let g:showmarks_ignore_type = "hqprm"
 	"}
 " }
 
@@ -467,4 +470,6 @@ call InitializeDirectories()
 		source ~/.vimrc.local
 	endif
 " }
+
+" Defaulting to home dir
 cd ~
