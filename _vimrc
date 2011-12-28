@@ -47,7 +47,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-cucumber.git'
 	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
-	Bundle 'vim-scripts/taglist.vim.git' 
+	"Bundle 'vim-scripts/taglist.vim.git' 
 	Bundle 'timcharper/textile.vim.git'
 " }
 
