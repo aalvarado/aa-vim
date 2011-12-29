@@ -52,44 +52,36 @@ Restart vim after every install so you can use your newly installed plugins
 
 Enjoy.
 ## Plugins
-### Nerdtree
-
-### Nerd Commenter
-
-### Fugitive
-
-### Extradite
-
-### Surround
-
-### RagTag
-
-### Delimate
-
-### Syntastic
-
-### Vim\-shell
-
-### EasyTags
--
-### ShowMarks\(7) 
-
-### PythonComplete
-
-### Pyflakes
-
-### Vim\-rails
-
-### ACK
-
-### SuperTab
-
-### Vim\-ruby
-
-### Vim\-cucumber
-
-### Vim\-javascript
-
-### Taglist
-
-### Ultisnips
+### The-NERD-tree'
+### The-NERD-Commenter'
+### fugitive.vim'
+### extradite.vim'
+### surround.vim'
+### ragtag.vim'
+### delimitMate.vim'
+### Syntastic'
+### Wombat'
+### set_utf8.vim'
+### xolox/vim-shell'
+### matchit.zip'
+### obsidian2.vim'
+### molokai'
+### ShowMarks7'
+### pythoncomplete'
+### pyflakes.vim'
+### Indent-Guides'
+### vim-scripts/UltiSnips'
+### sessionman.vim'
+### LustyExplorer'
+### LustyJuggler'
+### tpope/vim-rails.git'
+### altercation/vim-colors-solarized.git'
+### tpope/vim-haml.git'
+### mileszs/ack.vim.git'
+### ervandew/supertab.git'
+### vim-ruby/vim-ruby.git'
+### tpope/vim-vividchalk.git'
+### tpope/vim-cucumber.git'
+### mattn/gist-vim.git'
+### pangloss/vim-javascript.git'
+### timcharper/textile.vim.git'

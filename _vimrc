@@ -472,4 +472,3 @@ call InitializeDirectories()
 " }
 
 " Defaulting to home dir
-cd ~
