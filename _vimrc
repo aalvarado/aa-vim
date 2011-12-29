@@ -20,7 +20,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'Wombat'
 	Bundle 'set_utf8.vim'
 	Bundle 'xolox/vim-shell'
-	Bundle 'xolox/vim-easytags'
+	"Bundle 'xolox/vim-easytags'
 	Bundle 'matchit.zip'
 	Bundle 'obsidian2.vim'
 	Bundle 'molokai'
@@ -470,5 +470,3 @@ call InitializeDirectories()
 		source ~/.vimrc.local
 	endif
 " }
-
-" Defaulting to home dir
