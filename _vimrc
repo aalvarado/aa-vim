@@ -49,6 +49,10 @@ Bundle 'gmarik/vundle'
 	Bundle 'pangloss/vim-javascript.git'
 	"Bundle 'vim-scripts/taglist.vim.git' 
 	Bundle 'timcharper/textile.vim.git'
+
+	Bundle 'tpope/vim-bundler'
+	Bundle 'vim-scripts/AutoTag'
+	Bundle 'vim-scripts/AnsiEsc.vim'
 " }
 
 
@@ -117,7 +121,9 @@ Bundle 'gmarik/vundle'
 		set lines=40 	" 40 lines height
 		set co=160	" Set 160 columns
 		set guioptions-=T " Hide the toolbar on Gvim
-  	endif
+		" Automatically resize splits when resizing MacVim window
+		autocmd VimResized * wincmd =
+	endif
 	
 	" status line config from: https://github.com/scrooloose/vimfiles 
 	"Status line {
@@ -373,17 +379,17 @@ Bundle 'gmarik/vundle'
 	"}
 	
 	" Supertab {
-		 if !exists("g:SuperTabDefaultCompletionType")
-			let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-		  endif
+		 "if !exists("g:SuperTabDefaultCompletionType")
+			"let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+		  "endif
 
-		  if !exists("g:SuperTabContextDefaultCompletionType")
-			let g:SuperTabContextDefaultCompletionType = "<c-x><c-p>"
-		  endif
+		  "if !exists("g:SuperTabContextDefaultCompletionType")
+			"let g:SuperTabContextDefaultCompletionType = "<c-x><c-p>"
+		  "endif
 
-		  if !exists("g:SuperTabCompletionContexts")
-			let g:SuperTabCompletionContexts = ['s:ContextText']
-		  endif
+		  "if !exists("g:SuperTabCompletionContexts")
+			"let g:SuperTabCompletionContexts = ['s:ContextText']
+		  "endif
 
 		  if !exists("g:SuperTabRetainCompletionDuration")
 			let g:SuperTabRetainCompletionDuration = 'insert'
@@ -415,17 +421,17 @@ Bundle 'gmarik/vundle'
 	"}
 
 	" Taglist{
-		nnoremap <f3> :TlistToggle<cr>
-		let Tlist_Compact_Format = 1
-		let Tlist_Enable_Fold_Column = 0
-		let Tlist_Exit_OnlyWindow = 0
-		let Tlist_WinWidth = 35
-		let tlist_php_settings = 'php;c:class;f:Functions'
-		let Tlist_Use_Right_Window=1
-		let Tlist_GainFocus_On_ToggleOpen = 1
-		let Tlist_Display_Tag_Scope = 1
-		let Tlist_Process_File_Always = 1
-		let Tlist_Show_One_File = 1
+		"nnoremap <f3> :TlistToggle<cr>
+		"let Tlist_Compact_Format = 1
+		"let Tlist_Enable_Fold_Column = 0
+		"let Tlist_Exit_OnlyWindow = 0
+		"let Tlist_WinWidth = 35
+		"let tlist_php_settings = 'php;c:class;f:Functions'
+		"let Tlist_Use_Right_Window=1
+		"let Tlist_GainFocus_On_ToggleOpen = 1
+		"let Tlist_Display_Tag_Scope = 1
+		"let Tlist_Process_File_Always = 1
+		"let Tlist_Show_One_File = 1
 	"}
 
 	"UltiSnip{
