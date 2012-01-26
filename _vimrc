@@ -111,7 +111,6 @@ Bundle 'gmarik/vundle'
 	set nobomb
 	set hidden
 
-
 	if has("gui_running")
 		colorscheme Wombat  " Load a colorscheme
 		set guifont=Consolas:h10" Defaults to Consolas on Gvim
@@ -306,8 +305,12 @@ Bundle 'gmarik/vundle'
 " }
 
 " Formatting {
-	set nowrap
+
+	" Do soft wrap lines
+	set wrap
+	set showbreak=⏎\ 
 	set autoindent
+
 	set tabstop=4
 	set shiftwidth=4
 	set backspace=indent,eol,start
@@ -318,6 +321,12 @@ Bundle 'gmarik/vundle'
 
 	"python
 	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+	"ruby
+	au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+
+	"haml
+	au FileType haml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
 	" add json syntax highlighting
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
