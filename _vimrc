@@ -32,6 +32,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'sessionman.vim'
 	Bundle 'LustyExplorer'
 	Bundle 'LustyJuggler'
+	Bundle 'kchmck/vim-coffee-script.git'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -125,7 +126,7 @@ Bundle 'gmarik/vundle'
 		autocmd VimResized * wincmd =
 	endif
 	
-	" status line config from: https://github.com/scrooloose/vimfiles 
+	" status line config from: https://github.com/scrooloose/vimfiles
 	"Status line {
 		" Statusline setup
 		set statusline=%f "tail of the filename
@@ -308,6 +309,8 @@ Bundle 'gmarik/vundle'
 	" Change working directory to the current one
 	cmap cwd lcd %:p:h
 	cmap cd. lcd %:p:h
+	" Save a file when you forgot to sudo
+	cmap w!! %!sudo tee > /dev/null %
 " }
 
 " Formatting {
@@ -320,11 +323,15 @@ Bundle 'gmarik/vundle'
 	set tabstop=4
 	set shiftwidth=4
 	set backspace=indent,eol,start
-	set whichwrap=b,s,h,l,<,>,[,]	" backspace and cursor keys wrap to
+	set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
 	set ffs=unix
 	set ff=unix
 	set nobomb
-	set list listchars=trail:·
+	set list
+	set listchars:tab:\ \ ,trail:·
+
+	"coffee script
+	au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 
 	"python
 	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
@@ -380,18 +387,6 @@ Bundle 'gmarik/vundle'
 	"}
 	
 	" Supertab {
-		 "if !exists("g:SuperTabDefaultCompletionType")
-			"let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-		  "endif
-
-		  "if !exists("g:SuperTabContextDefaultCompletionType")
-			"let g:SuperTabContextDefaultCompletionType = "<c-x><c-p>"
-		  "endif
-
-		  "if !exists("g:SuperTabCompletionContexts")
-			"let g:SuperTabCompletionContexts = ['s:ContextText']
-		  "endif
-
 		  if !exists("g:SuperTabRetainCompletionDuration")
 			let g:SuperTabRetainCompletionDuration = 'insert'
 		  endif
@@ -418,21 +413,7 @@ Bundle 'gmarik/vundle'
 	
 	" Syntastic settings{
 		let g:syntastic_enable_signs=1
-		let g:syntastic_auto_loc_list=2			
-	"}
-
-	" Taglist{
-		"nnoremap <f3> :TlistToggle<cr>
-		"let Tlist_Compact_Format = 1
-		"let Tlist_Enable_Fold_Column = 0
-		"let Tlist_Exit_OnlyWindow = 0
-		"let Tlist_WinWidth = 35
-		"let tlist_php_settings = 'php;c:class;f:Functions'
-		"let Tlist_Use_Right_Window=1
-		"let Tlist_GainFocus_On_ToggleOpen = 1
-		"let Tlist_Display_Tag_Scope = 1
-		"let Tlist_Process_File_Always = 1
-		"let Tlist_Show_One_File = 1
+		let g:syntastic_auto_loc_list=2
 	"}
 
 	"UltiSnip{
@@ -471,7 +452,8 @@ function! InitializeDirectories()
   let dir_list = {
 		\ 'backup': 'backupdir',
 		\ 'views': 'viewdir',
-		\ 'swap': 'directory' }
+		\ 'swap': 'directory',
+		\ 'undo': 'undodir' }
 
 		for [dirname, settingname] in items(dir_list)
 				let directory = parent . '/' . prefix . dirname . "/"
@@ -489,6 +471,7 @@ function! InitializeDirectories()
 				endif
 		  endfor
 endfunction
+set undofile
 call InitializeDirectories()
 
 " Use local vimrc if available {
