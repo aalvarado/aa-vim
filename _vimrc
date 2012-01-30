@@ -311,7 +311,9 @@ Bundle 'gmarik/vundle'
 	cmap cd. lcd %:p:h
 	" Save a file when you forgot to sudo
 	cmap w!! %!sudo tee > /dev/null %
-" }
+
+	imap <C-l> <Space>=><Space>
+	" }
 
 " Formatting {
 
@@ -331,16 +333,18 @@ Bundle 'gmarik/vundle'
 	set listchars:tab:\ \ ,trail:·
 
 	"coffee script
-	au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
+	au BufNewFile,BufReadPost *.coffee,*.haml setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 
 	"python
 	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
 
 	"ruby
 	au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+	au BufNewFile,BufReadPost *.ruby setl ft=ruby
+	au BufNewFile,BufReadPost *.py setl ft=python
 
 	"haml
-	au FileType haml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+	"au FileType haml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
 
 	" add json syntax highlighting
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
