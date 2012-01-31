@@ -20,7 +20,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'Wombat'
 	Bundle 'set_utf8.vim'
 	Bundle 'xolox/vim-shell'
-	"Bundle 'xolox/vim-easytags'
 	Bundle 'matchit.zip'
 	Bundle 'obsidian2.vim'
 	Bundle 'molokai'
@@ -48,12 +47,12 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-cucumber.git'
 	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
-	"Bundle 'vim-scripts/taglist.vim.git' 
 	Bundle 'timcharper/textile.vim.git'
 
 	Bundle 'tpope/vim-bundler'
 	Bundle 'vim-scripts/AutoTag'
 	Bundle 'vim-scripts/AnsiEsc.vim'
+	Bundle 'tpope/vim-endwise'
 " }
 
 
@@ -354,7 +353,7 @@ Bundle 'gmarik/vundle'
 	au BufNewFile,BufRead *.json set ft=javascript
 	
 	"defaults to txt on empty file type
-	autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
+	"autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
 	
 "}
 
