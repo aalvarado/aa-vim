@@ -112,7 +112,6 @@ Bundle 'gmarik/vundle'
 	set scrolloff=3
 	set scrolljump=5
 	set pastetoggle=<F12> 
-	set nobomb
 	set hidden
 
 	if has("gui_running")
@@ -311,7 +310,7 @@ Bundle 'gmarik/vundle'
 	" Save a file when you forgot to sudo
 	cmap w!! %!sudo tee > /dev/null %
 
-	imap <C-l> <Space>=><Space>
+	imap <C-Space> <Space>=><Space>
 	" }
 
 " Formatting {
@@ -328,6 +327,7 @@ Bundle 'gmarik/vundle'
 	set ffs=unix
 	set ff=unix
 	set nobomb
+	setl nobomb
 	set list
 	set listchars:tab:\ \ ,trail:·
 
