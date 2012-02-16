@@ -336,14 +336,11 @@ Bundle 'gmarik/vundle'
 
 	"python
 	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
-
-	"ruby
-	au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
-	au BufNewFile,BufReadPost *.ruby setl ft=ruby
 	au BufNewFile,BufReadPost *.py setl ft=python
 
-	"haml
-	"au FileType haml setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2
+	"ruby
+	au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
+	au BufNewFile,BufReadPost *.ruby setl ft=ruby
 
 	" add json syntax highlighting
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
