@@ -32,6 +32,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'LustyExplorer'
 	Bundle 'LustyJuggler'
 	Bundle 'kchmck/vim-coffee-script.git'
+	Bundle 'godlygeek/tabular'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
