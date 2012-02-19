@@ -57,13 +57,13 @@ Bundle 'gmarik/vundle'
 " }
 
 
-" Lots of stuff (borrowed||stolen) from 
-" http://github.com/spf13/spf13-vim 
-" https://github.com/scrooloose/vimfiles/blob/master/vimrc 
+" Lots of stuff (borrowed||stolen) from
+" http://github.com/spf13/spf13-vim
+" https://github.com/scrooloose/vimfiles/blob/master/vimrc
 
 " Windows specific {
 	if has('win32') || has ('win64')
-		set directory+=,~/tmp,$TMP		
+		set directory+=,~/tmp,$TMP
 		" Adds git runtime path so it is able to use Fugitive and Vundle  within GVIM,
 		" while using the git bash only option when installing git for win
 		
@@ -88,7 +88,7 @@ Bundle 'gmarik/vundle'
 " General {
 	set mouse=a " enable mouse usage
 	scriptencoding utf-8
-	set backup " backups are nice, indeed 
+	set backup " backups are nice, indeed
 	syntax on
 	set mouse=a
 	set history=1000
@@ -99,7 +99,7 @@ Bundle 'gmarik/vundle'
 
 " Vim UI {
 	set ruler
-	set nu	" Line numbers
+	set nu " Line numbers
 	set showcmd
 	set showmatch
 	set number
@@ -112,7 +112,7 @@ Bundle 'gmarik/vundle'
 	set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 	set scrolloff=3
 	set scrolljump=5
-	set pastetoggle=<F12> 
+	set pastetoggle=<F12>
 	set hidden
 
 	if has("gui_running")
@@ -312,6 +312,7 @@ Bundle 'gmarik/vundle'
 	cmap w!! %!sudo tee > /dev/null %
 
 	imap <C-Space> <Space>=><Space>
+	inoremap {<CR>  {<CR>}<Esc>O
 	" }
 
 " Formatting {
