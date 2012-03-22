@@ -1,4 +1,4 @@
-﻿set nocompatible " Needs to be the first line
+set nocompatible " Needs to be the first line
 filetype off
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
@@ -15,7 +15,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'extradite.vim'
 	Bundle 'surround.vim'
 	Bundle 'ragtag.vim'
-	Bundle 'delimitMate.vim'
 	Bundle 'Syntastic'
 	Bundle 'Wombat'
 	Bundle 'set_utf8.vim'
@@ -114,15 +113,25 @@ Bundle 'gmarik/vundle'
 	set scrolljump=5
 	set pastetoggle=<F12>
 	set hidden
+	set so=5
 
 	if has("gui_running")
-		colorscheme Wombat  " Load a colorscheme
-		set guifont=Consolas:h10" Defaults to Consolas on Gvim
-		set lines=40 	" 40 lines height
+		colorscheme wombat	" Load a colorscheme
+		set lines=40	" 40 lines height
 		set co=160	" Set 160 columns
 		set guioptions-=T " Hide the toolbar on Gvim
 		" Automatically resize splits when resizing MacVim window
 		autocmd VimResized * wincmd =
+		" Set font
+		if has("gui_macvim")
+			try
+				set guifont=Anonymous\ Pro:h13
+			catch
+				set guifont=Monaco:h12
+			endtry
+		else
+			set guifont=Luxi\ Mono\ 10
+		endif
 	endif
 	
 	" status line config from: https://github.com/scrooloose/vimfiles
@@ -312,7 +321,10 @@ Bundle 'gmarik/vundle'
 	cmap w!! %!sudo tee > /dev/null %
 
 	imap <C-Space> <Space>=><Space>
-	inoremap {<CR>  {<CR>}<Esc>O
+	inoremap {<CR>	{<CR>}<Esc>O
+	command! VimRC :source $MYVIMRC
+	nnoremap <leader>d "_d
+	nn G G10<c-e>
 	" }
 
 " Formatting {
@@ -343,6 +355,11 @@ Bundle 'gmarik/vundle'
 	"ruby
 	au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
 	au BufNewFile,BufReadPost *.ruby setl ft=ruby
+
+	"javascript
+	au FileType javascript setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
+
+	au BufRead,BufNewFile *.js	set ft=javascript
 
 	" add json syntax highlighting
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
@@ -454,8 +471,7 @@ function! InitializeDirectories()
   let dir_list = {
 		\ 'backup': 'backupdir',
 		\ 'views': 'viewdir',
-		\ 'swap': 'directory',
-		\ 'undo': 'undodir' }
+		\ 'swap': 'directory'}
 
 		for [dirname, settingname] in items(dir_list)
 				let directory = parent . '/' . prefix . dirname . "/"
@@ -473,7 +489,6 @@ function! InitializeDirectories()
 				endif
 		  endfor
 endfunction
-set undofile
 call InitializeDirectories()
 
 " Use local vimrc if available {
