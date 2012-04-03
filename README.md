@@ -46,6 +46,7 @@ ln -s path_to_aa-vim/.vim ~/.vim
 
 
 (windows)
+
 ```
 mklink /D .vim aa-vim\.vim
 mklink _vimrc aa-vim\_vimrc
