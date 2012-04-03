@@ -32,6 +32,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'LustyJuggler'
 	Bundle 'kchmck/vim-coffee-script.git'
 	Bundle 'godlygeek/tabular'
+	Bundle 'tpope/vim-repeat'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -325,6 +326,11 @@ Bundle 'gmarik/vundle'
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
 	nn G G10<c-e>
+
+		" Visual Mode {
+			vnoremap <silent> * :call VisualSearch('f')<CR>
+			vnoremap <silent> # :call VisualSearch('b')<CR>
+		" }
 	" }
 
 " Formatting {
@@ -346,7 +352,7 @@ Bundle 'gmarik/vundle'
 	set listchars:tab:\ \ ,trail:·
 
 	"coffee script
-	au BufNewFile,BufReadPost *.coffee,*.haml setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
+	au BufNewFile,BufReadPost *.coffee,*.haml,*.erb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 
 	"python
 	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
@@ -367,9 +373,6 @@ Bundle 'gmarik/vundle'
 
 	" add json syntax highlighting
 	au BufNewFile,BufRead *.json set ft=javascript
-	
-	"defaults to txt on empty file type
-	"autocmd BufEnter * if &filetype == "" | setlocal ft=txt | endif
 	
 "}
 
@@ -490,6 +493,26 @@ function! InitializeDirectories()
 		  endfor
 endfunction
 call InitializeDirectories()
+
+" From an idea by Michael Naumann
+function! VisualSearch(direction) range
+	let l:saved_reg = @"
+	execute "normal! vgvy"
+
+	let l:pattern = escape(@", '\\/.*$^~[]')
+	let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+	if a:direction == 'b'
+		execute "normal ?" . l:pattern . "^M"
+	elseif a:direction == 'gv'
+		call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+	elseif a:direction == 'f'
+		execute "normal /" . l:pattern . "^M"
+	endif
+
+	let @/ = l:pattern
+	let @" = l:saved_reg
+endfunction
 
 " Use local vimrc if available {
 	if filereadable(expand("~/.vimrc.local"))
