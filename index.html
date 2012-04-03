@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="aa-vim : Vimconfig for quick, up and running editing." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>aa-vim</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/aalvarado/aa-vim">Fork Me on GitHub</a>
+
+          <h1 id="project_title">aa-vim</h1>
+          <h2 id="project_tagline">Vimconfig for quick, up and running editing.</h2>
+
+          <section id="downloads">
+            <a class="zip_download_link" href="https://github.com/aalvarado/aa-vim/zipball/master">Download this project as a .zip file</a>
+            <a class="tar_download_link" href="https://github.com/aalvarado/aa-vim/tarball/master">Download this project as a tar.gz file</a>
+          </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>aa-vim</h1>
+
+<p>This is my .vimrc configuration.works on OSX, Linux and Windows. It has some windows (tested on xp, vista, win7) specific settings.</p>
+
+<h1>Notes</h1>
+
+<p>It uses Vundler to manage plugings which I think is an improvement above Pathogen or VAM. You can read about it here: <a href="http://www.charlietanksley.net/philtex/sane-vim-plugin-management/">http://www.charlietanksley.net/philtex/sane-vim-plugin-management/</a></p>
+
+<p>The vundler set up guide is at:</p>
+
+<p><a href="https://github.com/gmarik/vundle/wiki/Vundle-for-Windows">https://github.com/gmarik/vundle/wiki/Vundle-for-Windows</a></p>
+
+<p>You only need to do the git and curl on windows step, you do not need to clone the Vundler repo, since it is provided
+as a git submodule.</p>
+
+<p>I recommend using console2 <a href="http://sourceforge.net/projects/console/">http://sourceforge.net/projects/console/</a> for commandline usage.</p>
+
+<h2>Dependencies</h2>
+
+<ul>
+<li>1) git</li>
+<li>2) ctags</li>
+<li>3) Ack</li>
+<li>4) Python</li>
+<li>5) Ruby</li>
+</ul><h2>Installation</h2>
+
+<p>First clone the repo and submodule update:</p>
+
+<pre><code>cd %userprofile%
+git clone git@github.com:aalvarado/aa-vim.git
+git submodule init
+git submodule update
+</code></pre>
+
+<p>Create symlinks</p>
+
+<p>(Linux || OSX)</p>
+
+<pre><code>ln -s path_to_aa-vim/_vimrc ~/.vimrc
+ln -s path_to_aa-vim/.vim ~/.vim
+</code></pre>
+
+<p>(windows)</p>
+
+<pre><code>mklink /D .vim aa-vim\.vim
+mklink _vimrc aa-vim\_vimrc
+
+</code></pre>
+
+<p>for windows xp you can use fsutil and create a hardlink <a href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/fsutil.mspx">http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/fsutil.mspx</a></p>
+
+<p>Open up vim and type:</p>
+
+<pre><code>:BundleInstall
+</code></pre>
+
+<p>This will download all and install the plugins specified in the _vimrc file.</p>
+
+<p>Refresh your vimrc with:</p>
+
+<pre><code>:VimRC
+</code></pre>
+
+<p>Enjoy.</p>
+
+<h2>Plugins</h2>
+
+<ul>
+<li>The-NERD-tree</li>
+<li>The-NERD-Commenter</li>
+<li>fugitive.vim</li>
+<li>extradite.vim</li>
+<li>surround.vim</li>
+<li>ragtag.vim</li>
+<li>delimitMate.vim</li>
+<li>Syntastic</li>
+<li>Wombat</li>
+<li>set_utf8.vim</li>
+<li>xolox/vim-shell</li>
+<li>matchit.zip</li>
+<li>obsidian2.vim</li>
+<li>molokai</li>
+<li>ShowMarks7</li>
+<li>pythoncomplete</li>
+<li>pyflakes.vim</li>
+<li>Indent-Guides</li>
+<li>vim-scripts/UltiSnips</li>
+<li>sessionman.vim</li>
+<li>LustyExplorer</li>
+<li>LustyJuggler</li>
+<li>tpope/vim-rails.git</li>
+<li>altercation/vim-colors-solarized.git</li>
+<li>tpope/vim-haml.git</li>
+<li>mileszs/ack.vim.git</li>
+<li>ervandew/supertab.git</li>
+<li>vim-ruby/vim-ruby.git</li>
+<li>tpope/vim-vividchalk.git</li>
+<li>tpope/vim-cucumber.git</li>
+<li>mattn/gist-vim.git</li>
+<li>pangloss/vim-javascript.git</li>
+<li>timcharper/textile.vim.git</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">aa-vim maintained by <a href="https://github.com/aalvarado">aalvarado</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
