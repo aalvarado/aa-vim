@@ -9,7 +9,6 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Bundles {
-	Bundle 'The-NERD-tree'
 	Bundle 'The-NERD-Commenter'
 	Bundle 'fugitive.vim'
 	Bundle 'extradite.vim'
@@ -17,7 +16,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'ragtag.vim'
 	Bundle 'Syntastic'
 	Bundle 'Wombat'
-	Bundle 'set_utf8.vim'
 	Bundle 'xolox/vim-shell'
 	Bundle 'matchit.zip'
 	Bundle 'obsidian2.vim'
@@ -47,7 +45,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'ervandew/supertab.git'
 	Bundle 'vim-ruby/vim-ruby.git'
 	Bundle 'tpope/vim-vividchalk.git'
-	Bundle 'tpope/vim-cucumber.git'
 	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'timcharper/textile.vim.git'
@@ -66,6 +63,7 @@ Bundle 'gmarik/vundle'
 " Windows specific {
 	if has('win32') || has ('win64')
 		set directory+=,~/tmp,$TMP
+		set shellxquote=
 		" Adds git runtime path so it is able to use Fugitive and Vundle  within GVIM,
 		" while using the git bash only option when installing git for win
 		
@@ -89,7 +87,9 @@ Bundle 'gmarik/vundle'
 
 " General {
 	set mouse=a " enable mouse usage
-	scriptencoding utf-8
+	setglobal fileencoding=utf-8
+	set encoding=utf-8
+	setglobal nobomb
 	set backup " backups are nice, indeed
 	syntax on
 	set mouse=a
