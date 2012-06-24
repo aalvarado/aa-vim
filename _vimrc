@@ -19,7 +19,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'xolox/vim-shell'
 	Bundle 'matchit.zip'
 	Bundle 'obsidian2.vim'
-	Bundle 'molokai'
 	Bundle 'ShowMarks7'
 	Bundle 'pythoncomplete'
 	Bundle 'pyflakes.vim'
@@ -33,6 +32,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-repeat'
 	Bundle 'millermedeiros/vim-statline'
 	Bundle 'chrismetcalf/vim-yankring'
+	Bundle 'tomasr/molokai'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -97,6 +97,7 @@ Bundle 'gmarik/vundle'
 	filetype plugin on
 	set gdefault
 	set complete-=i
+	set term=screen-256color
 " }
 
 " Vim UI {
@@ -210,8 +211,10 @@ Bundle 'gmarik/vundle'
 		let g:statline_filename_relative = 1
 	"}
 	" indent guides{
-		let g:indent_guides_enable_on_vim_startup = 1
-		let g:indent_guides_guide_size = 1
+		if has( "gui_running" )
+			let g:indent_guides_enable_on_vim_startup = 1
+			let g:indent_guides_guide_size = 1
+		endif
 	" }
 
 	" NerdTree {
