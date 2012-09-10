@@ -17,7 +17,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'Syntastic'
 	Bundle 'Wombat'
 	Bundle 'xolox/vim-shell'
-	Bundle 'matchit.zip'
 	Bundle 'obsidian2.vim'
 	Bundle 'ShowMarks7'
 	Bundle 'pythoncomplete'
@@ -33,6 +32,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'millermedeiros/vim-statline'
 	Bundle 'chrismetcalf/vim-yankring'
 	Bundle 'tomasr/molokai'
+	Bundle 'jpalardy/vim-slime'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -49,10 +49,12 @@ Bundle 'gmarik/vundle'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'timcharper/textile.vim.git'
 
+	Bundle 'matchit.zip'
 	Bundle 'tpope/vim-bundler'
 	Bundle 'vim-scripts/AutoTag'
 	Bundle 'vim-scripts/AnsiEsc.vim'
 	Bundle 'tpope/vim-endwise'
+	Bundle 'croaker/mustang-vim'
 " }
 
 
@@ -96,7 +98,8 @@ Bundle 'gmarik/vundle'
 	set history=1000
 	filetype plugin on
 	set gdefault
-	set complete-=i
+	set complete=.,b,u,t
+	set wildmode=list:longest " Make cmdline tab completion similar to bash
 	set term=screen-256color
 " }
 
@@ -104,20 +107,20 @@ Bundle 'gmarik/vundle'
 	set ruler
 	set nu " Line numbers
 	set showcmd
+	set cul " Hightlight current line
 	set showmatch
 	set number
 	set hlsearch
 	set incsearch
 	set ignorecase " Ignore case while searching
 	set smartcase
-	set wildmode=list:longest " Make cmdline tab completion similar to bash
 	set wildmenu " Enable ctrl-n and ctrl-p to scroll thru matches
 	set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
 	set scrolloff=3
 	set scrolljump=5
 	set pastetoggle=<F12>
 	set hidden
-	set so=5
+	"set so=10
 
 	if has("gui_running")
 		colorscheme wombat	" Load a colorscheme
@@ -151,9 +154,9 @@ Bundle 'gmarik/vundle'
 	cmap w!! %!sudo tee > /dev/null %
 
 	imap <C-Space> <Space>=><Space>
-	inoremap {<CR>	{<CR>}<Esc>O
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
+	inoremap {<CR>  {<CR>}<Esc>O
 	nn G G10<c-e>
 
 		" Visual Mode {
@@ -168,9 +171,8 @@ Bundle 'gmarik/vundle'
 	set wrap
 	set showbreak=⏎\ 
 	set autoindent
-
-	set tabstop=4
-	set shiftwidth=4
+	set tabstop=2
+	set shiftwidth=2
 	set backspace=indent,eol,start
 	set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
 	set ffs=unix
@@ -194,15 +196,14 @@ Bundle 'gmarik/vundle'
 	"javascript
 	au FileType javascript setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
 
+	au FileType iced setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
+
+	au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+
 	au BufRead,BufNewFile *.js	set ft=javascript
 
-	" add json syntax highlighting
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
-
-	" add json syntax highlighting
-	au BufNewFile,BufRead *.json set ft=javascript
-	
 "}
 
 " Plugins {
@@ -213,19 +214,6 @@ Bundle 'gmarik/vundle'
 	" indent guides{
 		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_guide_size = 1
-	" }
-
-	" NerdTree {
-		"map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-		nnoremap <f2> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-		let NERDTreeShowBookmarks=1
-		let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-		let NERDTreeChDirMode=0
-		let NERDTreeQuitOnOpen=1
-		let NERDTreeShowHidden=1
-		let NERDTreeKeepTreeInNewTab=1
-		let g:NERDTreeMouseMode = 2
-		let g:NERDTreeWinSize = 40
 	" }
 
 	" fugitive {
@@ -298,6 +286,10 @@ Bundle 'gmarik/vundle'
 		let g:surround_113 = "#{\r}" " v
 		let g:surround_35 = "#{\r}" " #
 	"}
+
+	"vim-slime {
+		let g:slime_target = "tmux"
+	"}
 " }
 
 function! InitializeDirectories()
@@ -352,3 +344,18 @@ endfunction
 		source ~/.vimrc.local
 	endif
 " }
+
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+autocmd BufWritePre *.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
+runtime macros/matchit.vim
