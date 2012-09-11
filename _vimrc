@@ -33,6 +33,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'millermedeiros/vim-statline'
 	Bundle 'chrismetcalf/vim-yankring'
 	Bundle 'tomasr/molokai'
+	Bundle 'majutsushi/tagbar'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -60,26 +61,6 @@ Bundle 'gmarik/vundle'
 " http://github.com/spf13/spf13-vim
 " https://github.com/scrooloose/vimfiles/blob/master/vimrc
 
-" Windows specific {
-	if has('win32') || has ('win64')
-		set directory+=,~/tmp,$TMP
-		set shellxquote=
-		" Adds git runtime path so it is able to use Fugitive and Vundle  within GVIM,
-		" while using the git bash only option when installing git for win
-		
-		" uses standard git install directories
-		let gitdir='C:\Program Files (x86)\Git\bin'
-		let gitdiralt='C:\Program Files\Git\bin'
-
-		if isdirectory(gitdir)
-			let $PATH.=';' .gitdir
-		elseif isdirectory(gitdiralt)
-			let $PATH.=';' . gitdiralt
-		endif
-		" Needed for ruby based plugins
-		let $PATH.=';' . 'c:\ruby192\bin'
-	endif
-" }
 
 " Basic {
 	set background=dark
@@ -97,7 +78,6 @@ Bundle 'gmarik/vundle'
 	filetype plugin on
 	set gdefault
 	set complete-=i
-	set term=screen-256color
 " }
 
 " Vim UI {
@@ -138,6 +118,26 @@ Bundle 'gmarik/vundle'
 		endif
 	endif
 
+" Windows specific {
+	if has('win32') || has ('win64')
+		set directory+=,~/tmp,$TMP
+		set shellxquote=
+		" Adds git runtime path so it is able to use Fugitive and Vundle  within GVIM,
+		" while using the git bash only option when installing git for win
+
+		" uses standard git install directories
+		let gitdir='C:\Program Files (x86)\Git\bin'
+		let gitdiralt='C:\Program Files\Git\bin'
+
+		if isdirectory(gitdir)
+			let $PATH.=';' .gitdir
+		elseif isdirectory(gitdiralt)
+			let $PATH.=';' . gitdiralt
+		endif
+		" Needed for ruby based plugins
+		let $PATH.=';' . 'c:\ruby192\bin'
+	endif
+" }
 " Key Mappings {
 	let mapleader = ',' " remmaping leader key to ,
 	"Turn off search highlitghting with leader /
@@ -169,8 +169,8 @@ Bundle 'gmarik/vundle'
 	set showbreak=⏎\ 
 	set autoindent
 
-	set tabstop=4
-	set shiftwidth=4
+	set tabstop=2
+	set shiftwidth=2
 	set backspace=indent,eol,start
 	set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
 	set ffs=unix
@@ -298,6 +298,10 @@ Bundle 'gmarik/vundle'
 		let g:surround_113 = "#{\r}" " v
 		let g:surround_35 = "#{\r}" " #
 	"}
+
+	" tagbar {
+		nmap <F8> :TagbarToggle<CR><C-W>l
+	" }
 " }
 
 function! InitializeDirectories()
