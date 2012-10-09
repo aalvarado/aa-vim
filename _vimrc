@@ -11,41 +11,32 @@ Bundle 'gmarik/vundle'
 " Bundles {
 	Bundle 'The-NERD-Commenter'
 	Bundle 'fugitive.vim'
-	Bundle 'extradite.vim'
 	Bundle 'surround.vim'
 	Bundle 'ragtag.vim'
 	Bundle 'Syntastic'
-	Bundle 'Wombat'
-	Bundle 'xolox/vim-shell'
-	Bundle 'obsidian2.vim'
 	Bundle 'ShowMarks7'
 	Bundle 'pythoncomplete'
 	Bundle 'pyflakes.vim'
 	Bundle 'Indent-Guides'
 	Bundle 'vim-scripts/UltiSnips'
-	Bundle 'sessionman.vim'
 	Bundle 'LustyExplorer'
 	Bundle 'LustyJuggler'
 	Bundle 'kchmck/vim-coffee-script.git'
 	Bundle 'godlygeek/tabular'
 	Bundle 'tpope/vim-repeat'
 	Bundle 'millermedeiros/vim-statline'
-	Bundle 'chrismetcalf/vim-yankring'
-	Bundle 'tomasr/molokai'
 	Bundle 'majutsushi/tagbar'
 	Bundle 'jpalardy/vim-slime'
 
-	" change to your own snippets if you don't like mine :) 
+	" change to your own snippets if you don't like mine :)
 	Bundle 'aalvarado/ultisnips-snippets.git'
 
 	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
-	Bundle 'altercation/vim-colors-solarized.git'
 	Bundle 'tpope/vim-haml.git'
 	Bundle 'mileszs/ack.vim.git'
 	Bundle 'ervandew/supertab.git'
 	Bundle 'vim-ruby/vim-ruby.git'
-	Bundle 'tpope/vim-vividchalk.git'
 	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'timcharper/textile.vim.git'
@@ -55,7 +46,15 @@ Bundle 'gmarik/vundle'
 	Bundle 'vim-scripts/AutoTag'
 	Bundle 'vim-scripts/AnsiEsc.vim'
 	Bundle 'tpope/vim-endwise'
+
+
+	" themes:
 	Bundle 'croaker/mustang-vim'
+	Bundle 'obsidian2.vim'
+	Bundle 'Wombat'
+	Bundle 'tomasr/molokai'
+	Bundle 'tpope/vim-vividchalk.git'
+	Bundle 'altercation/vim-colors-solarized.git'
 " }
 
 
@@ -158,6 +157,7 @@ Bundle 'gmarik/vundle'
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
 	inoremap {<CR>  {<CR>}<Esc>O
+	imap jj <esc>
 	nn G G10<c-e>
 
 		" Visual Mode {
@@ -288,12 +288,12 @@ Bundle 'gmarik/vundle'
 		let g:surround_35 = "#{\r}" " #
 	"}
 
-	" tagbar {
-		nmap <F8> :TagbarToggle<CR><C-W>l
-	"}
-
 	"vim-slime {
 		let g:slime_target = "tmux"
+	"}
+
+	"tagbar {
+	nmap <F8> :TagbarToggle<CR><C-W>l
 	"}
 " }
 
