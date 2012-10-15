@@ -87,7 +87,6 @@ Bundle 'gmarik/vundle'
 	set ruler
 	set nu " Line numbers
 	set showcmd
-	set cul " Hightlight current line
 	set showmatch
 	set number
 	set hlsearch
