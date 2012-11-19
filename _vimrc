@@ -156,7 +156,8 @@ Bundle 'gmarik/vundle'
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
 	inoremap {<CR>  {<CR>}<Esc>O
-	imap jj <esc>
+	inoremap jj <esc>
+	inoremap ;; <c-o>A;
 	nn G G10<c-e>
 
 		" Visual Mode {
@@ -175,10 +176,6 @@ Bundle 'gmarik/vundle'
 	set shiftwidth=2
 	set backspace=indent,eol,start
 	set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
-	set ffs=unix
-	set ff=unix
-	set nobomb
-	setl nobomb
 	set list
 	set listchars:tab:\ \ ,trail:·
 
