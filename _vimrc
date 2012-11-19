@@ -15,8 +15,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'ragtag.vim'
 	Bundle 'Syntastic'
 	Bundle 'ShowMarks7'
-	Bundle 'pythoncomplete'
-	Bundle 'pyflakes.vim'
 	Bundle 'Indent-Guides'
 	Bundle 'vim-scripts/UltiSnips'
 	Bundle 'LustyExplorer'
@@ -26,27 +24,18 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-repeat'
 	Bundle 'millermedeiros/vim-statline'
 	Bundle 'majutsushi/tagbar'
-	Bundle 'jpalardy/vim-slime'
-
-	" change to your own snippets if you don't like mine :)
-	Bundle 'aalvarado/ultisnips-snippets.git'
-
-	" Mostly copied from Janus dotvim
 	Bundle 'tpope/vim-rails.git'
 	Bundle 'tpope/vim-haml.git'
-	Bundle 'mileszs/ack.vim.git'
 	Bundle 'ervandew/supertab.git'
 	Bundle 'vim-ruby/vim-ruby.git'
 	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'timcharper/textile.vim.git'
-
 	Bundle 'matchit.zip'
 	Bundle 'tpope/vim-bundler'
 	Bundle 'vim-scripts/AutoTag'
 	Bundle 'vim-scripts/AnsiEsc.vim'
 	Bundle 'tpope/vim-endwise'
-
 
 	" themes:
 	Bundle 'croaker/mustang-vim'
@@ -55,13 +44,10 @@ Bundle 'gmarik/vundle'
 	Bundle 'tomasr/molokai'
 	Bundle 'tpope/vim-vividchalk.git'
 	Bundle 'altercation/vim-colors-solarized.git'
+
+	" change to your own snippets if you don't like mine :)
+	Bundle 'aalvarado/ultisnips-snippets.git'
 " }
-
-
-" Lots of stuff (borrowed||stolen) from
-" http://github.com/spf13/spf13-vim
-" https://github.com/scrooloose/vimfiles/blob/master/vimrc
-
 
 " Basic {
 	set background=dark
@@ -80,7 +66,6 @@ Bundle 'gmarik/vundle'
 	set gdefault
 	set complete=.,b,u,t
 	set wildmode=list:longest " Make cmdline tab completion similar to bash
-	set term=screen-256color
 " }
 
 " Vim UI {
@@ -138,6 +123,8 @@ Bundle 'gmarik/vundle'
 		endif
 		" Needed for ruby based plugins
 		let $PATH.=';' . 'c:\ruby192\bin'
+	else
+		set term=screen-256color
 	endif
 " }
 " Key Mappings {
@@ -194,8 +181,6 @@ Bundle 'gmarik/vundle'
 	au FileType javascript setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
 
 	au FileType iced setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
-
-	au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
 	au BufRead,BufNewFile *.js	set ft=javascript
 
@@ -282,10 +267,6 @@ Bundle 'gmarik/vundle'
 		" v...s# Wrap the selection in #{}
 		let g:surround_113 = "#{\r}" " v
 		let g:surround_35 = "#{\r}" " #
-	"}
-
-	"vim-slime {
-		let g:slime_target = "tmux"
 	"}
 
 	"tagbar {
