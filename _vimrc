@@ -73,7 +73,6 @@ Bundle 'gmarik/vundle'
 	set ruler
 	set nu " Line numbers
 	set showcmd
-	"set cul " Hightlight current line
 	set showmatch
 	set number
 	set hlsearch
@@ -211,9 +210,6 @@ Bundle 'gmarik/vundle'
 	" indent guides{
 		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_guide_size = 1
-		
-
-		
 	" }
 
 	" fugitive {
