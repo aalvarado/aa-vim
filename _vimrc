@@ -146,11 +146,15 @@ Bundle 'gmarik/vundle'
 	" Save a file when you forgot to sudo
 	cmap w!! %!sudo tee > /dev/null %
 
-	imap <C-Space> <Space>=><Space>
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
 	inoremap {<CR>  {<CR>}<Esc>O
 	nn G G10<c-e>
+	inoremap  <space>=><space>
+	inoremap <c-space> <space>=><space>
+	imap jj <esc>
+	nnoremap \ ;
+	inoremap ;; <esc>A;<esc>
 
 		" Visual Mode {
 			vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -257,7 +261,7 @@ Bundle 'gmarik/vundle'
 
 	"UltiSnip{
 		if !exists("g:UltiSnipsSnippetsDir")
-			let g:UltiSnipsSnippetDirectories=["..//ultisnips-snippets"]
+			let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
 			let g:UltiSnipsEditSplit="horizontal"
 		endif
 		
@@ -359,3 +363,5 @@ endfunction
 
 autocmd BufWritePre *.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
 runtime macros/matchit.vim
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
