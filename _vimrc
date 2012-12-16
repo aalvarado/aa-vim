@@ -11,29 +11,20 @@ Bundle 'gmarik/vundle'
 " Bundles {
 	Bundle 'The-NERD-Commenter'
 	Bundle 'fugitive.vim'
-	Bundle 'extradite.vim'
 	Bundle 'surround.vim'
 	Bundle 'ragtag.vim'
 	Bundle 'Syntastic'
 	Bundle 'Wombat'
-	Bundle 'xolox/vim-shell'
 	Bundle 'obsidian2.vim'
-	Bundle 'ShowMarks7'
-	Bundle 'pythoncomplete'
-	Bundle 'pyflakes.vim'
 	Bundle 'Indent-Guides'
 	Bundle 'vim-scripts/UltiSnips'
-	Bundle 'sessionman.vim'
 	Bundle 'LustyExplorer'
 	Bundle 'LustyJuggler'
 	Bundle 'kchmck/vim-coffee-script.git'
 	Bundle 'godlygeek/tabular'
 	Bundle 'tpope/vim-repeat'
 	Bundle 'millermedeiros/vim-statline'
-	Bundle 'chrismetcalf/vim-yankring'
 	Bundle 'tomasr/molokai'
-	Bundle 'majutsushi/tagbar'
-	Bundle 'jpalardy/vim-slime'
 
 	" change to your own snippets if you don't like mine :) 
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -42,18 +33,12 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-rails.git'
 	Bundle 'altercation/vim-colors-solarized.git'
 	Bundle 'tpope/vim-haml.git'
-	Bundle 'mileszs/ack.vim.git'
 	Bundle 'ervandew/supertab.git'
 	Bundle 'vim-ruby/vim-ruby.git'
 	Bundle 'tpope/vim-vividchalk.git'
-	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
-	Bundle 'timcharper/textile.vim.git'
 
-	Bundle 'matchit.zip'
 	Bundle 'tpope/vim-bundler'
-	Bundle 'vim-scripts/AutoTag'
-	Bundle 'vim-scripts/AnsiEsc.vim'
 	Bundle 'tpope/vim-endwise'
 	Bundle 'croaker/mustang-vim'
 " }
@@ -88,7 +73,7 @@ Bundle 'gmarik/vundle'
 	set ruler
 	set nu " Line numbers
 	set showcmd
-	set cul " Hightlight current line
+	"set cul " Hightlight current line
 	set showmatch
 	set number
 	set hlsearch
@@ -102,6 +87,9 @@ Bundle 'gmarik/vundle'
 	set pastetoggle=<F12>
 	set hidden
 	set so=5
+	set guioptions=i
+	set lazyredraw
+
 
 	if has("gui_running")
 		colorscheme wombat	" Load a colorscheme
@@ -120,6 +108,10 @@ Bundle 'gmarik/vundle'
 		else
 			set guifont=Luxi\ Mono\ 10
 		endif
+	else
+		let g:indent_guides_auto_colors = 0
+		autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=235 ctermbg=234
+		autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=234 ctermbg=235
 	endif
 
 " Windows specific {
@@ -215,6 +207,9 @@ Bundle 'gmarik/vundle'
 	" indent guides{
 		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_guide_size = 1
+		
+
+		
 	" }
 
 	" fugitive {
