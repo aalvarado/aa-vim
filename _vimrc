@@ -14,8 +14,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'surround.vim'
 	Bundle 'ragtag.vim'
 	Bundle 'Syntastic'
-	Bundle 'Wombat'
-	Bundle 'obsidian2.vim'
+	Bundle 'ShowMarks7'
 	Bundle 'Indent-Guides'
 	Bundle 'vim-scripts/UltiSnips'
 	Bundle 'LustyExplorer'
@@ -24,30 +23,28 @@ Bundle 'gmarik/vundle'
 	Bundle 'godlygeek/tabular'
 	Bundle 'tpope/vim-repeat'
 	Bundle 'millermedeiros/vim-statline'
-	Bundle 'tomasr/molokai'
-
-	" change to your own snippets if you don't like mine :) 
-	Bundle 'aalvarado/ultisnips-snippets.git'
-
-	" Mostly copied from Janus dotvim
+	Bundle 'majutsushi/tagbar'
 	Bundle 'tpope/vim-rails.git'
-	Bundle 'altercation/vim-colors-solarized.git'
 	Bundle 'tpope/vim-haml.git'
 	Bundle 'ervandew/supertab.git'
 	Bundle 'vim-ruby/vim-ruby.git'
-	Bundle 'tpope/vim-vividchalk.git'
+	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
-
+	Bundle 'timcharper/textile.vim.git'
 	Bundle 'tpope/vim-bundler'
 	Bundle 'tpope/vim-endwise'
+
+	" themes:
 	Bundle 'croaker/mustang-vim'
+	Bundle 'obsidian2.vim'
+	Bundle 'Wombat'
+	Bundle 'tomasr/molokai'
+	Bundle 'tpope/vim-vividchalk.git'
+	Bundle 'altercation/vim-colors-solarized.git'
+
+	" change to your own snippets if you don't like mine :)
+	Bundle 'aalvarado/ultisnips-snippets.git'
 " }
-
-
-" Lots of stuff (borrowed||stolen) from
-" http://github.com/spf13/spf13-vim
-" https://github.com/scrooloose/vimfiles/blob/master/vimrc
-
 
 " Basic {
 	set background=dark
@@ -131,6 +128,8 @@ Bundle 'gmarik/vundle'
 		endif
 		" Needed for ruby based plugins
 		let $PATH.=';' . 'c:\ruby192\bin'
+	else
+		set term=screen-256color
 	endif
 " }
 " Key Mappings {
@@ -171,10 +170,6 @@ Bundle 'gmarik/vundle'
 	set shiftwidth=2
 	set backspace=indent,eol,start
 	set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
-	set ffs=unix
-	set ff=unix
-	set nobomb
-	setl nobomb
 	set list
 	set listchars:tab:\ \ ,trail:·
 
@@ -194,8 +189,6 @@ Bundle 'gmarik/vundle'
 
 	au FileType iced setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
 
-	au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
-
 	au BufRead,BufNewFile *.js	set ft=javascript
 
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
@@ -208,7 +201,7 @@ Bundle 'gmarik/vundle'
 		let g:statline_filename_relative = 1
 	"}
 	" indent guides{
-		let g:indent_guides_enable_on_vim_startup = 1
+		let g:indent_guides_enable_on_vim_startup = 0
 		let g:indent_guides_guide_size = 1
 	" }
 
@@ -283,12 +276,8 @@ Bundle 'gmarik/vundle'
 		let g:surround_35 = "#{\r}" " #
 	"}
 
-	" tagbar {
+	"tagbar {
 		nmap <F8> :TagbarToggle<CR><C-W>l
-	"}
-
-	"vim-slime {
-		let g:slime_target = "tmux"
 	"}
 " }
 
