@@ -36,6 +36,8 @@ Bundle 'gmarik/vundle'
 	Bundle 'vim-scripts/AutoTag'
 	Bundle 'vim-scripts/AnsiEsc.vim'
 	Bundle 'tpope/vim-endwise'
+	Bundle 'kien/ctrlp.vim'
+	Bundle 'larssmit/vim-getafe'
 
 	" themes:
 	Bundle 'croaker/mustang-vim'
@@ -66,6 +68,7 @@ Bundle 'gmarik/vundle'
 	set gdefault
 	set complete=.,b,u,t
 	set wildmode=list:longest " Make cmdline tab completion similar to bash
+	set laststatus=2
 " }
 
 " Vim UI {
@@ -87,7 +90,7 @@ Bundle 'gmarik/vundle'
 	set so=5
 
 	if has("gui_running")
-		colorscheme wombat	" Load a colorscheme
+		colorscheme getafe	" Load a colorscheme
 		set lines=40	" 40 lines height
 		set co=160	" Set 160 columns
 		set guioptions-=T " Hide the toolbar on Gvim
@@ -96,7 +99,8 @@ Bundle 'gmarik/vundle'
 		" Set font
 		if has("gui_macvim")
 			try
-				set guifont=Anonymous\ Pro:h13
+				set guifont=Terminus\ Medium:h12
+				set noantialias
 			catch
 				set guifont=Monaco:h12
 			endtry
@@ -187,12 +191,12 @@ Bundle 'gmarik/vundle'
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 "}
-
+"
 " Plugins {
-	"statline {
+	" statline {
 		let g:statline_fugitive = 1
 		let g:statline_filename_relative = 1
-	"}
+	" }
 	" indent guides{
 		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_guide_size = 1
