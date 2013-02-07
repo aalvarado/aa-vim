@@ -31,10 +31,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
 	Bundle 'timcharper/textile.vim.git'
-	Bundle 'matchit.zip'
 	Bundle 'tpope/vim-bundler'
-	Bundle 'vim-scripts/AutoTag'
-	Bundle 'vim-scripts/AnsiEsc.vim'
 	Bundle 'tpope/vim-endwise'
 	Bundle 'kien/ctrlp.vim'
 	Bundle 'larssmit/vim-getafe'
@@ -69,6 +66,7 @@ Bundle 'gmarik/vundle'
 	set complete=.,b,u,t
 	set wildmode=list:longest " Make cmdline tab completion similar to bash
 	set laststatus=2
+	set term=screen-256color
 " }
 
 " Vim UI {
@@ -88,6 +86,9 @@ Bundle 'gmarik/vundle'
 	set pastetoggle=<F12>
 	set hidden
 	set so=5
+	set guioptions=i
+	set lazyredraw
+
 
 	if has("gui_running")
 		colorscheme getafe	" Load a colorscheme
@@ -107,6 +108,10 @@ Bundle 'gmarik/vundle'
 		else
 			set guifont=Luxi\ Mono\ 10
 		endif
+	else
+		let g:indent_guides_auto_colors = 0
+		autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=235 ctermbg=234
+		autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=234 ctermbg=235
 	endif
 
 " Windows specific {
@@ -143,13 +148,15 @@ Bundle 'gmarik/vundle'
 	" Save a file when you forgot to sudo
 	cmap w!! %!sudo tee > /dev/null %
 
-	imap <C-Space> <Space>=><Space>
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
 	inoremap {<CR>  {<CR>}<Esc>O
-	inoremap jj <esc>
-	inoremap ;; <c-o>A;
 	nn G G10<c-e>
+	inoremap  <space>=><space>
+	inoremap <c-space> <space>=><space>
+	imap jj <esc>
+	nnoremap \ ;
+	inoremap ;; <esc>A;<esc>
 
 		" Visual Mode {
 			vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -198,7 +205,7 @@ Bundle 'gmarik/vundle'
 		let g:statline_filename_relative = 1
 	" }
 	" indent guides{
-		let g:indent_guides_enable_on_vim_startup = 1
+		let g:indent_guides_enable_on_vim_startup = 0
 		let g:indent_guides_guide_size = 1
 	" }
 
@@ -247,7 +254,7 @@ Bundle 'gmarik/vundle'
 
 	"UltiSnip{
 		if !exists("g:UltiSnipsSnippetsDir")
-			let g:UltiSnipsSnippetDirectories=["..//ultisnips-snippets"]
+			let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
 			let g:UltiSnipsEditSplit="horizontal"
 		endif
 		
@@ -274,7 +281,7 @@ Bundle 'gmarik/vundle'
 	"}
 
 	"tagbar {
-	nmap <F8> :TagbarToggle<CR><C-W>l
+		nmap <F8> :TagbarToggle<CR><C-W>l
 	"}
 " }
 
@@ -345,3 +352,5 @@ endfunction
 
 autocmd BufWritePre *.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
 runtime macros/matchit.vim
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
