@@ -34,6 +34,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-endwise'
 	Bundle 'kien/ctrlp.vim'
 	Bundle 'larssmit/vim-getafe'
+	Bundle 'vim-scripts/AutoTag'
 
 	" themes:
 	Bundle 'croaker/mustang-vim'
