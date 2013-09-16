@@ -22,7 +22,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'kchmck/vim-coffee-script.git'
 	Bundle 'godlygeek/tabular'
 	Bundle 'tpope/vim-repeat'
-	Bundle 'millermedeiros/vim-statline'
 	Bundle 'majutsushi/tagbar'
 	Bundle 'tpope/vim-rails.git'
 	Bundle 'tpope/vim-haml.git'
@@ -35,6 +34,9 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-endwise'
 	Bundle 'kien/ctrlp.vim'
 	Bundle 'larssmit/vim-getafe'
+	Bundle 'AutoTag'
+	Bundle 'Lokaltog/vim-powerline'
+	Bundle 'rosenfeld/conque-term'
 
 	" themes:
 	Bundle 'croaker/mustang-vim'
@@ -67,6 +69,7 @@ Bundle 'gmarik/vundle'
 	set wildmode=list:longest " Make cmdline tab completion similar to bash
 	set laststatus=2
 	set term=screen-256color
+	set shortmess+=I
 " }
 
 " Vim UI {
@@ -100,7 +103,7 @@ Bundle 'gmarik/vundle'
 		" Set font
 		if has("gui_macvim")
 			try
-				set guifont=Terminus\ Medium:h12
+				set guifont=Terminus\ Medium:h11
 				set noantialias
 			catch
 				set guifont=Monaco:h12
