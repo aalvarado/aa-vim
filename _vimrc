@@ -25,7 +25,6 @@ Bundle 'gmarik/vundle'
 	Bundle 'majutsushi/tagbar'
 	Bundle 'tpope/vim-rails.git'
 	Bundle 'tpope/vim-haml.git'
-	Bundle 'ervandew/supertab.git'
 	Bundle 'vim-ruby/vim-ruby.git'
 	Bundle 'mattn/gist-vim.git'
 	Bundle 'pangloss/vim-javascript.git'
@@ -224,31 +223,6 @@ Bundle 'gmarik/vundle'
 		  \ nnoremap <buffer> .. :edit %:h<CR> |
 		  \ endif
 	"}
-	
-	" Supertab {
-		  if !exists("g:SuperTabRetainCompletionDuration")
-			let g:SuperTabRetainCompletionDuration = 'insert'
-		  endif
-
-		  if !exists("g:SuperTabMidWordCompletion")
-			let g:SuperTabMidWordCompletion = 1
-		  endif
-
-		  if !exists("g:SuperTabMappingForward")
-			let g:SuperTabMappingForward = '<tab>'
-		  endif
-		  if !exists("g:SuperTabMappingBackward")
-			let g:SuperTabMappingBackward = '<s-tab>'
-		  endif
-
-		  if !exists("g:SuperTabMappingTabLiteral")
-			let g:SuperTabMappingTabLiteral = '<c-tab>'
-		  endif
-
-		  if !exists("g:SuperTabLongestHighlight")
-			let g:SuperTabLongestHighlight = 0
-		  endif
-	" }
 	
 	" Syntastic settings{
 		let g:syntastic_enable_signs=1
