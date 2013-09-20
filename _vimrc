@@ -36,6 +36,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'AutoTag'
 	Bundle 'Lokaltog/vim-powerline'
 	Bundle 'rosenfeld/conque-term'
+	Bundle 'ervandew/supertab.git'
 
 	" themes:
 	Bundle 'croaker/mustang-vim'
