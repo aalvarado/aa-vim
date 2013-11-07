@@ -37,6 +37,8 @@ Bundle 'gmarik/vundle'
 	Bundle 'Lokaltog/vim-powerline'
 	Bundle 'rosenfeld/conque-term'
 	Bundle 'ervandew/supertab.git'
+	Bundle 'LargeFile'
+	Bundle 'PHP-correct-Indenting'
 
 	" themes:
 	Bundle 'croaker/mustang-vim'
@@ -91,7 +93,6 @@ Bundle 'gmarik/vundle'
 	set so=5
 	set guioptions=i
 	set lazyredraw
-
 
 	if has("gui_running")
 		colorscheme getafe	" Load a colorscheme
