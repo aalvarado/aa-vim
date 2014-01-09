@@ -16,7 +16,7 @@ Bundle 'gmarik/vundle'
 	Bundle 'Syntastic'
 	Bundle 'ShowMarks7'
 	Bundle 'Indent-Guides'
-	Bundle 'vim-scripts/UltiSnips'
+	Bundle 'SirVer/ultisnips'
 	Bundle 'LustyExplorer'
 	Bundle 'LustyJuggler'
 	Bundle 'kchmck/vim-coffee-script.git'
@@ -160,6 +160,8 @@ Bundle 'gmarik/vundle'
 	inoremap <c-space> <space>=><space>
 	imap jj <esc>
 	nnoremap \ ;
+	nnoremap <tab> >>
+	nnoremap <s-tab> <<
 	inoremap ;; <esc>A;<esc>
 
 		" Visual Mode {
@@ -181,8 +183,7 @@ Bundle 'gmarik/vundle'
 	set list
 	set listchars:tab:\ \ ,trail:·
 
-	"coffee script
-	au BufNewFile,BufReadPost *.coffee,*.haml,*.erb setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
+	au BufNewFile,BufReadPost *.coffee,*.haml,*.erb,*.scss setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 
 	"python
 	au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
