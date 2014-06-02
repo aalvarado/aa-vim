@@ -154,7 +154,9 @@ Bundle 'gmarik/vundle'
 
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
-	inoremap {<CR>  {<CR>}<Esc>O
+	inoremap {<CR>  {<CR>}<Esc>O<tab>
+	inoremap (<CR>  (<CR>)<Esc>O<tab>
+	inoremap [<CR>  [<CR>]<Esc>O<tab>
 	nn G G10<c-e>
 	inoremap  <space>=><space>
 	inoremap <c-space> <space>=><space>
@@ -163,6 +165,7 @@ Bundle 'gmarik/vundle'
 	nnoremap <tab> >>
 	nnoremap <s-tab> <<
 	inoremap ;; <esc>A;<esc>
+	inoremap <s-cr> <cr><cr><up><tab>
 
 		" Visual Mode {
 			vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -234,7 +237,7 @@ Bundle 'gmarik/vundle'
 
 	"UltiSnip{
 		if !exists("g:UltiSnipsSnippetsDir")
-			let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
+			let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips-snippets"
 			let g:UltiSnipsEditSplit="horizontal"
 		endif
 		
