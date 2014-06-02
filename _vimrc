@@ -238,6 +238,7 @@ Bundle 'gmarik/vundle'
 	"UltiSnip{
 		if !exists("g:UltiSnipsSnippetsDir")
 			let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips-snippets"
+			let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
 			let g:UltiSnipsEditSplit="horizontal"
 		endif
 		
