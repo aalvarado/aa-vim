@@ -114,6 +114,7 @@ Bundle 'gmarik/vundle'
 		endif
 	else
 		let g:indent_guides_auto_colors = 0
+		let g:indent_guides_enable_on_vim_startup = 1
 		autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=235 ctermbg=234
 		autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=234 ctermbg=235
 	endif
@@ -161,11 +162,12 @@ Bundle 'gmarik/vundle'
 	inoremap  <space>=><space>
 	inoremap <c-space> <space>=><space>
 	imap jj <esc>
-	nnoremap \ ;
 	nnoremap <tab> >>
 	nnoremap <s-tab> <<
 	inoremap ;; <esc>A;<esc>
 	inoremap <s-cr> <cr><cr><up><tab>
+	nnoremap <Space> ;
+	nnoremap <s-Space> ,
 
 		" Visual Mode {
 			vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -213,7 +215,7 @@ Bundle 'gmarik/vundle'
 		let g:statline_filename_relative = 1
 	" }
 	" indent guides{
-		let g:indent_guides_enable_on_vim_startup = 0
+		let g:indent_guides_enable_on_vim_startup = 1
 		let g:indent_guides_guide_size = 1
 	" }
 
