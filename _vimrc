@@ -47,6 +47,8 @@ Bundle 'gmarik/vundle'
 	Bundle 'tomasr/molokai'
 	Bundle 'tpope/vim-vividchalk.git'
 	Bundle 'altercation/vim-colors-solarized.git'
+	Bundle 'whatyouhide/vim-gotham'
+	Bundle 'slim-template/vim-slim'
 
 	" change to your own snippets if you don't like mine :)
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -159,8 +161,10 @@ Bundle 'gmarik/vundle'
 	inoremap (<CR>  (<CR>)<Esc>O<tab>
 	inoremap [<CR>  [<CR>]<Esc>O<tab>
 	nn G G10<c-e>
-	inoremap  <space>=><space>
-	inoremap <c-space> <space>=><space>
+
+	autocmd FileType ruby inoremap <c-space> <space>=><space>
+	autocmd FileType c inoremap <c-space> <space>-><space>
+
 	imap jj <esc>
 	nnoremap <tab> >>
 	nnoremap <s-tab> <<
@@ -195,7 +199,7 @@ Bundle 'gmarik/vundle'
 	au BufNewFile,BufReadPost *.py setl ft=python
 
 	"ruby
-	au FileType ruby setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
+	au FileType ruby\|slim setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
 	au BufNewFile,BufReadPost *.ruby setl ft=ruby
 
 	"javascript
@@ -204,6 +208,7 @@ Bundle 'gmarik/vundle'
 	au FileType iced setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
 
 	au BufRead,BufNewFile *.js	set ft=javascript
+	au BufRead,BufNewFile *_spec.rb	set ft=ruby.rspec
 
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
