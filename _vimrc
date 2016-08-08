@@ -3,18 +3,13 @@ filetype off
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
-" See https://github.com/gmarik/vundle for more help on Vundle
-" Vundle manages Vundle
-
 Bundle 'gmarik/vundle'
-
 " Bundles {
 	Bundle 'The-NERD-Commenter'
 	Bundle 'fugitive.vim'
 	Bundle 'surround.vim'
 	Bundle 'ragtag.vim'
 	Bundle 'Syntastic'
-	Bundle 'ShowMarks7'
 	Bundle 'Indent-Guides'
 	Bundle 'SirVer/ultisnips'
 	Bundle 'LustyExplorer'
@@ -32,23 +27,17 @@ Bundle 'gmarik/vundle'
 	Bundle 'tpope/vim-bundler'
 	Bundle 'tpope/vim-endwise'
 	Bundle 'kien/ctrlp.vim'
-	Bundle 'larssmit/vim-getafe'
 	Bundle 'AutoTag'
-	Bundle 'Lokaltog/vim-powerline'
-	Bundle 'rosenfeld/conque-term'
+	Bundle 'vim-airline/vim-airline'
 	Bundle 'ervandew/supertab.git'
 	Bundle 'LargeFile'
-	Bundle 'PHP-correct-Indenting'
+	Bundle 'elixir-lang/vim-elixir'
+	Bundle 'mileszs/ack.vim'
+	Bundle 'slim-template/vim-slim'
+	Bundle 'vim-scripts/dbext.vim'
 
 	" themes:
-	Bundle 'croaker/mustang-vim'
-	Bundle 'obsidian2.vim'
-	Bundle 'Wombat'
-	Bundle 'tomasr/molokai'
-	Bundle 'tpope/vim-vividchalk.git'
-	Bundle 'altercation/vim-colors-solarized.git'
 	Bundle 'whatyouhide/vim-gotham'
-	Bundle 'slim-template/vim-slim'
 
 	" change to your own snippets if you don't like mine :)
 	Bundle 'aalvarado/ultisnips-snippets.git'
@@ -59,21 +48,20 @@ Bundle 'gmarik/vundle'
 " }
 
 " General {
-	set mouse=a " enable mouse usage
 	setglobal fileencoding=utf-8
-	set encoding=utf-8
 	setglobal nobomb
-	set backup " backups are nice, indeed
+	set mouse=a
+	set encoding=utf-8
 	syntax on
 	set mouse=a
 	set history=1000
 	filetype plugin on
 	set gdefault
 	set complete=.,b,u,t
-	set wildmode=list:longest " Make cmdline tab completion similar to bash
+	set wildmode=list:longest
 	set laststatus=2
-	set term=screen-256color
 	set shortmess+=I
+	set expandtab
 " }
 
 " Vim UI {
@@ -95,29 +83,13 @@ Bundle 'gmarik/vundle'
 	set so=5
 	set guioptions=i
 	set lazyredraw
+	colorscheme gotham256
 
 	if has("gui_running")
-		colorscheme getafe	" Load a colorscheme
-		set lines=40	" 40 lines height
-		set co=160	" Set 160 columns
-		set guioptions-=T " Hide the toolbar on Gvim
-		" Automatically resize splits when resizing MacVim window
-		autocmd VimResized * wincmd =
-		" Set font
-		if has("gui_macvim")
-			try
-				set guifont=Terminus\ Medium:h11
-				set noantialias
-			catch
-				set guifont=Monaco:h12
-			endtry
-		else
-			set guifont=Luxi\ Mono\ 10
-		endif
 	else
 		let g:indent_guides_auto_colors = 0
 		let g:indent_guides_enable_on_vim_startup = 1
-		autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=235 ctermbg=234
+		autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd	guibg=235 ctermbg=234
 		autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=234 ctermbg=235
 	endif
 
@@ -125,7 +97,7 @@ Bundle 'gmarik/vundle'
 	if has('win32') || has ('win64')
 		set directory+=,~/tmp,$TMP
 		set shellxquote=
-		" Adds git runtime path so it is able to use Fugitive and Vundle  within GVIM,
+		" Adds git runtime path so it is able to use Fugitive and Vundle	within GVIM,
 		" while using the git bash only option when installing git for win
 
 		" uses standard git install directories
@@ -147,6 +119,7 @@ Bundle 'gmarik/vundle'
 	let mapleader = ',' " remmaping leader key to ,
 	"Turn off search highlitghting with leader /
 	nmap <silent> <leader>/ :nohlsearch<CR>
+	nmap <silent> <leader>, A,<esc>
 	" remmaping ; to :, saves shift :)
 	nnoremap ; :
 	" Change working directory to the current one
@@ -157,13 +130,13 @@ Bundle 'gmarik/vundle'
 
 	command! VimRC :source $MYVIMRC
 	nnoremap <leader>d "_d
-	inoremap {<CR>  {<CR>}<Esc>O<tab>
-	inoremap (<CR>  (<CR>)<Esc>O<tab>
-	inoremap [<CR>  [<CR>]<Esc>O<tab>
+	inoremap {<CR>	{<CR>}<Esc>O<tab>
+	inoremap (<CR>	(<CR>)<Esc>O<tab>
+	inoremap [<CR>	[<CR>]<Esc>O<tab>
 	nn G G10<c-e>
 
 	autocmd FileType ruby inoremap <c-space> <space>=><space>
-	autocmd FileType c inoremap <c-space> <space>-><space>
+	autocmd FileType c\|elixir inoremap <c-space> ->
 
 	imap jj <esc>
 	nnoremap <tab> >>
@@ -180,10 +153,7 @@ Bundle 'gmarik/vundle'
 	" }
 
 " Formatting {
-
-	" Do soft wrap lines
 	set wrap
-	set showbreak=⏎\ 
 	set autoindent
 	set tabstop=2
 	set shiftwidth=2
@@ -213,7 +183,7 @@ Bundle 'gmarik/vundle'
 	" Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 	au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
 "}
-"
+
 " Plugins {
 	" statline {
 		let g:statline_fugitive = 1
@@ -232,11 +202,11 @@ Bundle 'gmarik/vundle'
 		"add a mapping on .. to view parent tree
 		autocmd BufReadPost fugitive://* set bufhidden=delete
 		autocmd BufReadPost fugitive://*
-		  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-		  \ nnoremap <buffer> .. :edit %:h<CR> |
-		  \ endif
+			\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+			\ nnoremap <buffer> .. :edit %:h<CR> |
+			\ endif
 	"}
-	
+
 	" Syntastic settings{
 		let g:syntastic_enable_signs=1
 		let g:syntastic_auto_loc_list=2
@@ -248,7 +218,7 @@ Bundle 'gmarik/vundle'
 			let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
 			let g:UltiSnipsEditSplit="horizontal"
 		endif
-		
+
 		" Conflicts with diagraphs, switching <c-k> to something else
 		" use :redraw instead of <c-l>
 		if !exists("g:UltiSnipsJumpBackwardTrigger")
@@ -277,10 +247,10 @@ Bundle 'gmarik/vundle'
 " }
 
 function! InitializeDirectories()
-  let separator = "."
-  let parent = $HOME
-  let prefix = '.vim'
-  let dir_list = {
+	let separator = "."
+	let parent = $HOME
+	let prefix = '.vim'
+	let dir_list = {
 		\ 'backup': 'backupdir',
 		\ 'views': 'viewdir',
 		\ 'swap': 'directory'}
@@ -296,10 +266,10 @@ function! InitializeDirectories()
 						echo "Warning: Unable to create backup directory: " . directory
 						echo "Try: mkdir -p " . directory
 				else
-				  let directory = substitute(directory, " ", "\\\\ ", "")
-				  exec "set " . settingname . "=" . directory
+					let directory = substitute(directory, " ", "\\\\ ", "")
+					exec "set " . settingname . "=" . directory
 				endif
-		  endfor
+			endfor
 endfunction
 call InitializeDirectories()
 
@@ -330,18 +300,21 @@ endfunction
 " }
 
 function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+		" Preparation: save last search, and cursor position.
+		let _s=@/
+		let l = line(".")
+		let c = col(".")
+		" Do the business:
+		%s/\s\+$//e
+		" Clean up: restore previous search history, and cursor position
+		let @/=_s
+		call cursor(l, c)
 endfunction
 
 autocmd BufWritePre *.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
 runtime macros/matchit.vim
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#capslock#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
