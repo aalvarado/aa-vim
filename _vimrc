@@ -35,6 +35,8 @@ Bundle 'gmarik/vundle'
   Bundle 'mileszs/ack.vim'
   Bundle 'slim-template/vim-slim'
   Bundle 'vim-scripts/dbext.vim'
+  Bundle 'rust-lang/rust.vim'
+  Bundle 'cespare/vim-toml'
 
   " themes:
   Bundle 'whatyouhide/vim-gotham'
