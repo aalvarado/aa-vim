@@ -10,6 +10,7 @@ Bundle 'gmarik/vundle'
   Bundle 'surround.vim'
   Bundle 'ragtag.vim'
   Bundle 'Syntastic'
+  "Bundle 'ShowMarks7'
   Bundle 'Indent-Guides'
   Bundle 'SirVer/ultisnips'
   Bundle 'LustyExplorer'
@@ -21,24 +22,35 @@ Bundle 'gmarik/vundle'
   Bundle 'tpope/vim-rails.git'
   Bundle 'tpope/vim-haml.git'
   Bundle 'vim-ruby/vim-ruby.git'
-  Bundle 'mattn/gist-vim.git'
   Bundle 'pangloss/vim-javascript.git'
   Bundle 'timcharper/textile.vim.git'
   Bundle 'tpope/vim-bundler'
   Bundle 'tpope/vim-endwise'
   Bundle 'kien/ctrlp.vim'
+  Bundle 'larssmit/vim-getafe'
   Bundle 'AutoTag'
-  Bundle 'vim-airline/vim-airline'
+  Bundle 'rosenfeld/conque-term'
   Bundle 'ervandew/supertab.git'
   Bundle 'LargeFile'
-  Bundle 'elixir-lang/vim-elixir'
+  Bundle 'PHP-correct-Indenting'
+  Bundle 'wting/rust.vim'
+  Bundle 'bling/vim-airline'
   Bundle 'mileszs/ack.vim'
+  Bundle 'mustache/vim-mustache-handlebars'
+  Bundle 'AndrewRadev/vim-eco'
+  Bundle 'cespare/vim-toml'
   Bundle 'slim-template/vim-slim'
   Bundle 'vim-scripts/dbext.vim'
   Bundle 'rust-lang/rust.vim'
   Bundle 'cespare/vim-toml'
 
   " themes:
+  Bundle 'croaker/mustang-vim'
+  Bundle 'obsidian2.vim'
+  Bundle 'Wombat'
+  Bundle 'tomasr/molokai'
+  Bundle 'tpope/vim-vividchalk.git'
+  Bundle 'altercation/vim-colors-solarized.git'
   Bundle 'whatyouhide/vim-gotham'
 
   " change to your own snippets if you don't like mine :)
@@ -50,20 +62,21 @@ Bundle 'gmarik/vundle'
 " }
 
 " General {
+  set mouse=a " enable mouse usage
   setglobal fileencoding=utf-8
-  setglobal nobomb
-  set mouse=a
   set encoding=utf-8
+  setglobal nobomb
+  set backup " backups are nice, indeed
   syntax on
   set mouse=a
   set history=1000
   filetype plugin on
   set gdefault
   set complete=.,b,u,t
-  set wildmode=list:longest
+  set wildmode=list:longest " Make cmdline tab completion similar to bash
   set laststatus=2
+  set term=screen-256color
   set shortmess+=I
-  set expandtab
 " }
 
 " Vim UI {
@@ -121,7 +134,6 @@ Bundle 'gmarik/vundle'
   let mapleader = ',' " remmaping leader key to ,
   "Turn off search highlitghting with leader /
   nmap <silent> <leader>/ :nohlsearch<CR>
-  nmap <silent> <leader>, A,<esc>
   " remmaping ; to :, saves shift :)
   nnoremap ; :
   " Change working directory to the current one
@@ -136,10 +148,6 @@ Bundle 'gmarik/vundle'
   inoremap (<CR>  (<CR>)<Esc>O<tab>
   inoremap [<CR>  [<CR>]<Esc>O<tab>
   nn G G10<c-e>
-
-  autocmd FileType ruby inoremap <c-space> <space>=><space>
-  autocmd FileType c\|elixir inoremap <c-space> ->
-
   imap jj <esc>
   nnoremap <tab> >>
   nnoremap <s-tab> <<
@@ -147,6 +155,11 @@ Bundle 'gmarik/vundle'
   inoremap <s-cr> <cr><cr><up><tab>
   nnoremap <Space> ;
   nnoremap <s-Space> ,
+
+  autocmd FileType ruby inoremap  <space>=><space>
+  autocmd FileType ruby inoremap <c-space> <space>=><space>
+
+  autocmd FileType c inoremap <c-space> ->
 
     " Visual Mode {
       vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -248,6 +261,10 @@ Bundle 'gmarik/vundle'
   "}
 " }
 
+  " ctrlp {
+    let g:ctrlp_working_path_mode = 'a'
+  " }
+
 function! InitializeDirectories()
   let separator = "."
   let parent = $HOME
@@ -313,7 +330,7 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-autocmd BufWritePre *.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre *.slim,*.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
 runtime macros/matchit.vim
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
