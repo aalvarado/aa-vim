@@ -10,7 +10,6 @@ Bundle 'gmarik/vundle'
   Bundle 'surround.vim'
   Bundle 'ragtag.vim'
   Bundle 'Syntastic'
-  "Bundle 'ShowMarks7'
   Bundle 'Indent-Guides'
   Bundle 'SirVer/ultisnips'
   Bundle 'LustyExplorer'
@@ -26,14 +25,11 @@ Bundle 'gmarik/vundle'
   Bundle 'timcharper/textile.vim.git'
   Bundle 'tpope/vim-bundler'
   Bundle 'tpope/vim-endwise'
-  Bundle 'kien/ctrlp.vim'
-  Bundle 'larssmit/vim-getafe'
-  Bundle 'AutoTag'
+  Bundle 'ctrlpvim/ctrlp.vim'
+  Bundle 'ludovicchabant/vim-gutentags'
   Bundle 'rosenfeld/conque-term'
   Bundle 'ervandew/supertab.git'
   Bundle 'LargeFile'
-  Bundle 'PHP-correct-Indenting'
-  Bundle 'wting/rust.vim'
   Bundle 'bling/vim-airline'
   Bundle 'mileszs/ack.vim'
   Bundle 'mustache/vim-mustache-handlebars'
@@ -43,15 +39,16 @@ Bundle 'gmarik/vundle'
   Bundle 'vim-scripts/dbext.vim'
   Bundle 'rust-lang/rust.vim'
   Bundle 'cespare/vim-toml'
+  Bundle 'mxw/vim-jsx'
+  Bundle 'kana/vim-textobj-user'
+  Bundle 'rhysd/vim-textobj-ruby'
+  Bundle 'andymass/vim-matchup'
 
   " themes:
-  Bundle 'croaker/mustang-vim'
-  Bundle 'obsidian2.vim'
-  Bundle 'Wombat'
-  Bundle 'tomasr/molokai'
-  Bundle 'tpope/vim-vividchalk.git'
-  Bundle 'altercation/vim-colors-solarized.git'
+  Bundle 'larssmit/vim-getafe'
   Bundle 'whatyouhide/vim-gotham'
+  Bundle 'dracula/vim'
+  Bundle 'chriskempson/base16-vim'
 
   " change to your own snippets if you don't like mine :)
   Bundle 'aalvarado/ultisnips-snippets.git'
@@ -91,45 +88,18 @@ Bundle 'gmarik/vundle'
   set smartcase
   set wildmenu " Enable ctrl-n and ctrl-p to scroll thru matches
   set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-  set scrolloff=3
-  set scrolljump=5
+  "set scrolljump=50
   set pastetoggle=<F12>
   set hidden
-  set so=5
   set guioptions=i
   set lazyredraw
-  colorscheme gotham256
+  set virtualedit=block
 
-  if has("gui_running")
-  else
-    let g:indent_guides_auto_colors = 0
-    let g:indent_guides_enable_on_vim_startup = 1
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=235 ctermbg=234
-    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=234 ctermbg=235
-  endif
+  let g:dracula_undercurl = 0
+  let g:dracula_underline = 0
+  let g:dracula_bold = 0
+  colorscheme dracula
 
-" Windows specific {
-  if has('win32') || has ('win64')
-    set directory+=,~/tmp,$TMP
-    set shellxquote=
-    " Adds git runtime path so it is able to use Fugitive and Vundle  within GVIM,
-    " while using the git bash only option when installing git for win
-
-    " uses standard git install directories
-    let gitdir='C:\Program Files (x86)\Git\bin'
-    let gitdiralt='C:\Program Files\Git\bin'
-
-    if isdirectory(gitdir)
-      let $PATH.=';' .gitdir
-    elseif isdirectory(gitdiralt)
-      let $PATH.=';' . gitdiralt
-    endif
-    " Needed for ruby based plugins
-    let $PATH.=';' . 'c:\ruby192\bin'
-  else
-    set term=screen-256color
-  endif
-" }
 " Key Mappings {
   let mapleader = ',' " remmaping leader key to ,
   "Turn off search highlitghting with leader /
@@ -144,22 +114,27 @@ Bundle 'gmarik/vundle'
 
   command! VimRC :source $MYVIMRC
   nnoremap <leader>d "_d
+  nnoremap <leader>, A,<Esc>
   inoremap {<CR>  {<CR>}<Esc>O<tab>
   inoremap (<CR>  (<CR>)<Esc>O<tab>
   inoremap [<CR>  [<CR>]<Esc>O<tab>
   nn G G10<c-e>
   imap jj <esc>
-  nnoremap <tab> >>
-  nnoremap <s-tab> <<
+  inoremap ,, <c-o>A,<esc>
   inoremap ;; <esc>A;<esc>
   inoremap <s-cr> <cr><cr><up><tab>
   nnoremap <Space> ;
   nnoremap <s-Space> ,
 
+  inoremap <CR> <CR><space><BS>
+  nnoremap O O<space><BS>
+  nnoremap o o<space><BS>
+
   autocmd FileType ruby inoremap  <space>=><space>
   autocmd FileType ruby inoremap <c-space> <space>=><space>
-
+  autocmd FileType javascript.jsx inoremap <c-space> () => {<CR>}<esc>O<tab>
   autocmd FileType c inoremap <c-space> ->
+  autocmd FileType rust inoremap <c-space> ::
 
     " Visual Mode {
       vnoremap <silent> * :call VisualSearch('f')<CR>
@@ -174,8 +149,9 @@ Bundle 'gmarik/vundle'
   set shiftwidth=2
   set backspace=indent,eol,start
   set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
-  set list
-  set listchars:tab:\ \ ,trail:·
+  "set list
+  "set listchars:tab:\ \ ,trail:·
+	set et
 
   au BufNewFile,BufReadPost *.coffee,*.haml,*.erb,*.scss setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
 
@@ -197,6 +173,7 @@ Bundle 'gmarik/vundle'
 
   " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
   au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
+	au FileType rust setlocal nosmartindent
 "}
 
 " Plugins {
@@ -331,7 +308,6 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 autocmd BufWritePre *.slim,*.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
-runtime macros/matchit.vim
 map <S-Insert> <MiddleMouse>
 map! <S-Insert> <MiddleMouse>
 let g:airline_powerline_fonts = 1
@@ -340,3 +316,33 @@ let g:airline#extensions#capslock#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_buffers = 0
+
+let g:dbext_default_profile_cluster_dev = 'type=PGSQL:user=adan:dbname=cluster_dev:host=localhost'
+let g:dbext_default_profile_cluster_test = 'type=PGSQL:user=adan:dbname=cluster_test:host=localhost'
+
+function SqlSplit()
+  let sql_words = [
+    \ 'select',
+    \ 'where',
+    \ 'inner join',
+    \ 'left join',
+    \ 'left outer join',
+    \ 'where',
+    \ 'and',
+    \ 'or',
+    \ 'order by',
+    \ 'limit \d\+',
+    \ 'offset \d\+' ]
+
+  let sql_string = ''
+
+  call map(sql_words, '"\\<" . v:val . "\\>"')
+  let sql_string = join(sql_words, "\\|")
+  let sql_string = ":s/" . sql_string . "/\\r\\U&/e"
+
+  execute sql_string
+endfunction
+
+let g:syntastic_rust_checkers = ['rustc']
+let g:gutentags_file_list_command = 'rg --files'
+let g:matchup_matchparen_deferred = 1
