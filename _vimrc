@@ -1,348 +1,338 @@
-set nocompatible " Needs to be the first line
-filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set nocompatible
+set rtp+=~/.vim
+set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 
-Bundle 'gmarik/vundle'
-" Bundles {
-  Bundle 'The-NERD-Commenter'
-  Bundle 'fugitive.vim'
-  Bundle 'surround.vim'
-  Bundle 'ragtag.vim'
-  Bundle 'Syntastic'
-  Bundle 'Indent-Guides'
-  Bundle 'SirVer/ultisnips'
-  Bundle 'LustyExplorer'
-  Bundle 'LustyJuggler'
-  Bundle 'kchmck/vim-coffee-script.git'
-  Bundle 'godlygeek/tabular'
-  Bundle 'tpope/vim-repeat'
-  Bundle 'majutsushi/tagbar'
-  Bundle 'tpope/vim-rails.git'
-  Bundle 'tpope/vim-haml.git'
-  Bundle 'vim-ruby/vim-ruby.git'
-  Bundle 'pangloss/vim-javascript.git'
-  Bundle 'timcharper/textile.vim.git'
-  Bundle 'tpope/vim-bundler'
-  Bundle 'tpope/vim-endwise'
-  Bundle 'ctrlpvim/ctrlp.vim'
-  Bundle 'ludovicchabant/vim-gutentags'
-  Bundle 'rosenfeld/conque-term'
-  Bundle 'ervandew/supertab.git'
-  Bundle 'LargeFile'
-  Bundle 'bling/vim-airline'
-  Bundle 'mileszs/ack.vim'
-  Bundle 'mustache/vim-mustache-handlebars'
-  Bundle 'AndrewRadev/vim-eco'
-  Bundle 'cespare/vim-toml'
-  Bundle 'slim-template/vim-slim'
-  Bundle 'vim-scripts/dbext.vim'
-  Bundle 'rust-lang/rust.vim'
-  Bundle 'cespare/vim-toml'
-  Bundle 'mxw/vim-jsx'
-  Bundle 'kana/vim-textobj-user'
-  Bundle 'rhysd/vim-textobj-ruby'
-  Bundle 'andymass/vim-matchup'
+call plug#begin('~/.vim/plugged')
+  " Plug '/usr/local/opt/fzf'
+  Plug 'aalvarado/my_snippets'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'AndrewRadev/splitjoin.vim'
+  Plug 'andymass/vim-matchup'
+  Plug 'bling/vim-airline'
+  Plug 'bronson/vim-visual-star-search'
+  " Plug 'cespare/vim-toml'
+  " Plug 'chr4/nginx.vim'
+  Plug 'cohama/lexima.vim'
+  Plug 'dermusikman/sonicpi.vim'
+  Plug 'dracula/vim', { 'as': 'dracula' }
+  " Plug 'ianks/vim-tsx'
+  " Plug 'jparise/vim-graphql'
+  Plug 'junegunn/fzf.vim'
+  Plug 'junegunn/vim-easy-align'
+  Plug 'kana/vim-textobj-user'
+  " Plug 'nelstrom/vim-textobj-rubyblock'
+  " Plug 'kchmck/vim-coffee-script'
+  " Plug 'leafgarland/typescript-vim'
+  Plug 'lilydjwg/colorizer'
+  " Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'michaeljsmith/vim-indent-object'
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Plug 'ocaml/vim-ocaml'
+  " Plug 'plasticboy/vim-markdown'
+  Plug 'powerman/vim-plugin-AnsiEsc'
+  " Plug 'rust-lang/rust.vim'
+  " Plug 'reasonml-editor/vim-reason-plus'
+  Plug 'scrooloose/nerdcommenter'
+  Plug 'SirVer/ultisnips'
+  " Plug 'slim-template/vim-slim'
+  Plug 'tpope/vim-eunuch'
+  Plug 'tpope/vim-fugitive'
+  " Plug 'tpope/vim-rails'
+  Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-surround'
+  " Plug 'vim-ruby/vim-ruby'
+  Plug 'whatyouhide/vim-textobj-erb'
+  " Plug 'yuezk/vim-js'
 
-  " themes:
-  Bundle 'larssmit/vim-getafe'
-  Bundle 'whatyouhide/vim-gotham'
-  Bundle 'dracula/vim'
-  Bundle 'chriskempson/base16-vim'
+  Plug 'sheerun/vim-polyglot'
+call plug#end()
 
-  " change to your own snippets if you don't like mine :)
-  Bundle 'aalvarado/ultisnips-snippets.git'
-" }
+if has('win32') || has('win64')
+  set clipboard=unnamed
+  set shell=cmd.exe
+  set shellxquote=
+endif
 
-" Basic {
-  set background=dark
-" }
+if has('unix')
+  set clipboard=unnamedplus
+endif
 
 " General {
-  set mouse=a " enable mouse usage
-  setglobal fileencoding=utf-8
-  set encoding=utf-8
-  setglobal nobomb
-  set backup " backups are nice, indeed
-  syntax on
-  set mouse=a
-  set history=1000
+  "set shellcmdflag=-ic
   filetype plugin on
-  set gdefault
-  set complete=.,b,u,t
-  set wildmode=list:longest " Make cmdline tab completion similar to bash
-  set laststatus=2
-  set term=screen-256color
-  set shortmess+=I
+  setglobal nobomb
+  set autoindent
+  set whichwrap=b,s,h,l,<,>,[,]
+  set backspace=indent,eol,start
+  set encoding=utf-8
+  set expandtab
+  set fileformats=unix
+  set fileencoding=utf-8
+  set ignorecase
+  set hidden
+  set history=1000
+  set hlsearch
+  set mouse=a
+  set noswapfile
+  set shiftwidth=2
+  set showcmd
+  set softtabstop=2
+  set smartcase
+  set tabstop=2
+  set wildmenu
+  set wildmode=list:longest
+  set synmaxcol=500
+  set nomodeline
+  let mapleader = ','
+  set cmdheight=2
+
+  syntax on
 " }
 
-" Vim UI {
-  set ruler
-  set nu " Line numbers
-  set showcmd
-  set showmatch
-  set number
-  set hlsearch
+" Scroll {
+  set scrolloff=20
+" }
+
+" Visual {
   set incsearch
-  set ignorecase " Ignore case while searching
-  set smartcase
-  set wildmenu " Enable ctrl-n and ctrl-p to scroll thru matches
-  set wildignore=*.o,*.obj,*~ "stuff to ignore when tab completing
-  "set scrolljump=50
-  set pastetoggle=<F12>
-  set hidden
-  set guioptions=i
-  set lazyredraw
-  set virtualedit=block
+  set hlsearch
+  set laststatus=2
 
-  let g:dracula_undercurl = 0
-  let g:dracula_underline = 0
-  let g:dracula_bold = 0
-  colorscheme dracula
-
-" Key Mappings {
-  let mapleader = ',' " remmaping leader key to ,
-  "Turn off search highlitghting with leader /
-  nmap <silent> <leader>/ :nohlsearch<CR>
-  " remmaping ; to :, saves shift :)
-  nnoremap ; :
-  " Change working directory to the current one
-  cmap cwd lcd %:p:h
-  cmap cd. lcd %:p:h
-  " Save a file when you forgot to sudo
-  cmap w!! %!sudo tee > /dev/null %
-
-  command! VimRC :source $MYVIMRC
-  nnoremap <leader>d "_d
-  nnoremap <leader>, A,<Esc>
-  inoremap {<CR>  {<CR>}<Esc>O<tab>
-  inoremap (<CR>  (<CR>)<Esc>O<tab>
-  inoremap [<CR>  [<CR>]<Esc>O<tab>
-  nn G G10<c-e>
-  imap jj <esc>
-  inoremap ,, <c-o>A,<esc>
-  inoremap ;; <esc>A;<esc>
-  inoremap <s-cr> <cr><cr><up><tab>
-  nnoremap <Space> ;
-  nnoremap <s-Space> ,
-
-  inoremap <CR> <CR><space><BS>
-  nnoremap O O<space><BS>
-  nnoremap o o<space><BS>
-
-  autocmd FileType ruby inoremap  <space>=><space>
-  autocmd FileType ruby inoremap <c-space> <space>=><space>
-  autocmd FileType javascript.jsx inoremap <c-space> () => {<CR>}<esc>O<tab>
-  autocmd FileType c inoremap <c-space> ->
-  autocmd FileType rust inoremap <c-space> ::
-
-    " Visual Mode {
-      vnoremap <silent> * :call VisualSearch('f')<CR>
-      vnoremap <silent> # :call VisualSearch('b')<CR>
-    " }
-  " }
-
-" Formatting {
+  "set guioptions=i
+  set number
+  set ruler
+  "set shortmess=aIc
+  set shortmess=I
   set wrap
-  set autoindent
-  set tabstop=2
-  set shiftwidth=2
-  set backspace=indent,eol,start
-  set whichwrap=b,s,h,l,<,>,[,] " backspace and cursor keys wrap to
-  "set list
-  "set listchars:tab:\ \ ,trail:·
-	set et
+" }
 
-  au BufNewFile,BufReadPost *.coffee,*.haml,*.erb,*.scss setl shiftwidth=2 expandtab tabstop=2 softtabstop=2
-
-  "python
-  au FileType python setlocal tabstop=8 expandtab shiftwidth=4 softtabstop=4
-  au BufNewFile,BufReadPost *.py setl ft=python
-
-  "ruby
-  au FileType ruby\|slim setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
-  au BufNewFile,BufReadPost *.ruby setl ft=ruby
-
-  "javascript
-  au FileType javascript setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
-
-  au FileType iced setlocal tabstop=2 expandtab shiftwidth=2 softtabstop=2 nobomb
-
-  au BufRead,BufNewFile *.js  set ft=javascript
-  au BufRead,BufNewFile *_spec.rb set ft=ruby.rspec
-
-  " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-  au BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set ft=ruby
-	au FileType rust setlocal nosmartindent
-"}
+  set belloff=all
+  if has("autocmd") && has("gui")
+    au GUIEnter * set t_vb=
+  endif
 
 " Plugins {
-  " statline {
-    let g:statline_fugitive = 1
-    let g:statline_filename_relative = 1
-  " }
-  " indent guides{
-    let g:indent_guides_enable_on_vim_startup = 1
-    let g:indent_guides_guide_size = 1
-  " }
+  let g:NERDSpaceDelims = 1
+  let g:NERDDefaultAlign = 'left'
 
-  " fugitive {
-    "http://vimcasts.org/episodes/fugitive-vim-browsing-the-git-object-database/
-    "hacks from above (the url, not jesus) to delete fugitive buffers when we
-    "leave them - otherwise the buffer list gets poluted
-    "
-    "add a mapping on .. to view parent tree
-    autocmd BufReadPost fugitive://* set bufhidden=delete
-    autocmd BufReadPost fugitive://*
-      \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-      \ nnoremap <buffer> .. :edit %:h<CR> |
-      \ endif
-  "}
+  let g:matchup_matchparen_deferred = 1
+  let g:matchup_surround_enabled = 1
 
-  " Syntastic settings{
-    let g:syntastic_enable_signs=1
-    let g:syntastic_auto_loc_list=2
-  "}
+  let g:dracula_bold = 0
+  let g:dracula_italic = 0
+  let g:dracula_colorterm = 0
 
-  "UltiSnip{
-    if !exists("g:UltiSnipsSnippetsDir")
-      let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips-snippets"
-      let g:UltiSnipsSnippetDirectories=["bundle/ultisnips-snippets"]
-      let g:UltiSnipsEditSplit="horizontal"
-    endif
+  colorscheme dracula
 
-    " Conflicts with diagraphs, switching <c-k> to something else
-    " use :redraw instead of <c-l>
-    if !exists("g:UltiSnipsJumpBackwardTrigger")
-      let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
-    endif
-  "}
+  set rtp+=~/.vim/plugged
+  let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/plugged/my_snippets']
+  let g:UltiSnipsEditSplit="horizontal"
+  let g:UltiSnipsJumpBackwardTrigger = "<c-l>"
 
-  "showmarks{
-    " Prevents showmarks showing up for other buffer types
-    let g:showmarks_ignore_type = "hqprm"
-  "}
+  hi Normal ctermbg=NONE
 
-  "surround{
-    " via: http://whynotwiki.com/Vim
-    " Ruby
-    " Use v or # to get a variable interpolation (inside of a string)}
-    " ysiw# Wrap the token under the cursor in #{}
-    " v...s# Wrap the selection in #{}
-    let g:surround_113 = "#{\r}" " v
-    let g:surround_35 = "#{\r}" " #
-  "}
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_guide_size = 1
+  let g:indent_guides_auto_colors = 0
 
-  "tagbar {
-    nmap <F8> :TagbarToggle<CR><C-W>l
-  "}
+  call airline#parts#define_accent('mode', 'none')
+  call airline#parts#define_accent('linenr', 'none')
+  call airline#parts#define_accent('maxlinenr', 'none')
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#show_splits = 0
+  let g:airline#extensions#tabline#show_buffers = 0
+  let g:airline#extensions#branch#displayed_head_limit = 8
+  let g:airline#extensions#hunks#enabled = 0
+  let g:airline_inactive_alt_sep=1
+  let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
+
+  let g:airline_mode_map = {
+      \ '__'     : '-',
+      \ 'c'      : 'C',
+      \ 'i'      : 'I',
+      \ 'ic'     : 'I',
+      \ 'ix'     : 'I',
+      \ 'n'      : 'N',
+      \ 'multi'  : 'M',
+      \ 'ni'     : 'N',
+      \ 'no'     : 'N',
+      \ 'R'      : 'R',
+      \ 'Rv'     : 'R',
+      \ 's'      : 'S',
+      \ 'S'      : 'S',
+      \ ''     : 'S',
+      \ 't'      : 'T',
+      \ 'v'      : 'V',
+      \ 'V'      : 'V',
+      \ ''     : 'V',
+      \ }
+
+  let g:surround_35 = "#{\r}" " #
+
+  " AnsiEsc
+  " disables <leader>,rwp
+    let g:no_cecutil_maps = 1
+
+  " Gitgutter <leader> h disable
+    let g:gitgutter_map_keys = 0
 " }
 
-  " ctrlp {
-    let g:ctrlp_working_path_mode = 'a'
-  " }
+  " Use tab for trigger completion with characters ahead and navigate.
+  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+  inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 
-function! InitializeDirectories()
-  let separator = "."
-  let parent = $HOME
-  let prefix = '.vim'
-  let dir_list = {
-    \ 'backup': 'backupdir',
-    \ 'views': 'viewdir',
-    \ 'swap': 'directory'}
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
 
-    for [dirname, settingname] in items(dir_list)
-        let directory = parent . '/' . prefix . dirname . "/"
-        if exists("*mkdir")
-            if !isdirectory(directory)
-                call mkdir(directory)
-            endif
-        endif
-        if !isdirectory(directory)
-            echo "Warning: Unable to create backup directory: " . directory
-            echo "Try: mkdir -p " . directory
-        else
-          let directory = substitute(directory, " ", "\\\\ ", "")
-          exec "set " . settingname . "=" . directory
-        endif
-      endfor
-endfunction
-call InitializeDirectories()
+  let g:coc_snippet_next = '<tab>'
 
-" From an idea by Michael Naumann
-function! VisualSearch(direction) range
-  let l:saved_reg = @"
-  execute "normal! vgvy"
+  " Use K to show documentation in preview window
+  nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-  let l:pattern = escape(@", '\\/.*$^~[]')
-  let l:pattern = substitute(l:pattern, "\n$", "", "")
+  " Remap for rename current word
+  nmap <leader>rn <Plug>(coc-rename)
 
-  if a:direction == 'b'
-    execute "normal ?" . l:pattern . "^M"
-  elseif a:direction == 'gv'
-    call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
-  elseif a:direction == 'f'
-    execute "normal /" . l:pattern . "^M"
-  endif
+  function! s:show_documentation()
+    if (index(['vim','help'], &filetype) >= 0)
+      execute 'h '.expand('<cword>')
+    else
+      call CocAction('doHover')
+    endif
+  endfunction
 
-  let @/ = l:pattern
-  let @" = l:saved_reg
-endfunction
 
-" Use local vimrc if available {
-  if filereadable(expand("~/.vimrc.local"))
-    source ~/.vimrc.local
-  endif
+  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+  " Coc only does snippet and additional edit on confirm.
+  " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+  " Remap keys for gotos
+  nmap <silent>gd <Plug>(coc-definition)
+  nmap <silent>gy <Plug>(coc-type-definition)
+  nmap <silent>gi <Plug>(coc-implementation)
+  nmap <silent>gr <Plug>(coc-references)
+
+  " Remap keys for applying codeAction to the current line.
+  nmap <leader>ac  <Plug>(coc-codeaction)
+  nmap <leader>qf <Plug>(coc-fix-current)
+
+  command! -nargs=0 Format :call CocAction('format')
+  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+  " https://github.com/joshukraine/dotfiles/blob/ba4ac2969b91ed88f6413cdde05da251cf1906f9/nvim/init.vim
+
+  " rust
+  let g:rustfmt_autosave = 1
 " }
 
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
+" Customizations {
+  let g:netrw_banner = 0
+  let g:netrw_liststyle = 3
+  let g:netrw_browse_split = 0
+  let g:netrw_altv = 1
+  let g:netrw_winsize = 25
 
-autocmd BufWritePre *.slim,*.rb,*.coffee,*.json,*.yml,*.haml,*.erb,*.php,*.java,*.py,*.js,*.iced :call <SID>StripTrailingWhitespaces()
-map <S-Insert> <MiddleMouse>
-map! <S-Insert> <MiddleMouse>
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#capslock#enabled = 1
+  " nmap <F9> :set ignorecase! ignorecase?
+  nnoremap ; :
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_splits = 0
-let g:airline#extensions#tabline#show_buffers = 0
+  nmap <silent> <leader>/ :nohlsearch<CR>
+  cmap cwd lcd %:p:h
 
-let g:dbext_default_profile_cluster_dev = 'type=PGSQL:user=adan:dbname=cluster_dev:host=localhost'
-let g:dbext_default_profile_cluster_test = 'type=PGSQL:user=adan:dbname=cluster_test:host=localhost'
+  "inoremap <s-enter> <cr><cr><up><tab>
+  nnoremap gs g^
+  nnoremap <Space> ;
+  nnoremap <s-Space> ,
+  inoremap jj <esc>
+  " cmap w!! %!sudo tee > /dev/null %
+  inoremap ,, <c-o>A,
+  inoremap ;; <c-o>A;<esc>
 
-function SqlSplit()
-  let sql_words = [
-    \ 'select',
-    \ 'where',
-    \ 'inner join',
-    \ 'left join',
-    \ 'left outer join',
-    \ 'where',
-    \ 'and',
-    \ 'or',
-    \ 'order by',
-    \ 'limit \d\+',
-    \ 'offset \d\+' ]
+  "inoremap {<CR>  {<CR>}<c-o>O
+  "inoremap (<CR>  (<CR>)<c-o>O
+  "inoremap [<CR> [<CR>]<c-o>O
+  "inoremap <s-CR> <CR><CR><c-o><up><tab>
+  "inoremap <c-Space> <space>=><space>
 
-  let sql_string = ''
+  nmap <C-]> :split<CR>:exec("tag ".expand("<cword>"))<CR>
 
-  call map(sql_words, '"\\<" . v:val . "\\>"')
-  let sql_string = join(sql_words, "\\|")
-  let sql_string = ":s/" . sql_string . "/\\r\\U&/e"
+  vnoremap <M-k> <Esc>/\%V
+  nnoremap <M-l> :BLines<CR>
 
-  execute sql_string
-endfunction
+  vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
+  nnoremap <c-p> :Rg<space>
 
-let g:syntastic_rust_checkers = ['rustc']
-let g:gutentags_file_list_command = 'rg --files'
-let g:matchup_matchparen_deferred = 1
+  " FZF commands
+  nmap <silent> <leader>fr :e %:h<CR>
+  nmap <silent> <leader>fb :Buffers<CR>
+  nmap <silent> <leader>ff :Files<CR>
+  nmap <silent> <leader>fg :GFiles<CR>
+  nmap <silent> <leader>fh :History<CR>
+  " Yank current file path from cwd
+  nmap <leader>yp :let @+=expand("%:.")<CR>
+
+  :hi Normal ctermbg=NONE
+  :hi MatchWord ctermfg=NONE guifg=NONE cterm=underline gui=underline
+
+let g:sonicpi_command = 'sonic-pi-tool'
+let g:sonicpi_send = 'eval-stdin'
+let g:sonicpi_stop = 'stop'
+let g:vim_redraw = 1
+
+set t_Co=256
+set notermguicolors
+
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+nnoremap <silent><leader>w :w!<CR>
+
+" optional reset cursor on start:
+augroup myCmds
+au!
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+augroup END
+
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#21222C ctermbg=235
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#343746 ctermbg=237
+
+" autocmd FileType html let b:coc_pairs_disabled = ['<']
+" autocmd FileType eruby let b:coc_pairs_disabled = ['<']
+
+"let $NVIM_COC_LOG_LEVEL = 'debug'
+
+let g:coc_global_extensions = [
+      \ 'coc-css',
+      \ 'coc-docker',
+      \ 'coc-eslint',
+      \ 'coc-flow',
+      \ 'coc-git',
+      \ 'coc-godot',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-marketplace',
+      \ 'coc-prettier',
+      \ 'coc-reason',
+      \ 'coc-rls',
+      \ 'coc-solargraph',
+      \ 'coc-sql',
+      \ 'coc-stylelint',
+      \ 'coc-tag',
+      \ 'coc-toml',
+      \ 'coc-tslint',
+      \ 'coc-tslint-plugin',
+      \ 'coc-webpack',
+      \ 'coc-webpack',
+      \ 'coc-xml',
+      \ 'coc-yaml',
+      \]
