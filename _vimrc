@@ -13,14 +13,15 @@ call plug#begin('~/.vim/plugged')
   " Plug 'cespare/vim-toml'
   " Plug 'chr4/nginx.vim'
   Plug 'cohama/lexima.vim'
-  Plug 'dermusikman/sonicpi.vim'
+  " Plug 'dermusikman/sonicpi.vim'
+  Plug 'lilyinstarlight/vim-sonic-pi', { 'branch': 'main' }
   Plug 'dracula/vim', { 'as': 'dracula' }
   " Plug 'ianks/vim-tsx'
   " Plug 'jparise/vim-graphql'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-textobj-user'
-  " Plug 'nelstrom/vim-textobj-rubyblock'
+  Plug 'nelstrom/vim-textobj-rubyblock'
   " Plug 'kchmck/vim-coffee-script'
   " Plug 'leafgarland/typescript-vim'
   Plug 'lilydjwg/colorizer'
@@ -46,6 +47,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'yuezk/vim-js'
 
   Plug 'sheerun/vim-polyglot'
+  Plug 'junegunn/goyo.vim'
 call plug#end()
 
 if has('win32') || has('win64')
@@ -104,7 +106,14 @@ endif
   set ruler
   "set shortmess=aIc
   set shortmess=I
+
+  " Wrapping options
   set wrap
+  set lbr
+  let &showbreak = '↳ '
+  set breakindentopt=shift:2,min:40,sbr
+  set breakindent
+  let &breakat = " \t;,])}"
 " }
 
   set belloff=all
@@ -200,6 +209,7 @@ endif
   " Remap for rename current word
   nmap <leader>rn <Plug>(coc-rename)
 
+
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
@@ -282,9 +292,15 @@ endif
   :hi Normal ctermbg=NONE
   :hi MatchWord ctermfg=NONE guifg=NONE cterm=underline gui=underline
 
-let g:sonicpi_command = 'sonic-pi-tool'
-let g:sonicpi_send = 'eval-stdin'
-let g:sonicpi_stop = 'stop'
+" let g:sonic_pi_command = 'sonic-pi-tool.py'
+" let g:sonic_pi_autolog_enabled = 0
+" let g:sonic_pi_check = 'version'
+" let g:sonic_pi_eval = ''
+" let g:sonic_pi_stop = 'stop'
+" Disabled due to lack of support
+" let g:sonic_pi_run = ''
+" let g:sonic_pi_logs = ''
+" let g:sonic_pi_record = ''
 let g:vim_redraw = 1
 
 set t_Co=256
@@ -336,3 +352,5 @@ let g:coc_global_extensions = [
       \ 'coc-xml',
       \ 'coc-yaml',
       \]
+
+autocmd filetype markdown set indentexpr=
