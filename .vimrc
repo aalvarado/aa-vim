@@ -10,19 +10,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'andymass/vim-matchup'
   Plug 'bling/vim-airline'
   Plug 'bronson/vim-visual-star-search'
-  " Plug 'cespare/vim-toml'
-  " Plug 'chr4/nginx.vim'
   Plug 'cohama/lexima.vim'
   " Plug 'dermusikman/sonicpi.vim'
   Plug 'lilyinstarlight/vim-sonic-pi', { 'branch': 'main' }
   Plug 'dracula/vim', { 'as': 'dracula' }
   " Plug 'ianks/vim-tsx'
-  " Plug 'jparise/vim-graphql'
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-textobj-user'
   Plug 'nelstrom/vim-textobj-rubyblock'
-  " Plug 'kchmck/vim-coffee-script'
   " Plug 'leafgarland/typescript-vim'
   Plug 'lilydjwg/colorizer'
   " Plug 'maxmellon/vim-jsx-pretty'
@@ -107,7 +103,7 @@ endif
   set number
   set ruler
   "set shortmess=aIc
-  set shortmess=I
+  set shortmess=Ic
 
   " Wrapping options
   set wrap
@@ -190,6 +186,18 @@ endif
     let g:gitgutter_map_keys = 0
 " }
 
+  " CoC
+  set updatetime=300
+
+  " Always show the signcolumn, otherwise it would shift the text each time
+  " diagnostics appear/become resolved.
+  if has("nvim-0.5.0") || has("patch-8.1.1564")
+    " Recently vim can merge signcolumn and number column into one
+    set signcolumn=number
+  else
+    set signcolumn=yes
+  endif
+
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
   inoremap <silent><expr> <TAB>
@@ -211,7 +219,6 @@ endif
   " Remap for rename current word
   nmap <leader>rn <Plug>(coc-rename)
 
-
   function! s:show_documentation()
     if (index(['vim','help'], &filetype) >= 0)
       execute 'h '.expand('<cword>')
@@ -219,7 +226,6 @@ endif
       call CocAction('doHover')
     endif
   endfunction
-
 
   " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
   " Coc only does snippet and additional edit on confirm.
@@ -237,11 +243,12 @@ endif
   nmap <leader>ac  <Plug>(coc-codeaction)
   nmap <leader>qf <Plug>(coc-fix-current)
 
-  " Add date
-  nmap <silent> <leader>ad :r !date +\%F<CR>
-
   command! -nargs=0 Format :call CocAction('format')
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+  " Use tab to navigate completion
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
   " https://github.com/joshukraine/dotfiles/blob/ba4ac2969b91ed88f6413cdde05da251cf1906f9/nvim/init.vim
 
@@ -255,6 +262,9 @@ endif
   let g:netrw_browse_split = 0
   let g:netrw_altv = 1
   let g:netrw_winsize = 25
+
+  " Add date
+  nmap <silent> <leader>ad :r !date +\%F<CR>
 
   " nmap <F9> :set ignorecase! ignorecase?
   nnoremap ; :
