@@ -48,6 +48,8 @@ call plug#begin('~/.vim/plugged')
 
   Plug 'sheerun/vim-polyglot'
   Plug 'junegunn/goyo.vim'
+
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 call plug#end()
 
 if has('win32') || has('win64')
@@ -235,6 +237,9 @@ endif
   nmap <leader>ac  <Plug>(coc-codeaction)
   nmap <leader>qf <Plug>(coc-fix-current)
 
+  " Add date
+  nmap <silent> <leader>ad :r !date +\%F<CR>
+
   command! -nargs=0 Format :call CocAction('format')
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
@@ -263,8 +268,13 @@ endif
   nnoremap <s-Space> ,
   inoremap jj <esc>
   " cmap w!! %!sudo tee > /dev/null %
+
+  " Double comma to add a comma to the end
   inoremap ,, <c-o>A,
   inoremap ;; <c-o>A;<esc>
+
+  " //e means continue even with errors *:s_e*
+  command! -nargs=0 StripWhitespace :%s/\s\+$//e
 
   "inoremap {<CR>  {<CR>}<c-o>O
   "inoremap (<CR>  (<CR>)<c-o>O
@@ -272,7 +282,7 @@ endif
   "inoremap <s-CR> <CR><CR><c-o><up><tab>
   "inoremap <c-Space> <space>=><space>
 
-  nmap <C-]> :split<CR>:exec("tag ".expand("<cword>"))<CR>
+  " nmap <C-]> :split<CR>:exec("tag ".expand("<cword>"))<CR>
 
   vnoremap <M-k> <Esc>/\%V
   nnoremap <M-l> :BLines<CR>
@@ -309,6 +319,7 @@ set notermguicolors
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+" Quicker save just ,w and will write the file
 nnoremap <silent><leader>w :w!<CR>
 
 " optional reset cursor on start:
@@ -319,6 +330,7 @@ augroup END
 
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" Fix indent lines odd color in terminals
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#21222C ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#343746 ctermbg=237
 
@@ -354,4 +366,5 @@ let g:coc_global_extensions = [
       \ 'coc-yaml',
       \]
 
+" Don't touch my indent
 autocmd filetype markdown set indentexpr=
