@@ -1,3 +1,6 @@
+" Prevents issues with terminals
+set t_u7=
+
 set nocompatible
 set rtp+=~/.vim
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
@@ -24,7 +27,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'maxmellon/vim-jsx-pretty'
   Plug 'michaeljsmith/vim-indent-object'
   Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
   " Plug 'ocaml/vim-ocaml'
   " Plug 'plasticboy/vim-markdown'
   Plug 'powerman/vim-plugin-AnsiEsc'
@@ -46,6 +49,16 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/goyo.vim'
 
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
+  Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  " Plug 'thomasfaingnaert/vim-lsp-snippets'
+  " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+  Plug 'prabirshrestha/asyncomplete.vim'
+  Plug 'prabirshrestha/asyncomplete-lsp.vim'
+  Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
+
+" $ npm i -S markdown-it-toc-done-right markdown-it-anchor
 call plug#end()
 
 if has('win32') || has('win64')
@@ -187,7 +200,7 @@ endif
 " }
 
   " CoC
-  set updatetime=300
+  " set updatetime=300
 
   " Always show the signcolumn, otherwise it would shift the text each time
   " diagnostics appear/become resolved.
@@ -200,60 +213,66 @@ endif
 
   " Use tab for trigger completion with characters ahead and navigate.
   " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  " inoremap <silent><expr> <TAB>
+  "     \ pumvisible() ? coc#_select_confirm() :
+  "     \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+  "     \ <SID>check_back_space() ? "\<TAB>" :
+  "     \ coc#refresh()
 
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
+  " function! s:check_back_space() abort
+  "   let col = col('.') - 1
+  "   return !col || getline('.')[col - 1]  =~# '\s'
+  " endfunction
 
-  let g:coc_snippet_next = '<tab>'
+  " let g:coc_snippet_next = '<tab>'
 
   " Use K to show documentation in preview window
   nnoremap <silent> K :call <SID>show_documentation()<CR>
 
   " Remap for rename current word
-  nmap <leader>rn <Plug>(coc-rename)
+  " nmap <leader>rn <Plug>(coc-rename)
 
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
-    else
-      call CocAction('doHover')
-    endif
-  endfunction
+  " function! s:show_documentation()
+  "   if (index(['vim','help'], &filetype) >= 0)
+  "     execute 'h '.expand('<cword>')
+  "   else
+  "     call CocAction('doHover')
+  "   endif
+  " endfunction
 
   " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
   " Coc only does snippet and additional edit on confirm.
   " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
   " Remap keys for gotos
-  nmap <silent>gd <Plug>(coc-definition)
-  nmap <silent>gy <Plug>(coc-type-definition)
-  nmap <silent>gi <Plug>(coc-implementation)
-  nmap <silent>gr <Plug>(coc-references)
+  " nmap <silent>gd <Plug>(coc-definition)
+  " nmap <silent>gy <Plug>(coc-type-definition)
+  " nmap <silent>gi <Plug>(coc-implementation)
+  " nmap <silent>gr <Plug>(coc-references)
 
   " Remap keys for applying codeAction to the current line.
-  nmap <leader>ac  <Plug>(coc-codeaction)
-  nmap <leader>qf <Plug>(coc-fix-current)
+  " nmap <leader>ac  <Plug>(coc-codeaction)
+  " nmap <leader>qf <Plug>(coc-fix-current)
 
-  command! -nargs=0 Format :call CocAction('format')
-  command! -nargs=0 Prettier :CocCommand prettier.formatFile
+  " command! -nargs=0 Format :call CocAction('format')
+  " command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
   " Use tab to navigate completion
-  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  " inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+  " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
   " https://github.com/joshukraine/dotfiles/blob/ba4ac2969b91ed88f6413cdde05da251cf1906f9/nvim/init.vim
 
   " rust
   let g:rustfmt_autosave = 1
+" }
+
+" Markdown {
+" let g:vim_markdown_auto_insert_bullets = 1
+" let g:vim_markdown_new_list_item_indent = 0
+
 " }
 
 " Customizations {
@@ -338,7 +357,7 @@ au!
 autocmd VimEnter * silent !echo -ne "\e[2 q"
 augroup END
 
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Fix indent lines odd color in terminals
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#21222C ctermbg=235
@@ -349,32 +368,46 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#343746 ctermbg=237
 
 "let $NVIM_COC_LOG_LEVEL = 'debug'
 
-let g:coc_global_extensions = [
-      \ 'coc-css',
-      \ 'coc-docker',
-      \ 'coc-eslint',
-      \ 'coc-flow',
-      \ 'coc-git',
-      \ 'coc-godot',
-      \ 'coc-html',
-      \ 'coc-json',
-      \ 'coc-marketplace',
-      \ 'coc-prettier',
-      \ 'coc-reason',
-      \ 'coc-rls',
-      \ 'coc-solargraph',
-      \ 'coc-sql',
-      \ 'coc-stylelint',
-      \ 'coc-tag',
-      \ 'coc-tsserver',
-      \ 'coc-toml',
-      \ 'coc-tslint',
-      \ 'coc-tslint-plugin',
-      \ 'coc-webpack',
-      \ 'coc-webpack',
-      \ 'coc-xml',
-      \ 'coc-yaml',
-      \]
+" let g:coc_global_extensions = [
+"       \ 'coc-css',
+"       \ 'coc-docker',
+"       \ 'coc-eslint',
+"       \ 'coc-flow',
+"       \ 'coc-git',
+"       \ 'coc-godot',
+"       \ 'coc-html',
+"       \ 'coc-json',
+"       \ 'coc-marketplace',
+"       \ 'coc-prettier',
+"       \ 'coc-reason',
+"       \ 'coc-rls',
+"       \ 'coc-solargraph',
+"       \ 'coc-sql',
+"       \ 'coc-stylelint',
+"       \ 'coc-tag',
+"       \ 'coc-toml',
+"       \ 'coc-tslint',
+"       \ 'coc-tslint-plugin',
+"       \ 'coc-tsserver',
+"       \ 'coc-ultisnips',
+"       \ 'coc-webpack',
+"       \ 'coc-webpack',
+"       \ 'coc-xml',
+"       \ 'coc-yaml',
+"       \]
 
 " Don't touch my indent
 autocmd filetype markdown set indentexpr=
+
+if has('python3')
+    let g:UltiSnipsExpandTrigger="<c-e>"
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'allowlist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+endif
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
