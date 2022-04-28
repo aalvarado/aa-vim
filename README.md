@@ -27,14 +27,13 @@ git clone git@github.com:aalvarado/aa-vim.git
 (Linux || OSX)
 
 ```
-ln -s path_to_aa-vim/_vimrc ~/.vimrc
+ln -s aa-vim/.vimrc ~/.vimrc
 ```
 
-(windows)
+(Windows)
 
 ```
-mklink /D .vim aa-vim\.vim
-mklink _vimrc aa-vim\_vimrc
+mklink .vimrc aa-vim\.vimrc
 
 ```
 * Install Plugins
@@ -48,3 +47,7 @@ Open vim and type:
 This will download all and install the plugins specified in the `.vimrc` file.
 
 Restart vim to load all the plugins
+
+## Previews
+Android with Termux
+![Screenshot_20220428-100217_Termux~2](https://user-images.githubusercontent.com/370322/165838492-9853b05a-b940-4447-950c-fb7377aefd8e.jpg)
