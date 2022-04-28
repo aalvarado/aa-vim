@@ -48,3 +48,5 @@ Open vim and type:
 This will download all and install the plugins specified in the `.vimrc` file.
 
 Restart vim to load all the plugins
+
+
