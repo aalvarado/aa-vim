@@ -1,53 +1,44 @@
+" Prevents issues with terminals
+set t_u7=
+
 set nocompatible
 set rtp+=~/.vim
-set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 
 call plug#begin('~/.vim/plugged')
-  " Plug '/usr/local/opt/fzf'
   Plug 'aalvarado/my_snippets'
   Plug 'airblade/vim-gitgutter'
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'andymass/vim-matchup'
   Plug 'bling/vim-airline'
-  Plug 'bronson/vim-visual-star-search'
-  " Plug 'cespare/vim-toml'
-  " Plug 'chr4/nginx.vim'
-  Plug 'cohama/lexima.vim'
+  Plug 'haya14busa/vim-asterisk'
+  Plug 'qxxxb/vim-searchhi'
   " Plug 'dermusikman/sonicpi.vim'
   Plug 'lilyinstarlight/vim-sonic-pi', { 'branch': 'main' }
   Plug 'dracula/vim', { 'as': 'dracula' }
-  " Plug 'ianks/vim-tsx'
-  " Plug 'jparise/vim-graphql'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-textobj-user'
   Plug 'nelstrom/vim-textobj-rubyblock'
-  " Plug 'kchmck/vim-coffee-script'
-  " Plug 'leafgarland/typescript-vim'
   Plug 'lilydjwg/colorizer'
-  " Plug 'maxmellon/vim-jsx-pretty'
   Plug 'michaeljsmith/vim-indent-object'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  " Plug 'ocaml/vim-ocaml'
-  " Plug 'plasticboy/vim-markdown'
   Plug 'powerman/vim-plugin-AnsiEsc'
-  " Plug 'rust-lang/rust.vim'
-  " Plug 'reasonml-editor/vim-reason-plus'
   Plug 'scrooloose/nerdcommenter'
   Plug 'SirVer/ultisnips'
-  " Plug 'slim-template/vim-slim'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-vinegar'
   Plug 'vim-ruby/vim-ruby'
   Plug 'whatyouhide/vim-textobj-erb'
-  " Plug 'yuezk/vim-js'
-
   Plug 'sheerun/vim-polyglot'
   Plug 'junegunn/goyo.vim'
+  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 call plug#end()
 
 if has('win32') || has('win64')
@@ -61,7 +52,6 @@ if has('unix')
 endif
 
 " General {
-  "set shellcmdflag=-ic
   filetype plugin on
   setglobal nobomb
   set autoindent
@@ -89,7 +79,7 @@ endif
   let mapleader = ','
   set cmdheight=2
 
-  syntax on
+  syntax enable
 " }
 
 " Scroll {
@@ -100,12 +90,9 @@ endif
   set incsearch
   set hlsearch
   set laststatus=2
-
-  "set guioptions=i
   set number
   set ruler
-  "set shortmess=aIc
-  set shortmess=I
+  set shortmess=Ic
 
   " Wrapping options
   set wrap
@@ -188,42 +175,28 @@ endif
     let g:gitgutter_map_keys = 0
 " }
 
-  " Use tab for trigger completion with characters ahead and navigate.
-  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  " CoC
+  set updatetime=300
 
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-
-  let g:coc_snippet_next = '<tab>'
+  inoremap <silent><expr> <a-\> coc#refresh()
 
   " Use K to show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> K :call ShowDocumentation()<CR>
 
   " Remap for rename current word
   nmap <leader>rn <Plug>(coc-rename)
 
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
+  function! ShowDocumentation()
+    if CocAction('hasProvider', 'hover')
+      call CocActionAsync('doHover')
     else
-      call CocAction('doHover')
+      call feedkeys('K', 'in')
     endif
   endfunction
 
+  inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  " Coc only does snippet and additional edit on confirm.
-  " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
   " Remap keys for gotos
   nmap <silent>gd <Plug>(coc-definition)
@@ -235,13 +208,19 @@ endif
   nmap <leader>ac  <Plug>(coc-codeaction)
   nmap <leader>qf <Plug>(coc-fix-current)
 
+  nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
+
   command! -nargs=0 Format :call CocAction('format')
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-  " https://github.com/joshukraine/dotfiles/blob/ba4ac2969b91ed88f6413cdde05da251cf1906f9/nvim/init.vim
+  command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
   " rust
   let g:rustfmt_autosave = 1
+" }
+
+" Markdown {
+" let g:vim_markdown_auto_insert_bullets = 1
+" let g:vim_markdown_new_list_item_indent = 0
 " }
 
 " Customizations {
@@ -251,29 +230,47 @@ endif
   let g:netrw_altv = 1
   let g:netrw_winsize = 25
 
+  " Add date
+  nmap <silent> <leader>ad :r !date +\%F<CR>
+
   " nmap <F9> :set ignorecase! ignorecase?
   nnoremap ; :
 
   nmap <silent> <leader>/ :nohlsearch<CR>
   cmap cwd lcd %:p:h
+  cmap vrc tabe ~/.vimrc<cr>
+  cmap sov source ~/.vimrc
+  cmap vi3 tabe ~/.i3/config<cr>g;
+  cmap via tabe ~/.bash_aliases<cr>
+  cmap jj <esc>
 
-  "inoremap <s-enter> <cr><cr><up><tab>
-  nnoremap gs g^
+  " ^ is too far
+  nnoremap \ g^
+  vnoremap \ g^
+  nnoremap d\ d^
+  inoremap <c-\> <esc>c^
+
+  " inoremap <s-CR> <CR><CR><c-o><up><tab>
+  inoremap <a-enter> <cr><cr><c-o><up><tab>
   nnoremap <Space> ;
   nnoremap <s-Space> ,
   inoremap jj <esc>
-  " cmap w!! %!sudo tee > /dev/null %
+
+  " Double comma to add a comma to the end
   inoremap ,, <c-o>A,
   inoremap ;; <c-o>A;<esc>
 
-  "inoremap {<CR>  {<CR>}<c-o>O
-  "inoremap (<CR>  (<CR>)<c-o>O
-  "inoremap [<CR> [<CR>]<c-o>O
-  "inoremap <s-CR> <CR><CR><c-o><up><tab>
-  "inoremap <c-Space> <space>=><space>
+  " //e means continue even with errors *:s_e*
+  command! -nargs=0 StripWhitespace :%s/\s\+$//e
+  nnoremap <leader>sw :StripWhitespace<CR>
 
-  nmap <C-]> :split<CR>:exec("tag ".expand("<cword>"))<CR>
+  inoremap {<CR>  {<CR>}<c-o>O<tab>
+  inoremap (<CR>  (<CR>)<c-o>O<tab>
+  inoremap [<CR> [<CR>]<c-o>O<tab>
+  " inoremap <s-CR> <CR><CR><c-o><up><tab>
+  " inoremap '''<cr> '''<cr>'''<c-o><up><tab>
 
+  " Search in selected lines
   vnoremap <M-k> <Esc>/\%V
   nnoremap <M-l> :BLines<CR>
 
@@ -286,6 +283,14 @@ endif
   nmap <silent> <leader>ff :Files<CR>
   nmap <silent> <leader>fg :GFiles<CR>
   nmap <silent> <leader>fh :History<CR>
+
+  nmap <silent> <leader>fv :Lex %:p:h<CR>
+  nmap <leader>; <c-w><c-w>
+  nmap <silent> <leader>x :x<CR>
+  nmap <silent> <leader>o :on<cr>
+  nmap <silent> <leader>ue :UltiSnipsEdit<cr>
+  nmap <silent> <leader>rc :source ~/.vimrc<cr>
+
   " Yank current file path from cwd
   nmap <leader>yp :let @+=expand("%:.")<CR>
 
@@ -309,33 +314,22 @@ set notermguicolors
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+" Quicker save just ,w and will write the file
 nnoremap <silent><leader>w :w!<CR>
 
-" optional reset cursor on start:
-augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
-augroup END
-
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
+" Fix indent lines odd color in terminals
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#21222C ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#343746 ctermbg=237
-
-" autocmd FileType html let b:coc_pairs_disabled = ['<']
-" autocmd FileType eruby let b:coc_pairs_disabled = ['<']
-
-"let $NVIM_COC_LOG_LEVEL = 'debug'
 
 let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-docker',
       \ 'coc-eslint',
-      \ 'coc-flow',
       \ 'coc-git',
       \ 'coc-godot',
       \ 'coc-html',
       \ 'coc-json',
+      \ 'coc-lists',
       \ 'coc-marketplace',
       \ 'coc-prettier',
       \ 'coc-reason',
@@ -344,14 +338,21 @@ let g:coc_global_extensions = [
       \ 'coc-sql',
       \ 'coc-stylelint',
       \ 'coc-tag',
-      \ 'coc-tsserver',
       \ 'coc-toml',
-      \ 'coc-tslint',
-      \ 'coc-tslint-plugin',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp',
       \ 'coc-webpack',
       \ 'coc-webpack',
       \ 'coc-xml',
       \ 'coc-yaml',
       \]
 
+" Don't touch my indent
 autocmd filetype markdown set indentexpr=
+autocmd filetype typescript set indentexpr=
+autocmd filetype javascript set indentexpr=
+autocmd filetype css set indentexpr=
+
+inoremap <c-Space> <space>=><space>
+" autocmd filetype ruby inoremap <buffer> <c-Space> <space>=><space>
+"let $NVIM_COC_LOG_LEVEL = 'debug'
