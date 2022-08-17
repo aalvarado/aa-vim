@@ -39,6 +39,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot'
   Plug 'junegunn/goyo.vim'
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+  " Plug 'vim-scripts/scrollfix'
 call plug#end()
 
 if has('win32') || has('win64')
@@ -84,6 +85,7 @@ endif
 
 " Scroll {
   set scrolloff=20
+  " let g:scrollfix=50
 " }
 
 " Visual {
@@ -277,6 +279,9 @@ endif
   vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
   nnoremap <c-p> :Rg<space>
 
+  " Use tab in normal mode to indent
+  nnoremap <tab> >>
+
   " FZF commands
   nmap <silent> <leader>fr :e %:h<CR>
   nmap <silent> <leader>fb :Buffers<CR>
@@ -285,7 +290,11 @@ endif
   nmap <silent> <leader>fh :History<CR>
 
   nmap <silent> <leader>fv :Lex %:p:h<CR>
-  nmap <leader>; <c-w><c-w>
+
+  " Quickly select the last pane
+  nmap <a-space> <c-w><c-w>
+  inoremap <a-space> <c-o><c-w><c-w>
+
   nmap <silent> <leader>x :x<CR>
   nmap <silent> <leader>o :on<cr>
   nmap <silent> <leader>ue :UltiSnipsEdit<cr>
@@ -332,7 +341,6 @@ let g:coc_global_extensions = [
       \ 'coc-lists',
       \ 'coc-marketplace',
       \ 'coc-prettier',
-      \ 'coc-reason',
       \ 'coc-rls',
       \ 'coc-solargraph',
       \ 'coc-sql',
@@ -348,10 +356,13 @@ let g:coc_global_extensions = [
       \]
 
 " Don't touch my indent
-autocmd filetype markdown set indentexpr=
+autocmd filetype markdown set indentexpr= | let b:coc_suggest_disable = 1
 autocmd filetype typescript set indentexpr=
 autocmd filetype javascript set indentexpr=
 autocmd filetype css set indentexpr=
+autocmd filetype * set indentexpr=
+
+au BufNewFile,BufRead .aliases set ft=sh
 
 inoremap <c-Space> <space>=><space>
 " autocmd filetype ruby inoremap <buffer> <c-Space> <space>=><space>
