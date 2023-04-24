@@ -26,7 +26,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'powerman/vim-plugin-AnsiEsc'
-  Plug 'scrooloose/nerdcommenter'
+  Plug 'prisma/vim-prisma'
+  Plug 'preservim/nerdcommenter'
   Plug 'SirVer/ultisnips'
   Plug 'tpope/vim-eunuch'
   Plug 'tpope/vim-fugitive'
@@ -39,7 +40,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'sheerun/vim-polyglot'
   Plug 'junegunn/goyo.vim'
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-  " Plug 'vim-scripts/scrollfix'
+  Plug 'elkowar/yuck.vim'
 call plug#end()
 
 if has('win32') || has('win64')
@@ -85,7 +86,6 @@ endif
 
 " Scroll {
   set scrolloff=20
-  " let g:scrollfix=50
 " }
 
 " Visual {
@@ -266,21 +266,18 @@ endif
   command! -nargs=0 StripWhitespace :%s/\s\+$//e
   nnoremap <leader>sw :StripWhitespace<CR>
 
-  inoremap {<CR>  {<CR>}<c-o>O<tab>
-  inoremap (<CR>  (<CR>)<c-o>O<tab>
-  inoremap [<CR> [<CR>]<c-o>O<tab>
+  inoremap {<CR>  {<CR>}<c-o>O
+  inoremap (<CR>  (<CR>)<c-o>O
+  inoremap [<CR> [<CR>]<c-o>O
   " inoremap <s-CR> <CR><CR><c-o><up><tab>
   " inoremap '''<cr> '''<cr>'''<c-o><up><tab>
 
   " Search in selected lines
   vnoremap <M-k> <Esc>/\%V
-  nnoremap <M-l> :BLines<CR>
+  " nnoremap <M-l> :BLines<CR>
 
   vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
   nnoremap <c-p> :Rg<space>
-
-  " Use tab in normal mode to indent
-  nnoremap <tab> >>
 
   " FZF commands
   nmap <silent> <leader>fr :e %:h<CR>
@@ -288,13 +285,10 @@ endif
   nmap <silent> <leader>ff :Files<CR>
   nmap <silent> <leader>fg :GFiles<CR>
   nmap <silent> <leader>fh :History<CR>
+  nmap <silent> <leader>fl :BLines<CR>
 
   nmap <silent> <leader>fv :Lex %:p:h<CR>
-
-  " Quickly select the last pane
-  nmap <a-space> <c-w><c-w>
-  inoremap <a-space> <c-o><c-w><c-w>
-
+  nmap <leader>; <c-w><c-w>
   nmap <silent> <leader>x :x<CR>
   nmap <silent> <leader>o :on<cr>
   nmap <silent> <leader>ue :UltiSnipsEdit<cr>
@@ -305,6 +299,11 @@ endif
 
   :hi Normal ctermbg=NONE
   :hi MatchWord ctermfg=NONE guifg=NONE cterm=underline gui=underline
+
+fu! FreezeHeader()
+  execute '1sp'
+  execute 'bp'
+endf
 
 " let g:sonic_pi_command = 'sonic-pi-tool.py'
 " let g:sonic_pi_autolog_enabled = 0
@@ -341,7 +340,8 @@ let g:coc_global_extensions = [
       \ 'coc-lists',
       \ 'coc-marketplace',
       \ 'coc-prettier',
-      \ 'coc-rls',
+      \ 'coc-prisma',
+      \ 'coc-rust-analyzer',
       \ 'coc-solargraph',
       \ 'coc-sql',
       \ 'coc-stylelint',
@@ -355,15 +355,24 @@ let g:coc_global_extensions = [
       \ 'coc-yaml',
       \]
 
-" Don't touch my indent
-autocmd filetype markdown set indentexpr= | let b:coc_suggest_disable = 1
-autocmd filetype typescript set indentexpr=
-autocmd filetype javascript set indentexpr=
-autocmd filetype css set indentexpr=
-autocmd filetype * set indentexpr=
+fu! SetSpell()
+  setlocal spell spelllang=en_us
+endf
 
-au BufNewFile,BufRead .aliases set ft=sh
+" Don't touch my indent
+autocmd filetype markdown set indentexpr=
+autocmd filetype markdown call SetSpell()
+autocmd filetype typescript set indentexpr=
+" autocmd filetype javascript set indentexpr=
+" autocmd filetype css set indentexpr=
 
 inoremap <c-Space> <space>=><space>
+autocmd filetype rust inoremap <buffer> <c-Space> <space>-><space>
+autocmd FileType prisma syntax sync fromstart
 " autocmd filetype ruby inoremap <buffer> <c-Space> <space>=><space>
 "let $NVIM_COC_LOG_LEVEL = 'debug'
+"
+" nnoremap <a-j> <c-w><c-j>
+" nnoremap <a-k> <c-w><c-k>
+" nnoremap <a-l> <c-w><c-l>
+" nnoremap <a-h> <c-w><c-h>
