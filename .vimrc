@@ -1,3 +1,8 @@
+lua <<EOF
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+EOF
+
 " Prevents issues with terminals
 set t_u7=
 
@@ -16,6 +21,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'dermusikman/sonicpi.vim'
   Plug 'lilyinstarlight/vim-sonic-pi', { 'branch': 'main' }
   Plug 'dracula/vim', { 'as': 'dracula' }
+  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
@@ -41,6 +47,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/goyo.vim'
   Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
   Plug 'elkowar/yuck.vim'
+  Plug 'nvim-tree/nvim-tree.lua'
+  Plug 'nvim-tree/nvim-web-devicons'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 call plug#end()
 
 if has('win32') || has('win64')
@@ -79,7 +88,7 @@ endif
   set synmaxcol=500
   set nomodeline
   let mapleader = ','
-  set cmdheight=2
+  set cmdheight=1
 
   syntax enable
 " }
@@ -210,7 +219,11 @@ endif
   nmap <leader>ac  <Plug>(coc-codeaction)
   nmap <leader>qf <Plug>(coc-fix-current)
 
+
   nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
+
+  nnoremap <leader>oi :call  CocActionAsync('runCommand', 'editor.action.organizeImport')
+  " nnoremap <leader>oi :CocAction('runCommand', 'tsserver.organizeImports')<CR>:Prettier<CR>
 
   command! -nargs=0 Format :call CocAction('format')
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -253,7 +266,7 @@ endif
   inoremap <c-\> <esc>c^
 
   " inoremap <s-CR> <CR><CR><c-o><up><tab>
-  inoremap <a-enter> <cr><cr><c-o><up><tab>
+  inoremap <a-enter> <cr><cr><c-o><up><tab><tab>
   nnoremap <Space> ;
   nnoremap <s-Space> ,
   inoremap jj <esc>
@@ -280,19 +293,33 @@ endif
   nnoremap <c-p> :Rg<space>
 
   " FZF commands
-  nmap <silent> <leader>fr :e %:h<CR>
+  nmap <silent> <leader>fr :sp %:h<CR>
   nmap <silent> <leader>fb :Buffers<CR>
   nmap <silent> <leader>ff :Files<CR>
   nmap <silent> <leader>fg :GFiles<CR>
   nmap <silent> <leader>fh :History<CR>
   nmap <silent> <leader>fl :BLines<CR>
 
-  nmap <silent> <leader>fv :Lex %:p:h<CR>
+  nmap <silent> <leader>fv :NvimTreeToggle %:p:h<CR>
   nmap <leader>; <c-w><c-w>
   nmap <silent> <leader>x :x<CR>
   nmap <silent> <leader>o :on<cr>
   nmap <silent> <leader>ue :UltiSnipsEdit<cr>
   nmap <silent> <leader>rc :source ~/.vimrc<cr>
+
+  if has('win32') || has('win64')
+    " This is for Windows where 'Alt' key is not recognized natively
+    noremap <M-h> <C-w>h
+    noremap <M-j> <C-w>j
+    noremap <M-k> <C-w>k
+    noremap <M-l> <C-w>l
+  else
+    " This works for most Unix-based systems (Linux, macOS)
+    noremap <A-h> <C-w>h
+    noremap <A-j> <C-w>j
+    noremap <A-k> <C-w>k
+    noremap <A-l> <C-w>l
+  endif
 
   " Yank current file path from cwd
   nmap <leader>yp :let @+=expand("%:.")<CR>
@@ -369,6 +396,8 @@ autocmd filetype typescript set indentexpr=
 inoremap <c-Space> <space>=><space>
 autocmd filetype rust inoremap <buffer> <c-Space> <space>-><space>
 autocmd FileType prisma syntax sync fromstart
+autocmd FileType css setl iskeyword+=-
+autocmd FileType scss setl iskeyword+=@-@
 " autocmd filetype ruby inoremap <buffer> <c-Space> <space>=><space>
 "let $NVIM_COC_LOG_LEVEL = 'debug'
 "
@@ -376,3 +405,75 @@ autocmd FileType prisma syntax sync fromstart
 " nnoremap <a-k> <c-w><c-k>
 " nnoremap <a-l> <c-w><c-l>
 " nnoremap <a-h> <c-w><c-h>
+
+" load bash aliases
+
+let g:python3_host_prog = '/home/linuxbrew/.linuxbrew/bin/python3.11'
+
+lua <<EOF
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  ensure_installed = {
+    "css",
+    "html",
+    "lua",
+    "ocaml",
+    "query",
+    "ruby",
+    "rust",
+    "typescript",
+    "vim",
+    "vimdoc",
+    "toml",
+    "scss"
+  },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    enable = true,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+EOF
