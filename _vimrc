@@ -1,53 +1,44 @@
+" Prevents issues with terminals
+set t_u7=
+
 set nocompatible
 set rtp+=~/.vim
-set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 
 call plug#begin('~/.vim/plugged')
-  " Plug '/usr/local/opt/fzf'
   Plug 'aalvarado/my_snippets'
   Plug 'airblade/vim-gitgutter'
   Plug 'AndrewRadev/splitjoin.vim'
   Plug 'andymass/vim-matchup'
   Plug 'bling/vim-airline'
-  Plug 'bronson/vim-visual-star-search'
-  " Plug 'cespare/vim-toml'
-  " Plug 'chr4/nginx.vim'
-  Plug 'cohama/lexima.vim'
-  " Plug 'dermusikman/sonicpi.vim'
-  Plug 'lilyinstarlight/vim-sonic-pi', { 'branch': 'main' }
+  Plug 'haya14busa/vim-asterisk'
+  Plug 'qxxxb/vim-searchhi'
   Plug 'dracula/vim', { 'as': 'dracula' }
-  " Plug 'ianks/vim-tsx'
-  " Plug 'jparise/vim-graphql'
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-textobj-user'
-  Plug 'nelstrom/vim-textobj-rubyblock'
-  " Plug 'kchmck/vim-coffee-script'
-  " Plug 'leafgarland/typescript-vim'
   Plug 'lilydjwg/colorizer'
-  " Plug 'maxmellon/vim-jsx-pretty'
   Plug 'michaeljsmith/vim-indent-object'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  " Plug 'ocaml/vim-ocaml'
-  " Plug 'plasticboy/vim-markdown'
   Plug 'powerman/vim-plugin-AnsiEsc'
-  " Plug 'rust-lang/rust.vim'
-  " Plug 'reasonml-editor/vim-reason-plus'
-  Plug 'scrooloose/nerdcommenter'
+  Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+  Plug 'numToStr/Comment.nvim'
   Plug 'SirVer/ultisnips'
-  " Plug 'slim-template/vim-slim'
-  Plug 'tpope/vim-eunuch'
+  Plug 'lambdalisue/vim-suda'
   Plug 'tpope/vim-fugitive'
-  " Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
-  " Plug 'vim-ruby/vim-ruby'
-  Plug 'whatyouhide/vim-textobj-erb'
-  " Plug 'yuezk/vim-js'
-
-  Plug 'sheerun/vim-polyglot'
+  Plug 'tpope/vim-vinegar'
   Plug 'junegunn/goyo.vim'
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'wgwoods/vim-systemd-syntax'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'olimorris/codecompanion.nvim'
+  Plug 'jannis-baum/vivify.vim'
+  Plug 'nvim-tree/nvim-tree.lua'
 call plug#end()
 
 if has('win32') || has('win64')
@@ -61,7 +52,6 @@ if has('unix')
 endif
 
 " General {
-  "set shellcmdflag=-ic
   filetype plugin on
   setglobal nobomb
   set autoindent
@@ -89,7 +79,7 @@ endif
   let mapleader = ','
   set cmdheight=2
 
-  syntax on
+  syntax enable
 " }
 
 " Scroll {
@@ -100,17 +90,14 @@ endif
   set incsearch
   set hlsearch
   set laststatus=2
-
-  "set guioptions=i
   set number
   set ruler
-  "set shortmess=aIc
-  set shortmess=I
+  set shortmess=Ic
 
   " Wrapping options
   set wrap
   set lbr
-  let &showbreak = '↳ '
+  let &showbreak = '↳  '
   set breakindentopt=shift:2,min:40,sbr
   set breakindent
   let &breakat = " \t;,])}"
@@ -122,9 +109,6 @@ endif
   endif
 
 " Plugins {
-  let g:NERDSpaceDelims = 1
-  let g:NERDDefaultAlign = 'left'
-
   let g:matchup_matchparen_deferred = 1
   let g:matchup_surround_enabled = 1
 
@@ -188,42 +172,28 @@ endif
     let g:gitgutter_map_keys = 0
 " }
 
-  " Use tab for trigger completion with characters ahead and navigate.
-  " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-  inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+  " CoC
+  set updatetime=300
 
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-
-  let g:coc_snippet_next = '<tab>'
+  inoremap <silent><expr> <a-\> coc#refresh()
 
   " Use K to show documentation in preview window
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
+  nnoremap <silent> K :call ShowDocumentation()<CR>
 
   " Remap for rename current word
   nmap <leader>rn <Plug>(coc-rename)
 
-
-  function! s:show_documentation()
-    if (index(['vim','help'], &filetype) >= 0)
-      execute 'h '.expand('<cword>')
+  function! ShowDocumentation()
+    if CocAction('hasProvider', 'hover')
+      call CocActionAsync('doHover')
     else
-      call CocAction('doHover')
+      call feedkeys('K', 'in')
     endif
   endfunction
 
+  inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
-  " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-  " Coc only does snippet and additional edit on confirm.
-  " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
   " Remap keys for gotos
   nmap <silent>gd <Plug>(coc-definition)
@@ -235,62 +205,102 @@ endif
   nmap <leader>ac  <Plug>(coc-codeaction)
   nmap <leader>qf <Plug>(coc-fix-current)
 
+  nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
+
   command! -nargs=0 Format :call CocAction('format')
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-  " https://github.com/joshukraine/dotfiles/blob/ba4ac2969b91ed88f6413cdde05da251cf1906f9/nvim/init.vim
+  command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
 
   " rust
   let g:rustfmt_autosave = 1
 " }
 
+" Markdown {
+" let g:vim_markdown_auto_insert_bullets = 1
+" let g:vim_markdown_new_list_item_indent = 0
+" }
+
 " Customizations {
-  let g:netrw_banner = 0
-  let g:netrw_liststyle = 3
-  let g:netrw_browse_split = 0
-  let g:netrw_altv = 1
-  let g:netrw_winsize = 25
+
+  " Add date
+  nmap <silent> <leader>ad :r !date +\%F<CR>
 
   " nmap <F9> :set ignorecase! ignorecase?
   nnoremap ; :
 
   nmap <silent> <leader>/ :nohlsearch<CR>
   cmap cwd lcd %:p:h
+  cmap vrc tabe $MYVIMRC<cr>
+  cmap sov source $MYVIMRC
+  cmap vi3 tabe ~/.i3/config<cr>g;
+  cmap via tabe ~/.bash_aliases<cr>
+  cmap jj <esc>
 
-  "inoremap <s-enter> <cr><cr><up><tab>
-  nnoremap gs g^
+  " ^ is too far
+  nnoremap \ g^
+  vnoremap \ g^
+  nnoremap d\ d^
+  inoremap <c-\> <esc>c^
+
+  " inoremap <s-CR> <CR><CR><c-o><up><tab>
+  inoremap <a-enter> <cr><cr><c-o><up><tab>
   nnoremap <Space> ;
   nnoremap <s-Space> ,
   inoremap jj <esc>
-  " cmap w!! %!sudo tee > /dev/null %
+
+  " Double comma to add a comma to the end
   inoremap ,, <c-o>A,
   inoremap ;; <c-o>A;<esc>
 
-  "inoremap {<CR>  {<CR>}<c-o>O
-  "inoremap (<CR>  (<CR>)<c-o>O
-  "inoremap [<CR> [<CR>]<c-o>O
-  "inoremap <s-CR> <CR><CR><c-o><up><tab>
-  "inoremap <c-Space> <space>=><space>
+  " //e means continue even with errors *:s_e*
+  command! -nargs=0 StripWhitespace :%s/\s\+$//e
+  nnoremap <leader>sw :StripWhitespace<CR>
 
-  nmap <C-]> :split<CR>:exec("tag ".expand("<cword>"))<CR>
+  command! -nargs=0 StripEmptyLines :%s/\^\s+$//e
 
+  inoremap {<CR> {<CR>}<c-o>O
+  inoremap (<CR> (<CR>)<c-o>O
+  inoremap [<CR> [<CR>]<c-o>O
+  " inoremap <s-CR> <CR><CR><c-o><up><tab>
+  " inoremap '''<cr> '''<cr>'''<c-o><up><tab>
+
+  " Search in selected lines
   vnoremap <M-k> <Esc>/\%V
-  nnoremap <M-l> :BLines<CR>
+  " nnoremap <M-l> :BLines<CR>
 
   vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
   nnoremap <c-p> :Rg<space>
 
+
+  vnoremap p P
+  vnoremap P p
+
   " FZF commands
-  nmap <silent> <leader>fr :e %:h<CR>
+  nmap <silent> <leader>fr :NvimTreeToggle %:h<CR>
   nmap <silent> <leader>fb :Buffers<CR>
   nmap <silent> <leader>ff :Files<CR>
   nmap <silent> <leader>fg :GFiles<CR>
   nmap <silent> <leader>fh :History<CR>
+  nmap <silent> <leader>fl :BLines<CR>
+
+  " nmap <silent> <leader>fv :Lex %:p:h<CR>
+  nmap <silent> <leader>fv :NvimTreeToggle<CR>
+  nmap <leader>; <c-w><c-w>
+  nmap <silent> <leader>x :x<CR>
+  nmap <silent> <leader>o :on<cr>
+  nmap <silent> <leader>ue :UltiSnipsEdit<cr>
+  nmap <silent> <leader>rc :source ~/.vimrc<cr>
+
   " Yank current file path from cwd
   nmap <leader>yp :let @+=expand("%:.")<CR>
 
   :hi Normal ctermbg=NONE
   :hi MatchWord ctermfg=NONE guifg=NONE cterm=underline gui=underline
+
+fu! FreezeHeader()
+  execute '1sp'
+  execute 'bp'
+endf
 
 " let g:sonic_pi_command = 'sonic-pi-tool.py'
 " let g:sonic_pi_autolog_enabled = 0
@@ -309,48 +319,178 @@ set notermguicolors
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
+" Quicker save just ,w and will write the file
 nnoremap <silent><leader>w :w!<CR>
 
-" optional reset cursor on start:
-augroup myCmds
-au!
-autocmd VimEnter * silent !echo -ne "\e[2 q"
-augroup END
-
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
+" Fix indent lines odd color in terminals
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#21222C ctermbg=235
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#343746 ctermbg=237
-
-" autocmd FileType html let b:coc_pairs_disabled = ['<']
-" autocmd FileType eruby let b:coc_pairs_disabled = ['<']
-
-"let $NVIM_COC_LOG_LEVEL = 'debug'
 
 let g:coc_global_extensions = [
       \ 'coc-css',
       \ 'coc-docker',
       \ 'coc-eslint',
-      \ 'coc-flow',
       \ 'coc-git',
       \ 'coc-godot',
       \ 'coc-html',
       \ 'coc-json',
+      \ 'coc-lists',
+      \ 'coc-lua',
       \ 'coc-marketplace',
       \ 'coc-prettier',
-      \ 'coc-reason',
-      \ 'coc-rls',
+      \ 'coc-prisma',
+      \ 'coc-rust-analyzer',
       \ 'coc-solargraph',
       \ 'coc-sql',
       \ 'coc-stylelint',
       \ 'coc-tag',
       \ 'coc-toml',
-      \ 'coc-tslint',
-      \ 'coc-tslint-plugin',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp',
       \ 'coc-webpack',
       \ 'coc-webpack',
       \ 'coc-xml',
       \ 'coc-yaml',
       \]
 
+fu! SetSpell()
+  setlocal spell spelllang=en_us
+endf
+
+" Don't touch my indent
 autocmd filetype markdown set indentexpr=
+autocmd filetype markdown call SetSpell()
+autocmd filetype typescript set indentexpr=
+" autocmd filetype javascript set indentexpr=
+" autocmd filetype css set indentexpr=
+
+autocmd BufRead,BufNewFile *.container set filetype=systemd
+
+inoremap <c-Space> <space>=><space>
+autocmd filetype rust inoremap <buffer> <c-Space> <space>-><space>
+autocmd FileType prisma syntax sync fromstart
+" autocmd filetype ruby inoremap <buffer> <c-Space> <space>=><space>
+"let $NVIM_COC_LOG_LEVEL = 'debug'
+"
+nnoremap <a-j> <c-w><c-j>
+nnoremap <a-k> <c-w><c-k>
+nnoremap <a-l> <c-w><c-l>
+nnoremap <a-h> <c-w><c-h>
+
+lua <<EOF
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+require("nvim-tree").setup({
+  view = {
+    width = 30,
+  },
+  filters = {
+    enable = false
+  },
+  update_focused_file = {
+    enable = true
+  }
+})
+
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
+  ensure_installed = {
+    "c",
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "markdown",
+    "markdown_inline",
+    "typescript",
+    "javascript",
+    "ruby",
+    "rust"
+  },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (or "all")
+  -- ignore_install = { "javascript" },
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    enable = false,
+
+    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+    -- the name of the parser)
+    -- list of language that will be disabled
+    -- disable = { "c", "rust" },
+    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
+    disable = function(lang, buf)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        if ok and stats and stats.size > max_filesize then
+            return true
+        end
+    end,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+require('Comment').setup({
+  padding = true,
+  sticky = true,
+
+  toggler = {
+    line = ',c ',
+    block = ',cb'
+  },
+
+  opleader = {
+    line = ',c ',
+    block = ',cb'
+  },
+
+  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+})
+
+require("codecompanion").setup({
+  opts = {
+    log_level = "DEBUG", -- or "TRACE"
+  }
+})
+
+
+EOF
+
+nmap n <Plug>(searchhi-n)
+nmap N <Plug>(searchhi-N)
+nmap * <Plug>(searchhi-*)
+nmap g* <Plug>(searchhi-g*)
+nmap # <Plug>(searchhi-#)
+nmap g# <Plug>(searchhi-g#)
+nmap gd <Plug>(searchhi-gd)
+nmap gD <Plug>(searchhi-gD)
+
+vmap n <Plug>(searchhi-v-n)
+vmap N <Plug>(searchhi-v-N)
+vmap * <Plug>(searchhi-v-*)
+vmap g* <Plug>(searchhi-v-g*)
+vmap # <Plug>(searchhi-v-#)
+vmap g# <Plug>(searchhi-v-g#)
+vmap gd <Plug>(searchhi-v-gd)
+vmap gD <Plug>(searchhi-v-gD)
+
+nmap <silent> <C-L> <Plug>(searchhi-clear-all)
+vmap <silent> <C-L> <Plug>(searchhi-v-clear-all)
+
+let g:loaded_perl_provider = 0
