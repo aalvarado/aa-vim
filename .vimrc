@@ -18,38 +18,32 @@ call plug#begin('~/.vim/plugged')
   Plug 'bling/vim-airline'
   Plug 'haya14busa/vim-asterisk'
   Plug 'qxxxb/vim-searchhi'
-  " Plug 'dermusikman/sonicpi.vim'
-  Plug 'lilyinstarlight/vim-sonic-pi', { 'branch': 'main' }
   Plug 'dracula/vim', { 'as': 'dracula' }
-  Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
   Plug 'kana/vim-textobj-user'
-  Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'lilydjwg/colorizer'
   Plug 'michaeljsmith/vim-indent-object'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'powerman/vim-plugin-AnsiEsc'
-  Plug 'prisma/vim-prisma'
-  Plug 'preservim/nerdcommenter'
+  Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+  Plug 'numToStr/Comment.nvim'
   Plug 'SirVer/ultisnips'
-  Plug 'tpope/vim-eunuch'
+  Plug 'lambdalisue/vim-suda'
   Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-rails'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-vinegar'
-  Plug 'vim-ruby/vim-ruby'
-  Plug 'whatyouhide/vim-textobj-erb'
-  Plug 'sheerun/vim-polyglot'
   Plug 'junegunn/goyo.vim'
-  Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-  Plug 'elkowar/yuck.vim'
-  Plug 'nvim-tree/nvim-tree.lua'
-  Plug 'nvim-tree/nvim-web-devicons'
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'wgwoods/vim-systemd-syntax'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'olimorris/codecompanion.nvim'
+  Plug 'jannis-baum/vivify.vim'
+  Plug 'nvim-tree/nvim-tree.lua'
 call plug#end()
 
 if has('win32') || has('win64')
@@ -88,7 +82,7 @@ endif
   set synmaxcol=500
   set nomodeline
   let mapleader = ','
-  set cmdheight=1
+  set cmdheight=2
 
   syntax enable
 " }
@@ -120,9 +114,6 @@ endif
   endif
 
 " Plugins {
-  let g:NERDSpaceDelims = 1
-  let g:NERDDefaultAlign = 'left'
-
   let g:matchup_matchparen_deferred = 1
   let g:matchup_surround_enabled = 1
 
@@ -219,11 +210,7 @@ endif
   nmap <leader>ac  <Plug>(coc-codeaction)
   nmap <leader>qf <Plug>(coc-fix-current)
 
-
   nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
-
-  nnoremap <leader>oi :call  CocActionAsync('runCommand', 'editor.action.organizeImport')
-  " nnoremap <leader>oi :CocAction('runCommand', 'tsserver.organizeImports')<CR>:Prettier<CR>
 
   command! -nargs=0 Format :call CocAction('format')
   command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -239,11 +226,6 @@ endif
 " }
 
 " Customizations {
-  let g:netrw_banner = 0
-  let g:netrw_liststyle = 3
-  let g:netrw_browse_split = 0
-  let g:netrw_altv = 1
-  let g:netrw_winsize = 25
 
   " Add date
   nmap <silent> <leader>ad :r !date +\%F<CR>
@@ -253,8 +235,8 @@ endif
 
   nmap <silent> <leader>/ :nohlsearch<CR>
   cmap cwd lcd %:p:h
-  cmap vrc tabe ~/.vimrc<cr>
-  cmap sov source ~/.vimrc
+  cmap vrc tabe $MYVIMRC<cr>
+  cmap sov source $MYVIMRC
   cmap vi3 tabe ~/.i3/config<cr>g;
   cmap via tabe ~/.bash_aliases<cr>
   cmap jj <esc>
@@ -266,7 +248,7 @@ endif
   inoremap <c-\> <esc>c^
 
   " inoremap <s-CR> <CR><CR><c-o><up><tab>
-  inoremap <a-enter> <cr><cr><c-o><up><tab><tab>
+  inoremap <a-enter> <cr><cr><c-o><up><tab>
   nnoremap <Space> ;
   nnoremap <s-Space> ,
   inoremap jj <esc>
@@ -279,8 +261,10 @@ endif
   command! -nargs=0 StripWhitespace :%s/\s\+$//e
   nnoremap <leader>sw :StripWhitespace<CR>
 
-  inoremap {<CR>  {<CR>}<c-o>O
-  inoremap (<CR>  (<CR>)<c-o>O
+  command! -nargs=0 StripEmptyLines :%s/\^\s+$//e
+
+  inoremap {<CR> {<CR>}<c-o>O
+  inoremap (<CR> (<CR>)<c-o>O
   inoremap [<CR> [<CR>]<c-o>O
   " inoremap <s-CR> <CR><CR><c-o><up><tab>
   " inoremap '''<cr> '''<cr>'''<c-o><up><tab>
@@ -292,34 +276,25 @@ endif
   vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
   nnoremap <c-p> :Rg<space>
 
+
+  vnoremap p P
+  vnoremap P p
+
   " FZF commands
-  nmap <silent> <leader>fr :sp %:h<CR>
+  nmap <silent> <leader>fr :NvimTreeToggle %:h<CR>
   nmap <silent> <leader>fb :Buffers<CR>
   nmap <silent> <leader>ff :Files<CR>
   nmap <silent> <leader>fg :GFiles<CR>
   nmap <silent> <leader>fh :History<CR>
   nmap <silent> <leader>fl :BLines<CR>
 
-  nmap <silent> <leader>fv :NvimTreeToggle %:p:h<CR>
+  " nmap <silent> <leader>fv :Lex %:p:h<CR>
+  nmap <silent> <leader>fv :NvimTreeToggle<CR>
   nmap <leader>; <c-w><c-w>
   nmap <silent> <leader>x :x<CR>
   nmap <silent> <leader>o :on<cr>
   nmap <silent> <leader>ue :UltiSnipsEdit<cr>
   nmap <silent> <leader>rc :source ~/.vimrc<cr>
-
-  if has('win32') || has('win64')
-    " This is for Windows where 'Alt' key is not recognized natively
-    noremap <M-h> <C-w>h
-    noremap <M-j> <C-w>j
-    noremap <M-k> <C-w>k
-    noremap <M-l> <C-w>l
-  else
-    " This works for most Unix-based systems (Linux, macOS)
-    noremap <A-h> <C-w>h
-    noremap <A-j> <C-w>j
-    noremap <A-k> <C-w>k
-    noremap <A-l> <C-w>l
-  endif
 
   " Yank current file path from cwd
   nmap <leader>yp :let @+=expand("%:.")<CR>
@@ -365,6 +340,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-json',
       \ 'coc-lists',
+      \ 'coc-lua',
       \ 'coc-marketplace',
       \ 'coc-prettier',
       \ 'coc-prisma',
@@ -393,54 +369,52 @@ autocmd filetype typescript set indentexpr=
 " autocmd filetype javascript set indentexpr=
 " autocmd filetype css set indentexpr=
 
+autocmd BufRead,BufNewFile *.container set filetype=systemd
+
 inoremap <c-Space> <space>=><space>
 autocmd filetype rust inoremap <buffer> <c-Space> <space>-><space>
 autocmd FileType prisma syntax sync fromstart
-autocmd FileType css setl iskeyword+=-
-autocmd FileType scss setl iskeyword+=@-@
 " autocmd filetype ruby inoremap <buffer> <c-Space> <space>=><space>
 "let $NVIM_COC_LOG_LEVEL = 'debug'
 "
-" nnoremap <a-j> <c-w><c-j>
-" nnoremap <a-k> <c-w><c-k>
-" nnoremap <a-l> <c-w><c-l>
-" nnoremap <a-h> <c-w><c-h>
-
-" load bash aliases
-
-let g:python3_host_prog = '/home/linuxbrew/.linuxbrew/bin/python3.11'
+nnoremap <a-j> <c-w><c-j>
+nnoremap <a-k> <c-w><c-k>
+nnoremap <a-l> <c-w><c-l>
+nnoremap <a-h> <c-w><c-h>
 
 lua <<EOF
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 require("nvim-tree").setup({
-  sort = {
-    sorter = "case_sensitive",
-  },
   view = {
     width = 30,
   },
-  renderer = {
-    group_empty = true,
-  },
   filters = {
-    dotfiles = true,
+    enable = false
   },
+  update_focused_file = {
+    enable = true
+  }
 })
 
 require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the five listed parsers should always be installed)
+  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
   ensure_installed = {
+    "c",
     "css",
     "html",
+    "javascript",
     "lua",
-    "ocaml",
+    "markdown",
+    "markdown_inline",
+    "query",
     "query",
     "ruby",
-    "rust",
+    "rust"
+    "toml",
     "typescript",
     "vim",
     "vimdoc",
-    "toml",
-    "scss"
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -450,16 +424,20 @@ require'nvim-treesitter.configs'.setup {
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = true,
 
+  -- List of parsers to ignore installing (or "all")
+  -- ignore_install = { "javascript" },
+
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
   -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
   highlight = {
-    enable = true,
+    enable = false,
 
     -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
+    -- disable = { "c", "rust" },
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     disable = function(lang, buf)
         local max_filesize = 100 * 1024 -- 100 KB
@@ -476,4 +454,52 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+require('Comment').setup({
+  padding = true,
+  sticky = true,
+
+  toggler = {
+    line = ',c ',
+    block = ',cb'
+  },
+
+  opleader = {
+    line = ',c ',
+    block = ',cb'
+  },
+
+  pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
+})
+
+require("codecompanion").setup({
+  opts = {
+    log_level = "DEBUG", -- or "TRACE"
+  }
+})
+
+
 EOF
+
+nmap n <Plug>(searchhi-n)
+nmap N <Plug>(searchhi-N)
+nmap * <Plug>(searchhi-*)
+nmap g* <Plug>(searchhi-g*)
+nmap # <Plug>(searchhi-#)
+nmap g# <Plug>(searchhi-g#)
+nmap gd <Plug>(searchhi-gd)
+nmap gD <Plug>(searchhi-gD)
+
+vmap n <Plug>(searchhi-v-n)
+vmap N <Plug>(searchhi-v-N)
+vmap * <Plug>(searchhi-v-*)
+vmap g* <Plug>(searchhi-v-g*)
+vmap # <Plug>(searchhi-v-#)
+vmap g# <Plug>(searchhi-v-g#)
+vmap gd <Plug>(searchhi-v-gd)
+vmap gD <Plug>(searchhi-v-gD)
+
+nmap <silent> <C-L> <Plug>(searchhi-clear-all)
+vmap <silent> <C-L> <Plug>(searchhi-v-clear-all)
+
+let g:loaded_perl_provider = 0
