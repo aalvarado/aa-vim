@@ -8,7 +8,6 @@ set t_u7=
 
 set nocompatible
 set rtp+=~/.vim
-" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 
 call plug#begin('~/.vim/plugged')
   Plug 'aalvarado/my_snippets'
@@ -40,6 +39,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'main'}
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-tree/nvim-tree.lua'
+  Plug 'mks-h/treesitter-autoinstall.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': 'main' }
 call plug#end()
 
 if has('win32') || has('win64')
@@ -195,8 +196,6 @@ endif
 
   inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 
-  " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
   " Remap keys for gotos
   nmap <silent>gd <Plug>(coc-definition)
   nmap <silent>gy <Plug>(coc-type-definition)
@@ -215,11 +214,6 @@ endif
 
   " rust
   let g:rustfmt_autosave = 1
-" }
-
-" Markdown {
-" let g:vim_markdown_auto_insert_bullets = 1
-" let g:vim_markdown_new_list_item_indent = 0
 " }
 
 " Customizations {
@@ -297,15 +291,6 @@ fu! FreezeHeader()
   execute 'bp'
 endf
 
-" let g:sonic_pi_command = 'sonic-pi-tool.py'
-" let g:sonic_pi_autolog_enabled = 0
-" let g:sonic_pi_check = 'version'
-" let g:sonic_pi_eval = ''
-" let g:sonic_pi_stop = 'stop'
-" Disabled due to lack of support
-" let g:sonic_pi_run = ''
-" let g:sonic_pi_logs = ''
-" let g:sonic_pi_record = ''
 let g:vim_redraw = 1
 
 set t_Co=256
@@ -405,12 +390,84 @@ require('Comment').setup({
 })
 
 require'nvim-treesitter'.install {
+  'c',
+  'css',
+  'lua',
+  'markdown',
+  'markdown_inline',
+  'query',
+  'toml',
+  'vim',
+  'vimdoc',
+  'scss',
+  'sql',
   'ocaml',
   'rust',
   'typescript',
   'javascript',
+  'yaml',
   'zig'
 }
+
+require("treesitter-autoinstall").setup({
+    -- A list of *filetypes* to ignore.
+	ignore = {},
+    -- Auto-enable highlighting for installed grammars.
+	highlight = true,
+    -- A list of *filetypes* to also enable regex highlighting for
+	regex = {},
+})
+
+
+require("nvim-treesitter-textobjects").setup {
+  select = {
+    -- Automatically jump forward to textobj, similar to targets.vim
+    lookahead = true,
+    -- You can choose the select mode (default is charwise 'v')
+    --
+    -- Can also be a function which gets passed a table with the keys
+    -- * query_string: eg '@function.inner'
+    -- * method: eg 'v' or 'o'
+    -- and should return the mode ('v', 'V', or '<c-v>') or a table
+    -- mapping query_strings to modes.
+    selection_modes = {
+      ['@parameter.outer'] = 'v', -- charwise
+      ['@function.outer'] = 'V', -- linewise
+      -- ['@class.outer'] = '<c-v>', -- blockwise
+    },
+    -- If you set this to `true` (default is `false`) then any textobject is
+    -- extended to include preceding or succeeding whitespace. Succeeding
+    -- whitespace has priority in order to act similarly to eg the built-in
+    -- `ap`.
+    --
+    -- Can also be a function which gets passed a table with the keys
+    -- * query_string: eg '@function.inner'
+    -- * selection_mode: eg 'v'
+    -- and should return true of false
+    include_surrounding_whitespace = false,
+  },
+}
+
+-- keymaps
+-- You can use the capture groups defined in `textobjects.scm`
+vim.keymap.set({ "x", "o" }, "am", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "im", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@function.inner", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ac", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@class.outer", "textobjects")
+end)
+vim.keymap.set({ "x", "o" }, "ic", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@class.inner", "textobjects")
+end)
+-- You can also use captures from other query groups like `locals.scm`
+vim.keymap.set({ "x", "o" }, "as", function()
+  require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
+end)
+
+vim.g.no_plugin_maps = true
 EOF
 
 nmap n <Plug>(searchhi-n)
