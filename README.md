@@ -58,8 +58,12 @@ Restart vim to load all the plugins
 - `,w` writes the file
 - There's autowrite for markdown files
 - There's autocomplete for braces. for example typing `(` then `<tab>` autcomples and places cursor in the middle, same with single quotes, double quotes and angled. this `{<tab>` auto completes to this `{|}` but also works with `{<space><tab>` auto completes to `{ | }` which is very convenient. You jump with `<c-l>` or `<c-j>` between the end and the last cursor position
-
 - This is made for editing markdown files as simple as possible. 
+
+## Updates
+- `cd` into the cloned directory and `git pull`
+- You might get errors if the vim plugin isn't installed, do `:PlugUpdate` within the editor to update all the vim plugins
+- `:checkhealth` will give additional info if anything is missing
 
 ## Previews
 
