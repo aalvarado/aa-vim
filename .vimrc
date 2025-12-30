@@ -33,7 +33,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-vinegar'
   Plug 'junegunn/goyo.vim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'main'}
@@ -41,6 +40,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-tree/nvim-tree.lua'
   Plug 'mks-h/treesitter-autoinstall.nvim'
   Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': 'main' }
+  Plug 'stevearc/aerial.nvim'
 call plug#end()
 
 if has('win32') || has('win64')
@@ -55,6 +55,7 @@ endif
 
 " General {
   filetype plugin on
+  " filetype off
   setglobal nobomb
   set autoindent
   set whichwrap=b,s,h,l,<,>,[,]
@@ -82,6 +83,7 @@ endif
   set cmdheight=2
 
   syntax enable
+  " syntax off
 " }
 
 " Scroll {
@@ -104,6 +106,8 @@ endif
   set breakindentopt=shift:2,min:40,sbr
   set breakindent
   let &breakat = " \t;,])}"
+  let g:no_plugin_maps = 1
+  let no_plugin_maps = 1
 " }
 
   set belloff=all
@@ -411,11 +415,11 @@ require'nvim-treesitter'.install {
 
 require("treesitter-autoinstall").setup({
     -- A list of *filetypes* to ignore.
-	ignore = {},
+  ignore = {},
     -- Auto-enable highlighting for installed grammars.
-	highlight = true,
+  highlight = true,
     -- A list of *filetypes* to also enable regex highlighting for
-	regex = {},
+  regex = {},
 })
 
 
@@ -466,6 +470,17 @@ end)
 vim.keymap.set({ "x", "o" }, "as", function()
   require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
 end)
+
+require("aerial").setup({
+  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+  on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+  end,
+})
+-- You probably also want to set a keymap to toggle aerial
+vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
 vim.g.no_plugin_maps = true
 EOF
