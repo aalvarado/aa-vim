@@ -22,7 +22,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'junegunn/vim-easy-align'
-  Plug 'kana/vim-textobj-user'
   Plug 'lilydjwg/colorizer'
   Plug 'michaeljsmith/vim-indent-object'
   Plug 'nathanaelkane/vim-indent-guides'
@@ -38,11 +37,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-vinegar'
   Plug 'junegunn/goyo.vim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'wgwoods/vim-systemd-syntax'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'main'}
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'olimorris/codecompanion.nvim'
-  Plug 'jannis-baum/vivify.vim'
   Plug 'nvim-tree/nvim-tree.lua'
 call plug#end()
 
@@ -98,6 +94,7 @@ endif
   set number
   set ruler
   set shortmess=Ic
+  set shada=!,'9999,<999,s100,h
 
   " Wrapping options
   set wrap
@@ -250,7 +247,6 @@ endif
   " inoremap <s-CR> <CR><CR><c-o><up><tab>
   inoremap <a-enter> <cr><cr><c-o><up><tab>
   nnoremap <Space> ;
-  nnoremap <s-Space> ,
   inoremap jj <esc>
 
   " Double comma to add a comma to the end
@@ -266,16 +262,12 @@ endif
   inoremap {<CR> {<CR>}<c-o>O
   inoremap (<CR> (<CR>)<c-o>O
   inoremap [<CR> [<CR>]<c-o>O
-  " inoremap <s-CR> <CR><CR><c-o><up><tab>
-  " inoremap '''<cr> '''<cr>'''<c-o><up><tab>
 
   " Search in selected lines
   vnoremap <M-k> <Esc>/\%V
-  " nnoremap <M-l> :BLines<CR>
 
   vnoremap <c-p> "ry:<c-u>Rg <c-r>r<cr>
   nnoremap <c-p> :Rg<space>
-
 
   vnoremap p P
   vnoremap P p
@@ -287,8 +279,6 @@ endif
   nmap <silent> <leader>fg :GFiles<CR>
   nmap <silent> <leader>fh :History<CR>
   nmap <silent> <leader>fl :BLines<CR>
-
-  " nmap <silent> <leader>fv :Lex %:p:h<CR>
   nmap <silent> <leader>fv :NvimTreeToggle<CR>
   nmap <leader>; <c-w><c-w>
   nmap <silent> <leader>x :x<CR>
@@ -397,64 +387,6 @@ require("nvim-tree").setup({
   }
 })
 
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = {
-    "c",
-    "css",
-    "html",
-    "javascript",
-    "lua",
-    "markdown",
-    "markdown_inline",
-    "query",
-    "query",
-    "ruby",
-    "rust"
-    "toml",
-    "typescript",
-    "vim",
-    "vimdoc",
-  },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  -- List of parsers to ignore installing (or "all")
-  -- ignore_install = { "javascript" },
-
-  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
-  highlight = {
-    enable = false,
-
-    -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-    -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-    -- the name of the parser)
-    -- list of language that will be disabled
-    -- disable = { "c", "rust" },
-    -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-    disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-
 require('Comment').setup({
   padding = true,
   sticky = true,
@@ -472,13 +404,13 @@ require('Comment').setup({
   pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 })
 
-require("codecompanion").setup({
-  opts = {
-    log_level = "DEBUG", -- or "TRACE"
-  }
-})
-
-
+require'nvim-treesitter'.install {
+  'ocaml',
+  'rust',
+  'typescript',
+  'javascript',
+  'zig'
+}
 EOF
 
 nmap n <Plug>(searchhi-n)
