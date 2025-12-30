@@ -12,7 +12,7 @@ Tested on the following Operating Systems:
 * RipGrep
 * Fzf
 * Python 3
-* Ruby
+* Treesitter
 
 ## Installation
 - Install Vim-Plug - https://github.com/junegunn/vim-plug
