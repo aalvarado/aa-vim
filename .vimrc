@@ -12,7 +12,6 @@ set rtp+=~/.vim
 call plug#begin('~/.vim/plugged')
   Plug 'aalvarado/my_snippets'
   Plug 'airblade/vim-gitgutter'
-  Plug 'AndrewRadev/splitjoin.vim'
   Plug 'andymass/vim-matchup'
   Plug 'bling/vim-airline'
   Plug 'haya14busa/vim-asterisk'
@@ -41,6 +40,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'mks-h/treesitter-autoinstall.nvim'
   Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': 'main' }
   Plug 'stevearc/aerial.nvim'
+
+  Plug 'Wansmer/treesj'
+  Plug 'Aasim-A/scrollEOF.nvim'
+  Plug 'tpope/vim-dadbod'
+  Plug 'kristijanhusak/vim-dadbod-ui'
 call plug#end()
 
 if has('win32') || has('win64')
@@ -198,7 +202,8 @@ endif
     endif
   endfunction
 
-  inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+  " inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+  inoremap <silent><expr> <cr> coc#pum#visible() && coc#pum#info()['index'] != -1 ? coc#pum#confirm() : "\<C-g>u\<CR>"
 
   " Remap keys for gotos
   nmap <silent>gd <Plug>(coc-definition)
@@ -482,7 +487,16 @@ require("aerial").setup({
 -- You probably also want to set a keymap to toggle aerial
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
+require('treesj').setup({
+  use_default_keymaps = false
+})
+vim.keymap.set('n', 'gS', function()
+  require('treesj').toggle({ split = { recursive = true } })
+end)
+
 vim.g.no_plugin_maps = true
+
+require('scrollEOF').setup()
 EOF
 
 nmap n <Plug>(searchhi-n)
