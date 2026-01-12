@@ -68,5 +68,5 @@ Restart vim to load all the plugins
 ## Previews
 
 
-Android with Termux
+Termux is a terminal emulator for Androi←d
 ![Screenshot_20220428-100217_Termux~2](https://user-images.githubusercontent.com/370322/165838492-9853b05a-b940-4447-950c-fb7377aefd8e.jpg)
