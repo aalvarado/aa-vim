@@ -37,7 +37,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch': 'main'}
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-tree/nvim-tree.lua'
-  Plug 'mks-h/treesitter-autoinstall.nvim'
   Plug 'nvim-treesitter/nvim-treesitter-textobjects', { 'branch': 'main' }
   Plug 'stevearc/aerial.nvim'
 
@@ -418,16 +417,6 @@ require'nvim-treesitter'.install {
   'zig'
 }
 
-require("treesitter-autoinstall").setup({
-    -- A list of *filetypes* to ignore.
-  ignore = {},
-    -- Auto-enable highlighting for installed grammars.
-  highlight = true,
-    -- A list of *filetypes* to also enable regex highlighting for
-  regex = {},
-})
-
-
 require("nvim-treesitter-textobjects").setup {
   select = {
     -- Automatically jump forward to textobj, similar to targets.vim
@@ -476,15 +465,7 @@ vim.keymap.set({ "x", "o" }, "as", function()
   require "nvim-treesitter-textobjects.select".select_textobject("@local.scope", "locals")
 end)
 
-require("aerial").setup({
-  -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-  on_attach = function(bufnr)
-    -- Jump forwards/backwards with '{' and '}'
-    vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-    vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
-  end,
-})
--- You probably also want to set a keymap to toggle aerial
+require("aerial").setup()
 vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<CR>")
 
 require('treesj').setup({
