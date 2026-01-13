@@ -64,9 +64,3 @@ Restart vim to load all the plugins
 - `cd` into the cloned directory and `git pull`
 - You might get errors if the vim plugin isn't installed, do `:PlugUpdate` within the editor to update all the vim plugins
 - `:checkhealth` will give additional info if anything is missing
-
-## Previews
-
-
-Android with Termux
-![Screenshot_20220428-100217_Termux~2](https://user-images.githubusercontent.com/370322/165838492-9853b05a-b940-4447-950c-fb7377aefd8e.jpg)
